@@ -685,8 +685,15 @@
               <option value="">-- ค่าเริ่มต้น --</option>
               <option value="price_asc">ราคา: น้อย → มาก</option>
               <option value="price_desc">ราคา: มาก → น้อย</option>
-              <option value="groove_desc">ร่อง: ลึก → ตื้น</option>
-              <option value="groove_asc">ร่อง: ตื้น → ลึก</option>
+              <option value="groove:ลึก">ร่อง: ลึก</option>
+              <option value="groove:ตื้น">ร่อง: ตื้น</option>
+              <option value="groove:เว้าโค้ง">ร่อง: เว้าโค้ง</option>
+              <option value="groove:ตื้น 3 รอน">ร่อง: ตื้น 3 รอน</option>
+              <option value="groove:รอนโค้งครึ่งวงกลม">ร่อง: รอนโค้งครึ่งวงกลม</option>
+              <option value="groove:ตื้นรอนใหญ่">ร่อง: ตื้นรอนใหญ่</option>
+              <option value="groove:ตื้นหน้ากว้าง">ร่อง: ตื้นหน้ากว้าง</option>
+              <option value="groove:แผ่นเรียบ">ร่อง: แผ่นเรียบ</option>
+              <option value="groove:เก็บเสียง">ร่อง: เก็บเสียง</option>
             </select>
             <span class="filter-sort-arrow">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1505,6 +1512,128 @@
     }
   </style>
 
+  <!-- ══ PROMO SLIDESHOW CSS ══ -->
+  <style>
+    #promoOverlay {
+      position: fixed; inset: 0; z-index: 99998;
+      background: rgba(10,10,8,.75);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .35s ease;
+      padding: clamp(12px, 4vw, 32px);
+    }
+    #promoOverlay.show { opacity: 1; }
+    #promoBox {
+      position: relative;
+      width: 100%;
+      max-width: min(780px, 94vw);
+      max-height: calc(100vh - 40px);
+      border-radius: clamp(8px, 2vw, 16px);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6);
+      transform: scale(.88) translateY(24px);
+      transition: transform .38s cubic-bezier(.16,1,.3,1);
+      background: #111;
+      display: flex; flex-direction: column;
+    }
+    #promoOverlay.show #promoBox { transform: scale(1) translateY(0); }
+
+    /* slide viewport */
+    #promoViewport {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      flex: 1;
+    }
+    #promoSlideTrack {
+      display: flex;
+      height: 100%;
+      transition: transform .42s cubic-bezier(.16,1,.3,1);
+    }
+    .promo-slide {
+      flex: 0 0 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #111;
+    }
+    .promo-slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: calc(100vh - 120px);
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* admin delete btn per slide */
+    .promo-slide-del {
+      display: none;
+      position: absolute; top: 6px; left: 8px;
+      background: rgba(200,30,30,.85); color: #fff;
+      border: none; border-radius: 6px;
+      font-size: 12px; padding: 4px 10px; cursor: pointer;
+      z-index: 5; gap: 4px; align-items: center;
+    }
+    body.cms-editing .promo-slide-del { display: flex; }
+
+    /* close */
+    #promoClose {
+      position: absolute; top: 10px; right: 12px;
+      width: clamp(28px,6vw,36px); height: clamp(28px,6vw,36px);
+      border-radius: 50%; border: none;
+      background: rgba(0,0,0,.6); color: #fff;
+      font-size: clamp(14px,4vw,18px); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .18s, transform .18s; z-index: 10;
+    }
+    #promoClose:hover { background: rgba(0,0,0,.9); transform: scale(1.1); }
+
+    /* arrows */
+    .promo-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: clamp(30px,7vw,42px); height: clamp(30px,7vw,42px);
+      border-radius: 50%; border: none;
+      background: rgba(0,0,0,.45); color: #fff;
+      font-size: clamp(16px,5vw,24px); cursor: pointer; z-index: 5;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .18s, transform .2s;
+    }
+    .promo-arrow:hover { background: rgba(0,0,0,.82); transform: translateY(-50%) scale(1.1); }
+    #promoPrev { left: 8px; }
+    #promoNext { right: 8px; }
+
+    /* dots + admin add btn */
+    #promoFooter {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 10px 16px;
+      background: rgba(0,0,0,.6); flex-wrap: wrap; min-height: 38px;
+    }
+    .promo-dots { display: flex; gap: 6px; align-items: center; }
+    .promo-dot {
+      width: clamp(6px,2vw,9px); height: clamp(6px,2vw,9px);
+      border-radius: 50%;
+      background: rgba(255,255,255,.4); border: none; cursor: pointer;
+      transition: background .2s, transform .2s; padding: 0;
+    }
+    .promo-dot.active { background: #fff; transform: scale(1.35); }
+
+    /* admin add slide btn */
+    #promoAddSlide {
+      display: none;
+      background: rgba(188,165,142,.9); color: #fff;
+      border: none; border-radius: 6px;
+      font-size: 12px; padding: 4px 12px; cursor: pointer;
+      align-items: center; gap: 4px;
+    }
+    body.cms-editing #promoAddSlide { display: flex; }
+
+    @media (max-width: 480px) {
+      .promo-slide img { max-height: calc(100vh - 100px); }
+    }
+  </style>
+
   <script>
   (function () {
     var overlay = document.getElementById('pdmOverlay');
@@ -1637,7 +1766,15 @@
        รองรับทั้ง text ("ตื้น","ลึก","ตื้นมาก","ลึกมาก") และตัวเลข (8, 12, ...)
        ค่าน้อย = ตื้น, ค่ามาก = ลึก                                           */
     var GROOVE_TEXT_RANK = {
-      'ตื้นมาก': 1, 'ตื้น': 2, 'ปานกลาง': 3, 'ลึก': 4, 'ลึกมาก': 5
+      'ลึก': 1,
+      'ตื้น': 2,
+      'เว้าโค้ง': 3,
+      'ตื้น 3 รอน': 4,
+      'รอนโค้งครึ่งวงกลม': 5,
+      'ตื้นรอนใหญ่': 6,
+      'ตื้นหน้ากว้าง': 7,
+      'แผ่นเรียบ': 8,
+      'เก็บเสียง': 9
     };
 
     function grooveToNum(v) {
@@ -1737,16 +1874,24 @@
 
       /* 1. filter */
       var visible = allCards.filter(function(c) {
-        return !q || getCardText(c).indexOf(q) !== -1;
+        var textMatch = !q || getCardText(c).indexOf(q) !== -1;
+        var grooveMatch = true;
+        if (sortKey && sortKey.indexOf('groove:') === 0) {
+          var target = sortKey.slice(7).trim().toLowerCase();
+          var g = (getRawGroove(c) || '').trim().toLowerCase();
+          grooveMatch = g === target;
+        }
+        return textMatch && grooveMatch;
       });
 
       /* 2. sort */
-      if (sortKey) {
+      if (sortKey && sortKey.indexOf('groove:') === -1) {
         visible.sort(function(a, b) {
           if (sortKey === 'price_asc')   return getPrice(a)  - getPrice(b);
           if (sortKey === 'price_desc')  return getPrice(b)  - getPrice(a);
           if (sortKey === 'groove_desc') return getGroove(b) - getGroove(a);
           if (sortKey === 'groove_asc')  return getGroove(a) - getGroove(b);
+          if (sortKey === 'groove_custom') return getGroove(a) - getGroove(b);
           return 0;
         });
       }
@@ -1848,6 +1993,169 @@
   })();
   </script>
 
+  <!-- ══ PROMO SLIDESHOW POPUP ══ -->
+  <div id="promoOverlay" role="dialog" aria-modal="true" aria-label="โปรโมชั่น">
+    <div id="promoBox">
+      <button id="promoClose" aria-label="ปิด">✕</button>
+      <div id="promoViewport">
+        <button class="promo-arrow" id="promoPrev" aria-label="ก่อนหน้า">&#8249;</button>
+        <button class="promo-arrow" id="promoNext" aria-label="ถัดไป">&#8250;</button>
+        <div id="promoSlideTrack">
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="0">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_0" src="assets/WPC-ลึก.png" alt="โปรโมชั่น 1">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="1">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_1" src="assets/W-1.png" alt="โปรโมชั่น 2">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="2">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_2" src="assets/W-2.png" alt="โปรโมชั่น 3">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="3">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_3" src="assets/W-3.png" alt="โปรโมชั่น 4">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="4">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_4" src="assets/W-4.png" alt="โปรโมชั่น 5">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="5">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_5" src="assets/WPC-Circle.png" alt="โปรโมชั่น 6">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="6">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_6" src="assets/WPC-NEW.png" alt="โปรโมชั่น 7">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="7">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_7" src="assets/WPC-Nodeep.png" alt="โปรโมชั่น 8">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="8">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_8" src="assets/WPC-Silent.png" alt="โปรโมชั่น 9">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="9">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_9" src="assets/WPC-Width.png" alt="โปรโมชั่น 10">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="10">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_10" src="assets/WPC-WOW.png" alt="โปรโมชั่น 11">
+          </div>
+          <div class="promo-slide">
+            <button class="promo-slide-del" data-promo-del="11">🗑 ลบรูปนี้</button>
+            <img data-cms-img="promo_slide_11" src="assets/WPC-Leep.png" alt="โปรโมชั่น 12">
+          </div>
+        </div>
+      </div>
+      <div id="promoFooter">
+        <div class="promo-dots" id="promoDots"></div>
+        <button id="promoAddSlide">＋ เพิ่มรูป</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* ══ PROMO SLIDESHOW LOGIC ══ */
+  (function () {
+    var overlay  = document.getElementById('promoOverlay');
+    var closeBtn = document.getElementById('promoClose');
+    var track    = document.getElementById('promoSlideTrack');
+    var viewport = document.getElementById('promoViewport');
+    var dotsWrap = document.getElementById('promoDots');
+    var prevBtn  = document.getElementById('promoPrev');
+    var nextBtn  = document.getElementById('promoNext');
+    var addBtn   = document.getElementById('promoAddSlide');
+    if (!overlay || !track) return;
+
+    var current = 0;
+    var startX  = 0;
+
+    function getSlides() { return Array.from(track.querySelectorAll('.promo-slide')); }
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      getSlides().forEach(function(_, i) {
+        var d = document.createElement('button');
+        d.className = 'promo-dot' + (i === current ? ' active' : '');
+        d.addEventListener('click', function() { goTo(i); });
+        dotsWrap.appendChild(d);
+      });
+    }
+
+    function goTo(n) {
+      var slides = getSlides();
+      if (!slides.length) return;
+      current = ((n % slides.length) + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      Array.from(dotsWrap.querySelectorAll('.promo-dot')).forEach(function(d, i) {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    prevBtn && prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    nextBtn && nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    /* swipe */
+    viewport.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    viewport.addEventListener('touchend',   function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    });
+
+    /* admin: ลบรูป */
+    track.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-promo-del]');
+      if (!btn) return;
+      if (!confirm('ลบรูปนี้ออกจาก popup?')) return;
+      var slide = btn.closest('.promo-slide');
+      if (slide) { slide.remove(); if (current >= getSlides().length) current = 0; buildDots(); goTo(current); }
+    });
+
+    /* admin: เพิ่มรูป */
+    addBtn && addBtn.addEventListener('click', function() {
+      var input = document.createElement('input');
+      input.type = 'file'; input.accept = 'image/*';
+      input.onchange = function() {
+        var file = input.files[0]; if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          var idx   = getSlides().length;
+          var slide = document.createElement('div');
+          slide.className = 'promo-slide';
+          slide.innerHTML = '<button class="promo-slide-del" data-promo-del="' + idx + '">🗑 ลบรูปนี้</button>'
+            + '<img data-cms-img="promo_slide_' + idx + '" src="' + ev.target.result + '" alt="โปรโมชั่น ' + (idx+1) + '">';
+          track.appendChild(slide);
+          buildDots(); goTo(idx);
+        };
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    });
+
+    function closePromo() {
+      overlay.classList.remove('show');
+      overlay.addEventListener('transitionend', function() { overlay.style.display = 'none'; }, { once: true });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      buildDots();
+      overlay.style.display = 'flex';
+      requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.classList.add('show'); }); });
+      closeBtn && closeBtn.addEventListener('click', closePromo);
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) closePromo(); });
+      document.addEventListener('keydown', function(e) {
+        if (!overlay.classList.contains('show')) return;
+        if (e.key === 'Escape') closePromo();
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+      });
+    });
+  })();
+  </script>
 
 </body>
 
