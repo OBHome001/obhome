@@ -1076,6 +1076,10 @@
               <dt>ราคา</dt>
               <dd id="pdmPrice"></dd>
             </div>
+            <div class="pdm-spec-row pdm-hidden" id="pdmDiscountRow">
+              <dt>ราคาพิเศษ</dt>
+              <dd id="pdmDiscount" style="color:#e03030;font-weight:700"></dd>
+            </div>
             <div class="pdm-spec-row" id="pdmGrooveRow">
               <dt>ร่อง</dt>
               <dd id="pdmGroove"></dd>
@@ -1301,6 +1305,18 @@
       margin-top: 4px;
       margin-bottom: 4px;
       letter-spacing: .02em;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    }
+    .price-original {
+      text-decoration: line-through;
+      color: #aaa;
+      font-weight: 400;
+      font-size: .82rem;
+    }
+    .price-discount {
+      color: #e03030;
+      font-weight: 700;
+      font-size: .95rem;
     }
     /* ── lightbox ── */
     #pdm-lightbox {
@@ -1645,7 +1661,24 @@
       document.getElementById('pdmCode').textContent = data.code    || '';
       document.getElementById('pdmName').textContent = data.name    || '';
 
-      setSpec('pdmPrice',   'pdmPriceRow',   data.price);
+      var hasDiscount = data.discount && data.discount.trim() !== '';
+
+      /* ราคา: ถ้ามีส่วนลด → ขีดฆ่า, ถ้าไม่มี → แสดงปกติ */
+      var priceEl  = document.getElementById('pdmPrice');
+      var priceRow = document.getElementById('pdmPriceRow');
+      if (data.price && data.price.trim() !== '') {
+        priceEl.innerHTML = hasDiscount
+          ? '<span style="text-decoration:line-through;color:#aaa;font-weight:400">' + data.price + ' ฿</span>'
+          : data.price + ' ฿';
+        priceRow.classList.remove('pdm-hidden');
+      } else {
+        priceEl.innerHTML = '';
+        priceRow.classList.add('pdm-hidden');
+      }
+
+      /* ราคาส่วนลด */
+      setSpec('pdmDiscount', 'pdmDiscountRow', hasDiscount ? data.discount + ' ฿' : '');
+
       setSpec('pdmGroove',  'pdmGrooveRow',  data.groove);
       setSpec('pdmSize',    'pdmSizeRow',    data.size);
       setSpec('pdmThick',   'pdmThickRow',   data.thick);
@@ -1702,14 +1735,15 @@
       var patternEl = card.querySelector('[data-cms-product-field$=":pattern"]');
 
       openModal({
-        img:     imgEl     ? imgEl.src           : '',
-        code:    codeEl    ? codeEl.innerText     : '',
-        name:    nameEl    ? nameEl.innerText     : '',
-        pattern: patternEl ? patternEl.innerText  : '',
-        price:   card.dataset.pdmPrice  || '',
-        groove:  card.dataset.pdmGroove || '',
-        size:    card.dataset.pdmSize   || '',
-        thick:   card.dataset.pdmThick  || '',
+        img:      imgEl     ? imgEl.src           : '',
+        code:     codeEl    ? codeEl.innerText     : '',
+        name:     nameEl    ? nameEl.innerText     : '',
+        pattern:  patternEl ? patternEl.innerText  : '',
+        price:    card.dataset.pdmPrice    || '',
+        discount: card.dataset.pdmDiscount || '',
+        groove:   card.dataset.pdmGroove   || '',
+        size:     card.dataset.pdmSize     || '',
+        thick:    card.dataset.pdmThick    || '',
       });
     });
   })();
@@ -1828,21 +1862,44 @@
     /* snapshot: เรียงตาม cmsProductIdx น้อย→มาก = ซ้าย→ขวา
        พร้อม sync pdmGroove / pdmPrice จาก DOM ให้ dataset ทันสมัย         */
     function syncDatasets(card) {
-      /* groove: ดึงค่าล่าสุดจาก field ที่ user อาจแก้ผ่าน contentEditable
-         textContent ทำงานได้แม้ display:none — innerText ไม่ได้                */
+      /* groove */
       var gEl = card.querySelector('[data-cms-product-field$=":groove"]');
       if (gEl) {
         var gv = (gEl.textContent || '').trim();
-        // ถ้า textContent ว่าง ลอง attribute สำรอง
         if (!gv) gv = gEl.getAttribute('data-groove-raw') || '';
         card.dataset.pdmGroove = gv;
-        gEl.setAttribute('data-groove-raw', gv); // keep attribute in sync
+        gEl.setAttribute('data-groove-raw', gv);
       }
       /* price */
       var pEl = card.querySelector('[data-cms-product-field$=":price"]');
       if (pEl) {
         var pv = (pEl.textContent || '').trim();
-        if (pv) card.dataset.pdmPrice = pv;
+        card.dataset.pdmPrice = pv;
+      }
+      /* discount */
+      var dEl = card.querySelector('[data-cms-product-field$=":discount"]');
+      if (dEl) {
+        var dv = (dEl.textContent || '').trim();
+        card.dataset.pdmDiscount = dv;
+      }
+      /* update price tag display immediately */
+      updateCardPriceTag(card);
+    }
+
+    function updateCardPriceTag(card) {
+      var price    = (card.dataset.pdmPrice    || '').trim();
+      var discount = (card.dataset.pdmDiscount || '').trim();
+      var tag = card.querySelector('.product-price-tag');
+      if (!tag) return;
+      if (price && discount) {
+        tag.innerHTML = '<span class="price-original">ราคา: ' + price + ' ฿</span>'
+          + '<span class="price-discount">' + discount + ' ฿</span>';
+      } else if (price) {
+        tag.innerHTML = 'ราคา: ' + price + ' ฿';
+        tag.style.display = '';
+      } else {
+        tag.innerHTML = '';
+        tag.style.display = 'none';
       }
     }
 

@@ -523,9 +523,10 @@
     card.className = 'product-card reveal';
     card.dataset.cmsProductIdx = idx;
     // เก็บ price/size/thick/groove ไว้ใน data-attribute เพื่อให้ modal และ sort ดึงได้
-    if (p.price) card.dataset.pdmPrice = p.price;
-    if (p.size)  card.dataset.pdmSize  = p.size;
-    if (p.thick) card.dataset.pdmThick = p.thick;
+    if (p.price)    card.dataset.pdmPrice    = p.price;
+    if (p.discount) card.dataset.pdmDiscount = p.discount;
+    if (p.size)     card.dataset.pdmSize     = p.size;
+    if (p.thick)    card.dataset.pdmThick    = p.thick;
     // เสมอ set pdmGroove (แม้จะว่าง) เพื่อให้ sort อ่านได้ถูกต้อง
     card.dataset.pdmGroove = p.groove || '';
 
@@ -549,11 +550,17 @@
           <span data-cms-product-field="${idx}:pattern">${p.pattern || ''}</span>
         </div>
         ${isLath && p.groove ? `<div class="product-groove-tag">ร่อง: ${p.groove}</div>` : ''}
-        ${p.price ? `<div class="product-price-tag">ราคา: ${p.price} ฿</div>` : ''}
+        ${p.price && p.discount ? `
+        <div class="product-price-tag">
+          <span class="price-original">ราคา: ${p.price} ฿</span>
+          <span class="price-discount">${p.discount} ฿</span>
+        </div>` : p.price ? `<div class="product-price-tag">ราคา: ${p.price} ฿</div>` : ''}
         <button class="btn-view">ดูรายละเอียด</button>
         <div class="cms-extra-fields" style="display:none">
           <span class="cms-extra-label">ราคา:</span>
-          <span data-cms-product-field="${idx}:price" class="cms-extra-val">${p.price || ''}</span>${grooveField}
+          <span data-cms-product-field="${idx}:price" class="cms-extra-val">${p.price || ''}</span>
+          <span class="cms-extra-label">ราคาส่วนลด:</span>
+          <span data-cms-product-field="${idx}:discount" class="cms-extra-val">${p.discount || ''}</span>${grooveField}
           <span class="cms-extra-label">ขนาด:</span>
           <span data-cms-product-field="${idx}:size" class="cms-extra-val">${p.size || ''}</span>
           <span class="cms-extra-label">ความหนา:</span>
@@ -888,10 +895,11 @@
             pattern: (card.querySelector('[data-cms-product-field$=":pattern"]') || {}).innerText || '',
             color:   (card.querySelector('.pattern-dot') || {}).style?.background || '#ccc',
             img:     (card.querySelector('img') || {}).src || '',
-            price:   (card.querySelector('[data-cms-product-field$=":price"]')   || {}).innerText || '',
-            size:    (card.querySelector('[data-cms-product-field$=":size"]')    || {}).innerText || '',
-            thick:   (card.querySelector('[data-cms-product-field$=":thick"]')   || {}).innerText || '',
-            groove:  (card.querySelector('[data-cms-product-field$=":groove"]')  || {}).innerText || '',
+            price:    (card.querySelector('[data-cms-product-field$=":price"]')    || {}).innerText || '',
+            discount: (card.querySelector('[data-cms-product-field$=":discount"]') || {}).innerText || '',
+            size:     (card.querySelector('[data-cms-product-field$=":size"]')     || {}).innerText || '',
+            thick:    (card.querySelector('[data-cms-product-field$=":thick"]')    || {}).innerText || '',
+            groove:   (card.querySelector('[data-cms-product-field$=":groove"]')   || {}).innerText || '',
           };
           const imgEl = card.querySelector('[data-cms-product-img]');
           if (imgEl && imgEl._pendingFile) {
@@ -1011,10 +1019,11 @@
             pattern: (card.querySelector('[data-cms-product-field$=":pattern"]') || {}).innerText || '',
             color:   (card.querySelector('.pattern-dot') || {}).style?.background || '#ccc',
             img:     (card.querySelector('img') || {}).src || '',
-            price:   (card.querySelector('[data-cms-product-field$=":price"]')   || {}).innerText || '',
-            size:    (card.querySelector('[data-cms-product-field$=":size"]')    || {}).innerText || '',
-            thick:   (card.querySelector('[data-cms-product-field$=":thick"]')   || {}).innerText || '',
-            groove:  (card.querySelector('[data-cms-product-field$=":groove"]')  || {}).innerText || '',
+            price:    (card.querySelector('[data-cms-product-field$=":price"]')    || {}).innerText || '',
+            discount: (card.querySelector('[data-cms-product-field$=":discount"]') || {}).innerText || '',
+            size:     (card.querySelector('[data-cms-product-field$=":size"]')     || {}).innerText || '',
+            thick:    (card.querySelector('[data-cms-product-field$=":thick"]')    || {}).innerText || '',
+            groove:   (card.querySelector('[data-cms-product-field$=":groove"]')   || {}).innerText || '',
           });
         });
       }
