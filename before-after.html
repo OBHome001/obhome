@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="ผลงานก่อน และ ติดตั้ง                                                                                          OB HOME — รูปภาพและวิดีโอรีวิว">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- อนุญาต unload event สำหรับ Firebase SDK และ iframe embed -->
+  <meta http-equiv="Permissions-Policy" content="unload=*">
+  <title>ก่อน-หลัง ติดตั้งวัสดุแต่งบ้าน พัทยา ชลบุรี - OB HOME</title>
+  <meta property="og:title" content="รีวิวลูกค้า - OB HOME">
+  <meta property="og:description" content="รีวิวจากลูกค้าจริง OB HOME ไม้ระแนง SPC ผนังตกแต่ง">
+  <meta property="og:url" content="https://obhome.co.th/reviews">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+  <style>
+    :root {
+      --warm: #bca58e;
+      --warm-light: #d4c4b0;
+      --warm-dark: #8a7560;
+      --black: #0f0f0d;
+      --off-black: #1a1a16;
+      --charcoal: #2d2d28;
+      --white: #faf9f6;
+      --off-white: #f3f1ec;
+      --green-dark: #2c3d2e;
+      --cream: #ede8df;
+      --transition: all .4s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    @font-face {
+      font-family: 'I' ,'Opun', sans-serif;
+      src: url('fonts/Opun%20Semi%20Bold.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Opun', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAVIGATION BAR ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 72px;
+      padding: 0 4%;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: height .35s ease, box-shadow .35s ease, background .35s ease;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+
+    nav.scrolled {
+      height: 62px;
+      background: rgba(188,165,142,.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0,0,0,.13);
+    }
+
+    /* ─── LOGO ─── */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      z-index: 1001;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      height: 40px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-logo-main {
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      white-space: nowrap;
+    }
+
+    .nav-logo-main span {
+      color: var(--warm-dark);
+      font-weight: 400;
+    }
+
+    /* ─── LINKS (desktop) ─── */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 2px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links > li > a,
+    .dropdown-btn {
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 500;
+      font-family: 'Opun', sans-serif;
+      transition: background .2s ease, color .2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 1.6;
+    }
+
+    .nav-links > li > a:hover,
+    .dropdown-btn:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+
+    .nav-links > li > a.active {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    /* ─── DROPDOWN ─── */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-arrow {
+      font-size: .55rem;
+      opacity: .75;
+      margin-top: 1px;
+      transition: transform .25s ease;
+    }
+
+    .dropdown.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 200px;
+      background: #c9b49e;
+      border-radius: 12px;
+      padding: 6px;
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px) scale(.98);
+      transform-origin: top left;
+      transition: opacity .22s ease, transform .22s ease, visibility .22s;
+      box-shadow: 0 12px 32px rgba(0,0,0,.15);
+    }
+
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .dropdown-menu li { width: 100%; }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, .92);
+      font-size: .9rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background .18s ease;
+      gap: 8px;
+      font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
+    }
+
+    .dropdown-menu a::before {
+      content: '';
+      opacity: .5;
+      font-size: 1rem;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    /* ─── HAMBURGER BUTTON ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: rgba(255,255,255,.12);
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1002;
+      flex-shrink: 0;
+      transition: background .2s ease;
+    }
+
+    .nav-toggle:hover {
+      background: rgba(255,255,255,.22);
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 4px;
+      transition: transform .28s cubic-bezier(.16,1,.3,1), opacity .2s ease, width .25s ease;
+    }
+
+    .nav-toggle span:nth-child(1) { margin-bottom: 5px; }
+    .nav-toggle span:nth-child(2) { margin-bottom: 5px; }
+
+    .nav-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+    .nav-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ─── HERO BANNER ─── */
+    .hero-banner {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.45)), url('assets/SPC_Promote.jpg') center/cover no-repeat;
+      height: 45vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding: 0 20px;
+    }
+    .hero-banner h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+      margin-top: auto;
+    }
+    .hero-banner p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      font-weight: 300;
+    }
+
+    /* ─── GALLERY CONTAINER ─── */
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ─── CMS ADMIN PANEL (ถอดดีไซน์จากหน้า Reviews มาเป๊ะๆ) ─── */
+    .admin-panel {
+      background: #fff;
+      border: 2px dashed var(--warm);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+    .admin-panel h3 {
+      font-size: 1.15rem;
+      color: var(--warm-dark);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .admin-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      align-items: flex-end;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+    .form-group input[type="file"] {
+      padding: 8px;
+      border: 1px solid var(--warm-light);
+      border-radius: 6px;
+      background: var(--white);
+      font-size: 0.8rem;
+    }
+    .form-group input[type="text"] {
+      padding: 10px;
+      border: 1px solid var(--warm-light);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+      font-family: inherit;
+    }
+    #addBtn {
+      background: var(--charcoal);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    #addBtn:hover {
+      background: var(--black);
+    }
+    .admin-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    #saveBtn {
+      background: var(--warm-dark);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    #saveBtn:hover {
+      background: var(--black);
+    }
+
+    /* ─── GALLERY GRID & CARDS (เหมือนโครงสร้างหน้า Reviews แต่จัดคู่ภาพด้านใน) ─── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+      gap: 30px;
+    }
+    .gallery-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      border: 1px solid var(--off-white);
+      position: relative;
+      transition: var(--transition);
+    }
+    .gallery-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    
+    /* โครงสร้างการจัดหน้าคู่ Before & After */
+    .ba-comparison {
+      display: flex;
+      width: 100%;
+      background: var(--off-black);
+    }
+    .ba-item {
+      flex: 1;
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .ba-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-card:hover .ba-item img {
+      transform: scale(1.03);
+    }
+    .ba-label {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(15, 15, 13, 0.7);
+      color: #fff;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+    .ba-item:last-child .ba-label {
+      background: rgba(188, 165, 142, 0.85);
+    }
+    .gallery-info {
+      padding: 20px;
+      border-top: 1px solid var(--off-white);
+    }
+    .gallery-info h4 {
+      font-size: 1.05rem;
+      color: var(--black);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ปุ่มลบสไตล์ดั้งเดิม */
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff4d4d;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 0.8rem;
+      transition: var(--transition);
+    }
+    .delete-btn:hover {
+      background: #e60000;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--warm);
+      color: rgb(255, 255, 255);
+      padding: 40px 20px;
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      text-align: center;
+    }
+    footer [data-cms-text="footer_text"] {
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      letter-spacing: 0.04em;
+    }
+    .footer-divider {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    footer a:hover { color: #fff; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 992px) {
+      nav { padding: 20px; }
+      nav.scrolled { padding: 15px 20px; }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--off-black); flex-direction: column; justify-content: center; gap: 40px; transition: var(--transition); box-shadow: -10px 0 40px rgba(0,0,0,0.3); padding: 40px;
+      }
+      .nav-links.active { right: 0; }
+      .nav-links a { color: #fff; font-size: 1.1rem; }
+      .dropdown-menu { position: static; transform: none; background: transparent; border: none; box-shadow: none; width: 100%; opacity: 1; pointer-events: auto; display: none; padding: 10px 0 0 0; }
+      .dropdown.active .dropdown-menu { display: block; }
+      .dropdown-menu a { color: rgba(255,255,255,0.6) !important; font-size: 0.95rem; }
+      .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); background: #fff; }
+      .menu-toggle.active span:nth-child(2) { opacity: 0; }
+      .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); background: #fff; }
+      .hero-banner h1 { font-size: 2.2rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      footer { padding: 30px 16px; }
+      .footer-wrapper { flex-direction: column; gap: 8px; }
+      .footer-divider { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="home" class="nav-logo">
+      <div class="nav-logo-icon">
+        <img src="assets/logo1.png" alt="logo" data-cms-img="nav_logo_img">
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home">หน้าแรก</a></li>
+      <li class="dropdown">
+        <button class="dropdown-btn" id="dropdownBtn">
+          สินค้า <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+      <li><a href="spc">แผ่น SPC</a></li>
+      <li><a href="lath">ไม้ระแนง</a></li>
+      <li><a href="wooden">ไม้สั่งตัด</a></li>
+      <li><a href="wallpanel">ผนังตกแต่ง</a></li>
+      <li><a href="accessories">อุปกรณ์ติดตั้ง</a></li>
+    </ul>
+      </li>
+      <li><a href="home#projects">ผลงานติดตั้ง</a></li>
+      <li><a href="reviews">รีวิวลูกค้า</a></li>
+      <li><a href="home#contact">ติดต่อเรา</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero-banner">
+    <h1 data-cms-text="ba_title">Before & After</h1>
+    <p data-cms-text="ba_subtitle">พิสูจน์ความแตกต่างของพื้นที่ก่อนและหลังการแปลงโฉมด้วยวัสดุตกแต่งระดับพรีเมียมจาก OB HOME</p>
+  </header>
+
+  <main class="gallery-container">
+
+    <div class="admin-panel" id="adminPanel" style="display: none;">
+      <h3>🛠️ ระบบจัดการรูปภาพ Before & After (สำหรับผู้ดูแลระบบ)</h3>
+      <div class="admin-form">
+        <div class="form-group">
+          <label>รูปภาพ Before (ก่อนทำ):</label>
+          <input type="file" id="beforeFile" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label>รูปภาพ After (หลังทำ):</label>
+          <input type="file" id="afterFile" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label>คำอธิบายชื่อผลงาน:</label>
+          <input type="text" id="baCaption" placeholder="เช่น ผลงานติดตั้งไม้ระแนง ผนังห้องนั่งเล่น">
+        </div>
+        <button type="button" id="addBtn">➕ เพิ่มคู่รูปภาพ</button>
+      </div>
+      <div class="admin-actions">
+        <button type="button" id="saveBtn">💾 บันทึก</button>
+      </div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-wrapper">
+      <span data-cms-text="footer_text">© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.</span>
+      <span class="footer-divider">|</span>
+      <a href="privacy-policy">นโยบายความเป็นส่วนตัว</a>
+    </div>
+  </footer>
+
+  <script>
+    /* ── เมนูนำทางและ Animation สไตล์เว็บหน้าหลัก ── */
+    const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  const dropdownBtn = document.getElementById('dropdownBtn');
+  const dropdown = document.querySelector('.dropdown');
+  const nav = document.querySelector('nav');
+
+  /* ── เปิด/ปิด เมนูมือถือ (Hamburger) ── */
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = navLinks.classList.toggle('active');
+    menuToggle.classList.toggle('active', open);
+    if (!open) dropdown.classList.remove('active');
+  });
+
+  /* ── เปิด/ปิด Dropdown สินค้า ── */
+  dropdownBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('active');
+  });
+
+  /* ── คลิกที่ลิงก์แล้วให้ปิดเมนูอัตโนมัติ ── */
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
+      dropdown.classList.remove('active');
+    });
+  });
+
+  /* ── คลิกข้างนอกเมนูให้ปิดเมนูทั้งหมด ── */
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target)) {
+      navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
+      dropdown.classList.remove('active');
+    }
+  });
+
+  /* ── ตรวจจับการ Scroll เพื่อเปลี่ยนสี Navbar ── */
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+  </script>
+
+  <script src="firebase-config.js"></script>
+
+  <script>
+    /* ─── ระบบดึงข้อมูลและจัดการแอดมินหลังบ้าน (Firebase + Cloudinary) ─── */
+    (function() {
+      let localBaItems = []; 
+
+      // ฟังก์ชันเรนเดอร์โครงสร้างการ์ดแบบเดียวกับหน้า reviews ทุกประการ
+      window._cmsBaLoad = function(items) {
+        localBaItems = items || [];
+        const grid = document.getElementById('galleryGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        if (localBaItems.length === 0) {
+          grid.innerHTML = '<div style="text-align:center; grid-column: 1/-1; color: var(--gray); padding: 40px;">ยังไม่มีข้อมูลผลงาน Before & After ในระบบ</div>';
+          return;
+        }
+
+        const isEditing = document.body.classList.contains('cms-editing');
+
+        localBaItems.forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.className = 'gallery-card';
+          
+          let deleteBtnHtml = '';
+          if (isEditing) {
+            deleteBtnHtml = `<button class="delete-btn" data-idx="${idx}">🗑️ ลบ</button>`;
+          }
+
+          card.innerHTML = `
+            ${deleteBtnHtml}
+            <div class="ba-comparison">
+              <div class="ba-item">
+                <div class="ba-label">Before</div>
+                <img src="${item.before || ''}" alt="ก่อนติดตั้ง">
+              </div>
+              <div class="ba-item">
+                <div class="ba-label">After</div>
+                <img src="${item.after || ''}" alt="หลังติดตั้ง">
+              </div>
+            </div>
+            <div class="gallery-info">
+              <h4>${item.caption || 'ผลงานจาก OB HOME'}</h4>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        // ผูกการทำงานปุ่มลบให้กับแอดมิน
+        grid.querySelectorAll('.delete-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-idx'));
+            if(confirm('คุณแน่ใจหรือไม่ว่าต้องการลบผลงานคู่นี้?')) {
+              localBaItems.splice(index, 1);
+              window._cmsBaLoad(localBaItems); 
+            }
+          });
+        });
+      };
+
+      // ตรวจสอบสถานะการเข้าระบบผ่านคลาสหลักคอมโพเนนต์ cms-editing เหมือนหน้ารีวิว
+      function checkAdminState() {
+        const adminPanel = document.getElementById('adminPanel');
+        if (!adminPanel) return;
+
+        if (document.body.classList.contains('cms-editing') || (window._cmsAuth && window._cmsAuth.currentUser)) {
+          if (adminPanel.style.display !== 'block') {
+            adminPanel.style.display = 'block';
+            window._cmsBaLoad(localBaItems); 
+          }
+        } else {
+          if (adminPanel.style.display !== 'none') {
+            adminPanel.style.display = 'none';
+            window._cmsBaLoad(localBaItems); 
+          }
+        }
+      }
+
+      setInterval(checkAdminState, 1000);
+
+      // อัปโหลดรูปภาพเข้า Cloudinary หลัก
+      async function uploadToCloudinary(file) {
+        const CLOUD = 'daiipuvsb', PRESET = 'f3zirric';
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('upload_preset', PRESET);
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD}/image/upload`, { method: 'POST', body: fd });
+        const data = await res.json();
+        if (!data.secure_url) throw new Error('Upload failed');
+        return data.secure_url;
+      }
+
+      // ดึงข้อมูลอาเรย์โครงสร้างคู่ภาพจาก Node ใหญ่ของ Firebase
+      function loadDataFromFirebase() {
+        if (!window._cmsDB) return;
+        window._cmsDB.ref('pages/before-after').once('value').then(snap => {
+          if (snap.exists()) {
+            const data = snap.val();
+            let items = [];
+            if (Array.isArray(data)) {
+              items = data;
+            } else if (data.items) {
+              items = data.items;
+            }
+            window._cmsBaLoad(items);
+          } else {
+            window._cmsBaLoad([]);
+          }
+        }).catch(err => {
+          console.error("Firebase load err:", err);
+        });
+      }
+
+      if (window._cmsDB) {
+        loadDataFromFirebase();
+      } else {
+        window.addEventListener('firebase-ready', loadDataFromFirebase, { once: true });
+      }
+
+      // กดเพิ่มข้อมูลคู่ภาพ (เหมือนปุ่ม addBtn หน้ารีวิว)
+      document.getElementById('addBtn').addEventListener('click', async function() {
+        const beforeInp = document.getElementById('beforeFile');
+        const afterInp = document.getElementById('afterFile');
+        const captionInp = document.getElementById('baCaption');
+
+        if (!beforeInp.files[0] || !afterInp.files[0]) {
+          alert('กรุณาเลือกไฟล์ภาพให้ครบทั้งสองช่อง (Before และ After)');
+          return;
+        }
+
+        this.disabled = true;
+        this.textContent = '⏳ กำลังอัปโหลด...';
+
+        try {
+          // ใช้ Promise.all ในการอัปโหลดไฟล์พร้อมๆ กันแบบคู่ขนานขยายความเร็ว
+          const [beforeUrl, afterUrl] = await Promise.all([
+            uploadToCloudinary(beforeInp.files[0]),
+            uploadToCloudinary(afterInp.files[0])
+          ]);
+
+          localBaItems.unshift({
+            before: beforeUrl,
+            after: afterUrl,
+            caption: captionInp.value.trim() || 'ผลงานติดตั้งจาก OB HOME'
+          });
+
+          window._cmsBaLoad(localBaItems);
+
+          beforeInp.value = '';
+          afterInp.value = '';
+          captionInp.value = '';
+          alert('เพิ่มผลงานแล้ว — กด บันทึก เพื่อยืนยัน');
+
+        } catch(e) {
+          alert('เกิดข้อผิดพลาดในการอัปโหลดภาพ: ' + e.message);
+        } finally {
+          this.disabled = false;
+          this.textContent = '➕ เพิ่มคู่รูปภาพ';
+        }
+      });
+
+      // ปุ่มบันทึกลงฐานข้อมูลหลัก (ใช้ ID: saveBtn ข้อความแกนกลางแบบเดียวกับหน้า reviews)
+      document.getElementById('saveBtn').addEventListener('click', async function() {
+        if (!window._cmsDB) {
+          alert('ไม่พบฐานข้อมูลเชื่อมต่อหลัก');
+          return;
+        }
+
+        this.disabled = true;
+        this.textContent = '💾 กำลังบันทึก...';
+
+        try {
+          await window._cmsDB.ref('pages/before-after').set(localBaItems);
+          alert('บันทึกข้อมูลสำเร็จเรียบร้อยแล้ว!');
+        } catch(e) {
+          alert('บันทึกผิดพลาด: ' + e.message);
+        } finally {
+          this.disabled = false;
+          this.textContent = '💾 บันทึก';
+        }
+      });
+
+    })();
+  </script>
+
+  <script src="cms.js"></script>
+</body>
+
+</html>

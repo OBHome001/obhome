@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="รีวิวจากลูกค้าจริง OB HOME ไม้ระแนง แผ่น SPC ผนังตกแต่ง พื้นที่พัทยา หนองปรือ ชลบุรี รูปภาพและวิดีโอรีวิว">
+  <meta name="keywords" content="รีวิว OB HOME, รีวิวไม้ระแนง, รีวิวแผ่น SPC, รีวิววัสดุแต่งบ้าน, ลูกค้าพัทยา">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- อนุญาต unload event สำหรับ Firebase SDK และ iframe embed -->
+  <meta http-equiv="Permissions-Policy" content="unload=*">
+  <title>รีวิวลูกค้าจริง วัสดุแต่งบ้าน ไม้ระแนง SPC พัทยา - OB HOME</title>
+  <meta property="og:title" content="รีวิวลูกค้า - OB HOME">
+  <meta property="og:description" content="รีวิวจากลูกค้าจริง OB HOME ไม้ระแนง SPC ผนังตกแต่ง">
+  <meta property="og:url" content="https://obhome.co.th/reviews">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <style>
+    :root {
+      --warm: #bca58e;
+      --warm-light: #d4c4b0;
+      --warm-dark: #8a7560;
+      --black: #0f0f0d;
+      --off-black: #1a1a16;
+      --charcoal: #2d2d28;
+      --white: #faf9f6;
+      --off-white: #f3f1ec;
+      --green-dark: #2c3d2e;
+      --cream: #ede8df;
+      --transition: all .4s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    @font-face {
+      font-family: 'Opun';
+      src: url('fonts/Opun%20Semi%20Bold.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Opun', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 72px;
+      padding: 0 4%;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: height .35s ease, box-shadow .35s ease, background .35s ease;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+
+    nav.scrolled {
+      height: 62px;
+      background: rgba(188,165,142,.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0,0,0,.13);
+    }
+
+    /* ─── LOGO ─── */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      z-index: 1001;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      height: 40px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-logo-main {
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      white-space: nowrap;
+    }
+
+    .nav-logo-main span {
+      color: var(--warm-dark);
+      font-weight: 400;
+    }
+
+    /* ─── LINKS (desktop) ─── */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 2px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links > li > a,
+    .dropdown-btn {
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 500;
+      font-family: 'Opun', sans-serif;
+      transition: background .2s ease, color .2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 1.6;
+    }
+
+    .nav-links > li > a:hover,
+    .dropdown-btn:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+
+    .nav-links > li > a.active {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    /* ─── DROPDOWN ─── */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-arrow {
+      font-size: .55rem;
+      opacity: .75;
+      margin-top: 1px;
+      transition: transform .25s ease;
+    }
+
+    .dropdown.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 200px;
+      background: #c9b49e;
+      border-radius: 12px;
+      padding: 6px;
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px) scale(.98);
+      transform-origin: top left;
+      transition: opacity .22s ease, transform .22s ease, visibility .22s;
+      box-shadow: 0 12px 32px rgba(0,0,0,.15);
+    }
+
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .dropdown-menu li { width: 100%; }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, .92);
+      font-size: .9rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background .18s ease;
+      gap: 8px;
+      font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
+    }
+
+    .dropdown-menu a::before {
+      content: '';
+      opacity: .5;
+      font-size: 1rem;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    /* ─── HAMBURGER BUTTON ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: rgba(255,255,255,.12);
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1002;
+      flex-shrink: 0;
+      transition: background .2s ease;
+    }
+
+    .nav-toggle:hover {
+      background: rgba(255,255,255,.22);
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 4px;
+      transition: transform .28s cubic-bezier(.16,1,.3,1), opacity .2s ease, width .25s ease;
+    }
+
+    .nav-toggle span:nth-child(1) { margin-bottom: 5px; }
+    .nav-toggle span:nth-child(2) { margin-bottom: 5px; }
+
+    .nav-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+    .nav-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* --- ส่วนที่เพิ่มใหม่เพื่อให้สวยเหมือนหน้า Home --- */
+    
+    .container {
+      max-width: 1300px;
+      margin: 140px auto 100px;
+      padding: 0 5%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      display: block;
+      font-size: .8rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-family: 'Opun', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--black);
+    }
+
+    /* GRID SYSTEM: Desktop 4, Mobile 2 */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .product-img-box {
+      width: 100%;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: #f1f1f1;
+    }
+
+    .product-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.8s;
+    }
+
+    .product-card:hover .product-img-box img {
+      transform: scale(1.1);
+    }
+
+    .product-info {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-code {
+      font-size: 0.75rem;
+      color: var(--warm-dark);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .product-name {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      font-weight: 500;
+      color: var(--black);
+      line-height: 1.4;
+    }
+
+    .product-pattern {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .pattern-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    
+
+    .btn-view:hover {
+      transform: translateY(-3px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: .8s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Desktop: ปรับขนาด Lightbox — ย้ายไปรวมใน section lightbox แล้ว ── */
+
+
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    footer {
+      background: var(--warm);
+      color: rgb(255, 255, 255);
+      padding: 40px 20px;
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* จัดให้อยู่ตรงกลาง */
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-weight: 400;
+    }
+
+    .footer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      text-align: center;
+    }
+
+    footer [data-cms-text="footer_text"] {
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-divider {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      footer {
+        padding: 30px 16px;
+      }
+      
+      .footer-wrapper {
+        flex-direction: column; /* เรียงซ้อนกันแนวตั้งเมื่อจอมือถือเล็ก */
+        gap: 8px;
+      }
+      
+      .footer-divider {
+        display: none; /* ซ่อนเส้นคั่น | ออก เพื่อความสะอาดตาบนมือถือ */
+      }
+      
+      footer [data-cms-text="footer_text"] {
+        white-space: normal;
+        line-height: 1.5;
+      }
+    }
+
+
+    @media (max-width: 768px) {
+            /* ─── MOBILE NAV ─── */
+      nav {
+        height: 64px;
+        padding: 0 16px;
+      }
+
+      nav.scrolled { height: 60px; }
+
+      .nav-logo { gap: 10px; }
+
+      .nav-logo-icon {
+        height: 34px;
+        width: auto;
+      }
+
+      .nav-logo-main { font-size: 1.05rem; }
+
+      .nav-toggle { display: flex; }
+
+      /* ─── MOBILE MENU PANEL ─── */
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        right: 0;
+        left: 0;
+        width: 100%;
+        background: var(--warm);
+        border-top: 1px solid rgba(255,255,255,.15);
+        box-shadow: 0 12px 32px rgba(0,0,0,.18);
+        padding: 12px 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
+      }
+
+      .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .nav-links > li {
+        width: 100%;
+        list-style: none;
+      }
+
+      .nav-links > li > a {
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        padding: 11px 14px;
+        border-radius: 10px;
+        color: rgba(255,255,255,.92);
+      }
+
+      .nav-links > li > a:hover {
+        background: rgba(255,255,255,.15);
+        color: #fff;
+      }
+
+      /* ─── MOBILE DROPDOWN ─── */
+      .dropdown { width: 100%; }
+
+      .dropdown-btn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 11px 14px;
+        border-radius: 10px;
+        font-size: 1rem;
+        color: rgba(255,255,255,.92);
+      }
+
+      .dropdown-btn:hover {
+        background: rgba(255,255,255,.15);
+        color: #fff;
+      }
+
+      .dropdown-menu {
+        position: static;
+        min-width: 100%;
+        margin-top: 4px;
+        background: rgba(0,0,0,.1);
+        border-radius: 10px;
+        padding: 6px;
+        box-shadow: none;
+        border: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+
+      .dropdown-menu a {
+        font-size: .95rem;
+        padding: 10px 14px;
+        border-radius: 8px;
+      }
+
+      .dropdown.active .dropdown-menu {
+        display: block;
+      }
+
+      .container { margin-top: 100px; }
+      .section-header { margin-bottom: 40px; }
+
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+
+      /* Mobile: 2 Columns */
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      .product-info { padding: 15px; }
+      .product-name { font-size: 0.95rem; margin-bottom: 10px; }
+      .product-pattern { font-size: 0.8rem; margin-bottom: 15px; }
+      
+
+    footer {
+        padding: 30px 12px;
+      }
+    }
+
+    /* ════ INSTALLATIONS PAGE ════ */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 100px 40px 60px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      background: rgba(188,165,142,.1);
+      border: 1px solid rgba(188,165,142,.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--off-black);
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      margin-top: 12px;
+      font-size: .95rem;
+      color: rgba(15,15,13,.5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Filter tabs ── */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 22px;
+      border-radius: 30px;
+      border: 1.5px solid rgba(188,165,142,.4);
+      background: transparent;
+      color: var(--warm-dark);
+      font-family: 'Opun', sans-serif;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: .04em;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: var(--warm);
+      border-color: var(--warm);
+      color: var(--off-black);
+    }
+
+    /* ── Gallery grid ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    
+
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.1);
+      border-color: rgba(188,165,142,.4);
+    }
+
+    .gallery-card
+
+    /* ── Media box ── */
+    .gallery-media {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .gallery-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s cubic-bezier(.16,1,.3,1);
+    }
+
+    .gallery-card:hover .gallery-media img {
+      transform: scale(1.06);
+    }
+
+    /* ── Video badge ── */
+    .gallery-media .video-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0,0,0,.6);
+      color: #fff;
+      font-size: .7rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: .08em;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── Play button overlay ── */
+    .gallery-media .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.25);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .gallery-media .play-overlay svg {
+      width: 56px;
+      height: 56px;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.4));
+    }
+
+    .gallery-card:hover .play-overlay {
+      opacity: 1;
+    }
+
+    /* มือถือ (touch device): แสดง play ตลอดเวลา */
+    @media (hover: none), (pointer: coarse) {
+      .gallery-media .play-overlay {
+        opacity: 1;
+        background: rgba(0,0,0,.28);
+      }
+    }
+
+    /* ── Card info ── */
+    .gallery-info {
+      padding: 18px 20px 20px;
+    }
+
+    .gallery-tag {
+      display: inline-block;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      margin-bottom: 6px;
+    }
+
+    .gallery-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--off-black);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .gallery-desc {
+      font-size: .82rem;
+      color: rgba(15,15,13,.5);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ── CMS add button ── */
+    .cms-gallery-add {
+      display: none;
+      width: 100%;
+      padding: 20px;
+      border: 2px dashed rgba(188,165,142,.4);
+      border-radius: 16px;
+      background: transparent;
+      color: var(--warm-dark);
+      font-family: 'Opun', sans-serif;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: .06em;
+      margin-top: 4px;
+    }
+
+    .cms-gallery-add:hover {
+      background: rgba(188,165,142,.08);
+      border-color: var(--warm);
+    }
+
+    body.cms-editing .cms-gallery-add { display: block; }
+
+    /* ══════════════════════════════════════
+       LIGHTBOX — v6 final
+    ══════════════════════════════════════ */
+
+    #rev-gallery-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(0,0,0,.92);
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease, visibility .22s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    #rev-gallery-lightbox.open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* กล่อง media — จัดกลาง */
+    #lbMediaWrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 100vw;
+      max-height: 100vh;
+      pointer-events: auto;
+      touch-action: auto;
+    }
+
+    /* รูปภาพ */
+    #lbImg {
+      display: none;
+      max-width: 92vw;
+      max-height: 85vh;
+      width: auto; height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      pointer-events: auto;
+    }
+
+    /* วิดีโอ .mp4 */
+    #lbVideo {
+      display: none;
+      width: min(92vw, calc(82vh * 16/9));
+      height: min(82vh, calc(92vw * 9/16));
+      background: #000;
+      border-radius: 8px;
+      pointer-events: auto;
+      touch-action: auto;
+    }
+
+    /* iframe — ขนาดกำหนดโดย JS ก่อน display */
+    #lbIframe {
+      display: none;
+      border: none;
+      background: #000;
+      pointer-events: auto;
+      touch-action: auto;
+      border-radius: 8px;
+    }
+
+    /* caption */
+    .lb-caption {
+      position: absolute;
+      bottom: 14px; left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.9);
+      font-size: .82rem;
+      text-align: center;
+      width: max-content;
+      max-width: min(80vw, 420px);
+      padding: 6px 16px;
+      background: rgba(0,0,0,.55);
+      border-radius: 14px;
+      pointer-events: none;
+      z-index: 5;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.5;
+    }
+
+    /* ปุ่มปิด */
+    .lb-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,.3);
+      background: rgba(0,0,0,.6);
+      color: #fff;
+      font-size: 1.4rem;
+      line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      z-index: 30;
+      pointer-events: auto;
+      transition: background .18s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,.2); }
+
+    /* ปุ่ม prev/next */
+    .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.15);
+      color: #fff;
+      font-size: 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 30;
+      pointer-events: auto;
+      transition: background .18s;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,.3); }
+    .lb-prev { left: 14px; }
+    .lb-next { right: 14px; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .lb-nav { display: none; }
+      .lb-close {
+        top: 12px; right: 12px;
+        width: 50px; height: 50px;
+        font-size: 1.6rem;
+      }
+    }
+
+
+    /* ── CMS edit overlay on card ── */    /* ── CMS edit overlay on card ── */
+    body.cms-editing 
+    body.cms-editing .gallery-card .cms-card-edit {
+      display: flex;
+    }
+    .cms-card-edit {
+      display: none;
+      position: absolute;
+      top: 8px; right: 8px;
+      gap: 6px; z-index: 10;
+    }
+    .cms-card-edit button {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: .72rem;
+      cursor: pointer;
+      font-family: 'Opun', sans-serif;
+    }
+    .cms-card-del { background: #dc3232; color: #fff; }
+    .cms-card-del:hover { background: #b82020; }
+
+    /* ── Empty state ── */
+    .gallery-empty {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 80px 20px;
+      color: rgba(15,15,13,.3);
+      font-size: .95rem;
+    }
+
+
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 80px 16px 40px; }
+      .gallery-grid { grid-template-columns: 1fr; gap: 16px; }
+      .section-title { font-size: 1.8rem; }
+    }
+
+  </style>
+  <link rel="canonical" href="https://obhome.co.th/reviews">
+  <meta property="og:image" content="https://obhome.co.th/assets/logo.png">
+</head>
+
+<body>
+
+  <nav>
+    <a href="home" class="nav-logo">
+      <div class="nav-logo-icon">
+        <img src="assets/logo1.png" alt="logo" data-cms-img="nav_logo_img">
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home">หน้าแรก</a></li>
+      <li class="dropdown">
+        <button class="dropdown-btn" id="dropdownBtn">
+          สินค้า <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+      <li><a href="spc">แผ่น SPC</a></li>
+      <li><a href="lath">ไม้ระแนง</a></li>
+      <li><a href="wooden">ไม้สั่งตัด</a></li>
+      <li><a href="wallpanel">ผนังตกแต่ง</a></li>
+      <li><a href="accessories">อุปกรณ์ติดตั้ง</a></li>
+    </ul>
+      </li>
+      <li><a href="home#projects">ผลงานติดตั้ง</a></li>
+      <li><a href="reviews" class="active">รีวิวลูกค้า</a></li>
+      <li><a href="home#contact">ติดต่อเรา</a></li>
+    </ul>
+  </nav>
+
+
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label" data-cms-text="rev_label">CUSTOMER REVIEW</span>
+      <h1 class="section-title" data-cms-text="rev_title">รีวิวลูกค้า</h1>
+      <p class="section-subtitle" data-cms-text="rev_subtitle">รวมรีวิวจากลูกค้าจริง ทั้งรูปภาพและวิดีโอ</p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">ทั้งหมด</button>
+      <button class="filter-tab" data-filter="photo">รูปภาพ</button>
+      <button class="filter-tab" data-filter="video">วิดีโอ</button>
+      <button class="filter-tab" data-filter="spc">SPC</button>
+      <button class="filter-tab" data-filter="lath">ไม้ระแนง</button>
+      <button class="filter-tab" data-filter="wallpanel">ผนัง</button>
+      <button class="filter-tab" data-filter="other">อื่นๆ</button>
+    </div>
+
+    <!-- Gallery grid -->
+    <div class="gallery-grid" id="revGrid">
+      <div class="gallery-empty">ยังไม่มีผลงาน</div>
+    </div>
+
+    <!-- CMS add button -->
+    <button class="cms-gallery-add" id="cmsRevAdd">+ เพิ่มรีวิวใหม่</button>
+  </div>
+
+  <footer>
+    <div class="footer-wrapper">
+      <span data-cms-text="footer_text">© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.</span>
+      <span class="footer-divider">|</span>
+      <a href="privacy-policy">นโยบายความเป็นส่วนตัว</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks   = document.getElementById('navLinks');
+    const dropdownBtn = document.getElementById('dropdownBtn');
+    const dropdown   = document.querySelector('.dropdown');
+    const nav        = document.querySelector('nav');
+
+    /* ── hamburger ── */
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active', open);
+      if (!open) dropdown.classList.remove('active');
+    });
+
+    /* ── dropdown ── */
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('active');
+    });
+
+    /* ── close menu when a link is clicked ── */
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        dropdown.classList.remove('active');
+      });
+    });
+
+    /* ── close everything on outside click ── */
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target)) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        dropdown.classList.remove('active');
+      }
+    });
+
+    /* ── scroll: shrink nav ── */
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    /* ── reveal on scroll ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: .1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+
+  <!-- ════ CHAT WIDGET ════ -->
+  <div class="chat-widget" id="chatWidget">
+
+    <!-- Main FAB button -->
+    <button class="chat-fab" id="chatFab" aria-label="ติดต่อเรา">
+      <span class="chat-fab-icon chat-icon-closed">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </span>
+      <span class="chat-fab-icon chat-icon-open" style="display:none;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </span>
+      </button>
+
+    <!-- Options panel -->
+    <div class="chat-options" id="chatOptions">
+      <div class="chat-options-header">ช่องทางติดต่อ</div>
+
+      <a href="https://www.facebook.com/obhomestore" target="_blank" rel="noopener noreferrer" class="chat-option chat-option--fb">
+        <span class="chat-option-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </span>
+        <span class="chat-option-text">
+          <span class="chat-option-name">Facebook</span>
+          <span class="chat-option-sub">OB HOME ไม้ระแนงพัทยา</span>
+        </span>
+      </a>
+
+      <a href="https://page.line.me/203fmurc?openQrModal=true" target="_blank" rel="noopener noreferrer" class="chat-option chat-option--line">
+        <span class="chat-option-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+          </svg>
+        </span>
+        <span class="chat-option-text">
+          <span class="chat-option-name">LINE</span>
+          <span class="chat-option-sub">@203fmurc</span>
+        </span>
+      </a>
+
+      <a href="tel:0917036286" class="chat-option chat-option--phone">
+        <span class="chat-option-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l1.62-1.62a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15z"/>
+          </svg>
+        </span>
+        <span class="chat-option-text">
+          <span class="chat-option-name">โทรหาเรา</span>
+          <span class="chat-option-sub">091-7036286</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <style>
+    /* ─── Chat Widget ─── */
+    .chat-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9998;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    /* Options panel */
+    .chat-options {
+      pointer-events: none;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.08);
+      padding: 6px;
+      width: 270px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px) scale(.96);
+      transform-origin: bottom right;
+      transition: opacity .28s cubic-bezier(.16,1,.3,1), transform .28s cubic-bezier(.16,1,.3,1), visibility .28s;
+    }
+
+    .chat-options.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .chat-options-header {
+      padding: 10px 14px 6px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #999;
+      font-family: 'Opun', 'IBM Plex Sans Thai', sans-serif;
+    }
+
+    /* Individual option */
+    .chat-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    .chat-option:hover {
+      transform: translateX(-3px);
+    }
+
+    .chat-option:active {
+      transform: scale(.97);
+    }
+
+    .chat-option-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .chat-option--fb .chat-option-icon  { background: #1877F2; }
+    .chat-option--line .chat-option-icon { background: #06C755; }
+    .chat-option--phone .chat-option-icon { background: var(--warm, #bca58e); }
+
+    .chat-option--fb:hover  { background: rgba(24,119,242,.08); }
+    .chat-option--line:hover { background: rgba(6,199,85,.08); }
+    .chat-option--phone:hover { background: rgba(188,165,142,.12); }
+
+    .chat-option-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .chat-option-name {
+      font-weight: 600;
+      font-size: .9rem;
+      color: #1a1a1a;
+      font-family: 'Opun', 'IBM Plex Sans Thai', sans-serif;
+      line-height: 1.3;
+    }
+
+    .chat-option-sub {
+      font-size: .78rem;
+      color: #888;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      line-height: 1.3;
+    }
+
+    /* FAB */
+    .chat-fab {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+      width: 56px;
+      height: 56px;
+      background: var(--warm-dark);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-family: 'Opun', 'IBM Plex Sans Thai', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(45,74,48,.5), 0 2px 8px rgba(0,0,0,.18);
+      transition: transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s ease, background .2s ease;
+      letter-spacing: .02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .chat-fab:hover {
+      background: var(--warm);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(45,74,48,.5), 0 2px 8px rgba(0,0,0,.2);
+    }
+
+    .chat-fab:active {
+      transform: scale(.97);
+    }
+
+    .chat-fab.active {
+      background: var(--warm);
+      box-shadow: 0 4px 16px rgb(0, 0, 0);
+    }
+
+    /* Pulse ring */
+    .chat-fab::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 30px;
+      border: 2px solid #2d4a30;
+      opacity: 0;
+      animation: chat-pulse 2.5s ease-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes chat-pulse {
+      0%   { opacity: .6; transform: scale(1); }
+      70%  { opacity: 0;  transform: scale(1.18); }
+      100% { opacity: 0;  transform: scale(1.18); }
+    }
+
+    .chat-fab { position: relative; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 480px) {
+      .chat-widget {
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .chat-options {
+        width: calc(100vw - 32px);
+        max-width: 300px;
+      }
+
+      .chat-fab {
+        width: 52px;
+        height: 52px;
+      }
+    }
+  </style>
+
+  <script>
+    (function() {
+      const fab     = document.getElementById('chatFab');
+      const options = document.getElementById('chatOptions');
+      const iconClosed = fab.querySelector('.chat-icon-closed');
+      const iconOpen   = fab.querySelector('.chat-icon-open');
+
+      fab.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = options.classList.toggle('open');
+        fab.classList.toggle('active', isOpen);
+        iconClosed.style.display = isOpen ? 'none' : '';
+        iconOpen.style.display   = isOpen ? '' : 'none';
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!document.getElementById('chatWidget').contains(e.target)) {
+          options.classList.remove('open');
+          fab.classList.remove('active');
+          iconClosed.style.display = '';
+          iconOpen.style.display   = 'none';
+        }
+      });
+    })();
+  </script>
+  <!-- ════ END CHAT WIDGET ════ -->
+
+  <!-- ════ PRODUCT DETAIL MODAL ════ -->
+  <div class="pdm-overlay" id="pdmOverlay" role="dialog" aria-modal="true" aria-label="รายละเอียดสินค้า">
+    <div class="pdm-modal">
+      <button class="pdm-close" id="pdmClose" aria-label="ปิด">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="pdm-body">
+        <!-- รูปภาพ -->
+        <div class="pdm-img-wrap">
+          <img class="pdm-img" id="pdmImg" src="" alt="" style="cursor:zoom-in" onclick="openLightbox(this.src)">
+        </div>
+
+        <!-- ข้อมูล -->
+        <div class="pdm-info">
+          <span class="pdm-code" id="pdmCode"></span>
+          <h2 class="pdm-name" id="pdmName"></h2>
+          <div class="pdm-divider"></div>
+
+          <dl class="pdm-specs">
+            <div class="pdm-spec-row" id="pdmPriceRow">
+              <dt>ราคา</dt>
+              <dd id="pdmPrice"></dd>
+            </div>
+            <div class="pdm-spec-row" id="pdmSizeRow">
+              <dt>ขนาด</dt>
+              <dd id="pdmSize"></dd>
+            </div>
+            <div class="pdm-spec-row" id="pdmThickRow">
+              <dt>ความหนา</dt>
+              <dd id="pdmThick"></dd>
+            </div>
+            <div class="pdm-spec-row" id="pdmPatternRow">
+              <dt>ลาย / สี</dt>
+              <dd id="pdmPattern"></dd>
+            </div>
+          </dl>
+
+          <div class="pdm-actions">
+            <a href="https://page.line.me/203fmurc?openQrModal=true" target="_blank" rel="noopener" class="pdm-btn pdm-btn--line">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+              สอบถามทาง LINE
+            </a>
+            <a href="tel:0917036286" class="pdm-btn pdm-btn--phone">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l1.62-1.62a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15z"/></svg>
+              โทรสอบถาม
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* ── overlay ── */
+    .pdm-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,15,13,.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 99980;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .38s cubic-bezier(.16,1,.3,1), visibility .38s;
+    }
+    .pdm-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ── modal shell ── */
+    .pdm-modal {
+      position: relative;
+      width: 100%;
+      max-width: 780px;
+      background: var(--white, #faf9f6);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.4);
+      transform: scale(.9) translateY(24px);
+      transition: transform .38s cubic-bezier(.16,1,.3,1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .pdm-overlay.open .pdm-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    /* ── close button ── */
+    .pdm-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 34px; height: 34px;
+      border: none; border-radius: 50%;
+      background: rgba(0,0,0,.07);
+      color: var(--charcoal, #2d2d28);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background .18s, transform .18s;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    .pdm-close:hover { background: rgba(0,0,0,.14); transform: scale(1.1); }
+
+    /* ── body layout: image left + info right ── */
+    .pdm-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── image ── */
+    .pdm-img-wrap {
+      background: #f1ede8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 340px;
+    }
+    .pdm-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      max-height: 480px;
+    }
+
+    /* ── info panel ── */
+    .pdm-info {
+      padding: 36px 32px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pdm-code {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--warm-dark, #8a7560);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .pdm-name {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--black, #0f0f0d);
+      margin-bottom: 20px;
+      font-family: 'Opun', sans-serif;
+    }
+
+    .pdm-divider {
+      height: 1px;
+      background: rgba(0,0,0,.08);
+      margin-bottom: 22px;
+    }
+
+    /* ── specs table ── */
+    .pdm-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+      flex-grow: 1;
+    }
+
+    .pdm-spec-row {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .pdm-spec-row dt {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    .pdm-spec-row dd {
+      font-size: .97rem;
+      color: var(--black, #0f0f0d);
+      font-weight: 500;
+    }
+
+    /* ── action buttons ── */
+    .pdm-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdm-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-size: .85rem;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: 'Opun', sans-serif;
+      transition: background .2s, transform .2s;
+      flex: 1;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .pdm-btn--line {
+      background: #06C755;
+      color: #fff;
+    }
+    .pdm-btn--line:hover { background: #05b04b; transform: translateY(-2px); }
+
+    .pdm-btn--phone {
+      background: var(--warm, #bca58e);
+      color: #fff;
+    }
+    .pdm-btn--phone:hover { background: var(--warm-dark, #8a7560); transform: translateY(-2px); }
+
+    /* ── hide empty spec rows ── */
+    .pdm-spec-row.pdm-hidden { display: none; }
+    .product-price-tag {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--warm-dark, #8a7560);
+      margin-top: 12px;
+      margin-bottom: 4px;
+      letter-spacing: .02em;
+    }
+    /* ── lightbox ── */
+    #pdm-lightbox {
+      position: fixed; inset: 0; z-index: 999999;
+      background: rgba(0,0,0,.65);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    #pdm-lightbox.open { opacity: 1; pointer-events: all; }
+    #pdm-lightbox img {
+      max-width: 95vw; max-height: 92vh;
+      object-fit: contain; border-radius: 8px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.5);
+      transition: transform .3s cubic-bezier(.16,1,.3,1);
+      transform: scale(.95); cursor: zoom-out;
+    }
+    #pdm-lightbox.open img { transform: scale(1); }
+    #pdm-lightbox-close {
+      position: absolute; top: 18px; right: 22px;
+      color: #fff; font-size: 2.2rem; cursor: pointer;
+      line-height: 1; background: none; border: none;
+      opacity: .8; transition: opacity .2s;
+    }
+    #pdm-lightbox-close:hover { opacity: 1; }
+    #pdm-lightbox-hint {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,.45); font-size: .78rem; pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* ── mobile: stack vertically ── */
+    @media (max-width: 600px) {
+      .pdm-overlay { padding: 0; align-items: flex-end; }
+      .pdm-modal {
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 92vh;
+      }
+      .pdm-body { grid-template-columns: 1fr; }
+      .pdm-img-wrap { min-height: 220px; max-height: 280px; overflow: hidden; }
+      .pdm-img { max-height: 280px; object-fit: cover; }
+      .pdm-info { padding: 24px 20px 28px; }
+      .pdm-name { font-size: 1.2rem; }
+      .pdm-actions { gap: 8px; }
+    }
+  </style>
+
+  <script>
+  (function () {
+    var overlay = document.getElementById('pdmOverlay');
+    var closeBtn = document.getElementById('pdmClose');
+
+    function openModal(data) {
+      document.getElementById('pdmImg').src    = data.img   || '';
+      document.getElementById('pdmImg').alt    = data.name  || '';
+      document.getElementById('pdmCode').textContent = data.code    || '';
+      document.getElementById('pdmName').textContent = data.name    || '';
+
+      setSpec('pdmPrice',   'pdmPriceRow',   data.price);
+      setSpec('pdmSize',    'pdmSizeRow',    data.size);
+      setSpec('pdmThick',   'pdmThickRow',   data.thick);
+      setSpec('pdmPattern', 'pdmPatternRow', data.pattern);
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function setSpec(elId, rowId, val) {
+      var el  = document.getElementById(elId);
+      var row = document.getElementById(rowId);
+      if (val && val.trim && val.trim() !== '') {
+        el.textContent = val;
+        row.classList.remove('pdm-hidden');
+      } else {
+        el.textContent = '';
+        row.classList.add('pdm-hidden');
+      }
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ── delegate: ฟัง click ปุ่ม "ดูรายละเอียด" ที่ CMS สร้างขึ้น ── */
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.btn-view');
+      if (!btn) return;
+
+      /* ป้องกัน navigate จริง */
+      e.preventDefault();
+      e.stopPropagation();
+
+      /* ถ้าอยู่ใน edit mode ของ CMS → ไม่เปิด modal */
+      if (document.body.classList.contains('cms-editing')) return;
+
+      var card = btn.closest('.product-card');
+      if (!card) return;
+
+      /* ดึงข้อมูลจาก element ใน card */
+      var imgEl     = card.querySelector('[data-cms-product-img]');
+      var codeEl    = card.querySelector('[data-cms-product-field$=":code"]');
+      var nameEl    = card.querySelector('[data-cms-product-field$=":name"]');
+      var patternEl = card.querySelector('[data-cms-product-field$=":pattern"]');
+
+      openModal({
+        img:     imgEl     ? imgEl.src           : '',
+        code:    codeEl    ? codeEl.innerText     : '',
+        name:    nameEl    ? nameEl.innerText     : '',
+        pattern: patternEl ? patternEl.innerText  : '',
+        price:   card.dataset.pdmPrice  || '',
+        size:    card.dataset.pdmSize   || '',
+        thick:   card.dataset.pdmThick  || '',
+      });
+    });
+  })();
+  </script>
+  <!-- ════ END PRODUCT DETAIL MODAL ════ -->
+
+
+  <!-- ════ OB CMS ════ -->
+
+  <!-- ════ Lightbox ════ -->
+  <div id="rev-gallery-lightbox">
+    <button class="lb-close" id="lbClose" aria-label="ปิด">×</button>
+    <div id="lbMediaWrap">
+      <img id="lbImg" src="" alt="">
+      <video id="lbVideo" controls controlsList="nodownload"
+        playsinline webkit-playsinline x5-playsinline
+        x5-video-player-type="h5" x5-video-player-fullscreen="true"></video>
+      <iframe id="lbIframe"
+        allow="autoplay; fullscreen *; picture-in-picture; clipboard-write; encrypted-media"
+        allowfullscreen webkitallowfullscreen mozallowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="lb-caption" id="lbCaption"></div>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="ก่อนหน้า">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="ถัดไป">›</button>
+  </div>
+
+  <!-- CMS add/edit modal -->
+  <div id="cms-rev-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,.7); align-items:center; justify-content:center;">
+    <div style="background:#faf9f6; border-radius:18px; padding:32px; width:90%; max-width:480px; max-height:90vh; overflow-y:auto;">
+      <h3 style="margin-bottom:20px; font-size:1.1rem;">เพิ่ม / แก้ไขรีวิว</h3>
+
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">ประเภท</label>
+      <select id="instType" style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif; background:#fff;">
+        <option value="photo">รูปภาพ</option>
+        <option value="video">วิดีโอ</option>
+      </select>
+
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">หมวดหมู่</label>
+      <select id="instCategory" style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif; background:#fff;">
+        <option value="spc">แผ่น SPC</option>
+        <option value="lath">ไม้ระแนง</option>
+        <option value="wallpanel">ผนังตกแต่ง</option>
+        <option value="wooden">ไม้สั่งตัด</option>
+        <option value="accessories">อุปกรณ์</option>
+        <option value="other">อื่นๆ</option>
+      </select>
+
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">ชื่อผลงาน</label>
+      <input id="instTitle" type="text" placeholder="เช่น บ้านคุณเอ ชลบุรี" style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif;">
+
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">คำอธิบาย (ไม่บังคับ)</label>
+      <textarea id="instDesc" placeholder="รายละเอียดงานสั้นๆ" rows="2" style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif; resize:none;"></textarea>
+
+      <div id="instPhotoField">
+        <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">รูปภาพ</label>
+        <input id="instImgFile" type="file" accept="image/*" style="display:none">
+        <button onclick="document.getElementById('instImgFile').click()" style="width:100%; padding:12px; border-radius:10px; border:1.5px dashed rgba(188,165,142,.5); background:transparent; cursor:pointer; color:var(--warm-dark); font-family:'Opun',sans-serif; margin-bottom:8px;">📷 เลือกรูปภาพ</button>
+        <div id="instImgPreview" style="display:none; margin-bottom:12px;"><img alt="OB HOME" id="instImgPreviewImg" style="width:100%; border-radius:8px; max-height:160px; object-fit:cover;"></div>
+      </div>
+
+      <div id="instVideoField" style="display:none;">
+        <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">ลิงก์วิดีโอ (YouTube / direct URL)</label>
+        <input id="instVideoUrl" type="text" placeholder="https://youtube.com/..." style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:8px; font-family:'Opun',sans-serif;">
+        <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">รูป thumbnail (ไม่บังคับ)</label>
+        <input id="instThumbFile" type="file" accept="image/*" style="display:none">
+        <button onclick="document.getElementById('instThumbFile').click()" style="width:100%; padding:10px; border-radius:10px; border:1.5px dashed rgba(188,165,142,.4); background:transparent; cursor:pointer; color:var(--warm-dark); font-family:'Opun',sans-serif; margin-bottom:16px;">🖼 เลือก thumbnail</button>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:8px;">
+        <button id="instSaveBtn" style="flex:1; padding:12px; border-radius:12px; border:none; background:var(--warm); color:var(--off-black); font-family:'Opun',sans-serif; font-size:.95rem; font-weight:600; cursor:pointer;">💾 บันทึก</button>
+        <button id="instCancelBtn" style="flex:1; padding:12px; border-radius:12px; border:1.5px solid rgba(188,165,142,.4); background:transparent; color:var(--warm-dark); font-family:'Opun',sans-serif; cursor:pointer;">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  
+
+    /**
+ * ฟังก์ชันสำหรับแปลงลิงก์วิดีโอทั่วไปให้กลายเป็น Embed URL สำหรับเปิดใน iframe
+ */
+function parseVideoEmbedUrl(url) {
+  if (!url) return null;
+  url = url.trim();
+
+  // 1. รองรับ YouTube / YouTube Shorts
+  if (url.includes('youtube.com') || url.includes('youtu.be')) {
+    let videoId = null;
+    if (url.includes('/shorts/')) {
+      videoId = url.split('/shorts/')[1].split(/[?#]/)[0];
+    } else if (url.includes('v=')) {
+      videoId = url.split('v=')[1].split(/[&#]/)[0];
+    } else if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1].split(/[?#]/)[0];
+    } else if (url.includes('/embed/')) {
+      videoId = url.split('/embed/')[1].split(/[?#]/)[0];
+    }
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    }
+  }
+
+  // 2. รองรับ TikTok
+  if (url.includes('tiktok.com')) {
+    if (url.includes('/video/')) {
+      let videoId = url.split('/video/')[1].split(/[?#]/)[0];
+      return `https://www.tiktok.com/embed/${videoId}`;
+    }
+  }
+
+  // 3. รองรับ Facebook Reels / Facebook Videos
+  if (url.includes('facebook.com') || url.includes('fb.watch')) {
+    // ปลั๊กอินเครื่องเล่นของ Facebook ต้องเข้ารหัสตัว URL ทั้งหมดแล้วส่งผ่าน Query String
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=0&autoplay=true`;
+  }
+
+  // ถ้าไม่ใช่ลิงก์จากโซเชียลมีเดียด้านบน (เช่นเป็นลิงก์ไฟล์ .mp4 ตรงๆ) จะส่งค่ากลับเป็น null เพื่อให้ไปเปิดใน <video> แทน
+  return null;
+}
+
+// ── Lightbox ──
+  (function(){
+    const lb        = document.getElementById('rev-gallery-lightbox');
+    const lbImg     = document.getElementById('lbImg');
+    const lbVideo   = document.getElementById('lbVideo');
+    const lbIframe  = document.getElementById('lbIframe');
+    const lbCaption = document.getElementById('lbCaption');
+    let items = [], current = 0;
+
+    /* ── ซ่อน media ทั้งหมด ── */
+    function hideAll() {
+      lbImg.style.display    = 'none';
+      lbVideo.style.display  = 'none';
+      lbIframe.style.display = 'none';
+      lbVideo.pause();
+      lbVideo.removeAttribute('src');
+      lbIframe.removeAttribute('src');
+    }
+
+    /* ── แปลง URL → embed URL ── */
+    function toEmbed(url) {
+      if (!url) return null;
+      url = url.trim();
+      // YouTube / Shorts
+      const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/)([\w-]{11})/);
+      if (yt) return { url: 'https://www.youtube.com/embed/' + yt[1] + '?autoplay=1&rel=0&playsinline=1', portrait: false };
+      // TikTok
+      const tt = url.match(/tiktok\.com\/.*\/video\/(\d+)/);
+      if (tt) return { url: 'https://www.tiktok.com/embed/v2/' + tt[1], portrait: true };
+      // Facebook
+      if (url.includes('facebook.com') || url.includes('fb.watch')) {
+        return { url: 'https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(url) + '&show_text=false&autoplay=true', portrait: true };
+      }
+      return null;
+    }
+
+    /* ── คำนวณขนาด iframe ให้พอดีจอ ── */
+    function sizeIframe(portrait) {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const mobile = vw <= 768;
+      if (portrait) {
+        // portrait 9:16
+        if (mobile) {
+          const maxH = vh * 0.88;
+          const maxW = vw * 0.96;
+          const h = Math.min(maxH, maxW * 16/9);
+          const w = h * 9/16;
+          lbIframe.style.width  = w + 'px';
+          lbIframe.style.height = h + 'px';
+        } else {
+          const h = Math.min(vh * 0.82, 720);
+          const w = Math.min(h * 9/16, vw * 0.6);
+          lbIframe.style.width  = w + 'px';
+          lbIframe.style.height = (w * 16/9) + 'px';
+        }
+      } else {
+        // landscape 16:9
+        if (mobile) {
+          lbIframe.style.width  = vw + 'px';
+          lbIframe.style.height = (vw * 9/16) + 'px';
+        } else {
+          const w = Math.min(vw * 0.88, vh * 16/9 * 0.82);
+          const h = w * 9/16;
+          lbIframe.style.width  = w + 'px';
+          lbIframe.style.height = h + 'px';
+        }
+      }
+    }
+
+    /* ── แสดง item ── */
+    function showItem(idx) {
+      if (!items.length) return;
+      const item = items[idx];
+      if (!item) return;
+      hideAll();
+      if (lbCaption) lbCaption.textContent = item.title || '';
+
+      if (item.type === 'video') {
+        const videoUrl = item.videoUrl || item.url || '';
+        const embed = toEmbed(videoUrl);
+        if (embed) {
+          sizeIframe(embed.portrait);
+          lbIframe.src = embed.url;
+          lbIframe.style.display = 'block';
+        } else if (videoUrl) {
+          lbVideo.src = videoUrl;
+          lbVideo.style.display = 'block';
+          lbVideo.load();
+          lbVideo.play().catch(()=>{});
+        }
+      } else {
+        lbImg.src = item.src || '';
+        lbImg.style.display = 'block';
+      }
+    }
+
+    /* ── เปิด ── */
+    window.openGalleryLightbox = function(idx) {
+      // sync items จาก galleryItems ล่าสุดทุกครั้งก่อนเปิด
+      if (window._cmsGallery && window._cmsGallery.length) {
+        items = window._cmsGallery.map(item => ({
+          type: item.type, src: item.src || '',
+          videoUrl: item.videoUrl || '',
+          title: item.title || '', desc: item.desc || ''
+        }));
+      }
+      current = idx;
+      showItem(idx);
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    };
+
+    /* ── ปิด ── */
+    function closeLb() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      hideAll();
+    }
+
+    /* ── fullscreen (mp4) ── */
+    function goFullscreen(el) {
+      if (el.tagName === 'VIDEO' && el.webkitEnterFullscreen) { el.webkitEnterFullscreen(); return; }
+      const fn = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen;
+      if (fn) fn.call(el).catch(()=>{});
+    }
+
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape')     closeLb();
+      if (e.key === 'ArrowRight') { current = (current+1)%items.length; showItem(current); }
+      if (e.key === 'ArrowLeft')  { current = (current-1+items.length)%items.length; showItem(current); }
+    });
+    document.getElementById('lbPrev').addEventListener('click', ()=>{ current=(current-1+items.length)%items.length; showItem(current); });
+    document.getElementById('lbNext').addEventListener('click', ()=>{ current=(current+1)%items.length; showItem(current); });
+    lbVideo.addEventListener('dblclick', e=>{ e.stopPropagation(); goFullscreen(lbVideo); });
+
+    // swipe down บนพื้นดำ → ปิด
+    let _ty = 0;
+    lb.addEventListener('touchstart', e => { _ty = e.touches[0].clientY; }, { passive:true });
+    lb.addEventListener('touchend',   e => {
+      if (e.target.closest('#lbMediaWrap')) return;
+      if (e.changedTouches[0].clientY - _ty > 80) closeLb();
+    }, { passive:true });
+
+    window._setLbItems = arr => { items = arr; };
+  })();
+
+  // ── Gallery render ──
+  (function(){
+    const grid    = document.getElementById('revGrid');
+    const addBtn  = document.getElementById('cmsRevAdd');
+    const modal   = document.getElementById('cms-rev-modal');
+    const typeSelect  = document.getElementById('instType');
+    const photoField  = document.getElementById('instPhotoField');
+    const videoField  = document.getElementById('instVideoField');
+    let galleryItems = [];
+
+    // expose สำหรับ cms.js — ใช้ getter เพื่อให้ sync ตลอดเวลา
+    Object.defineProperty(window, '_cmsGallery', {
+      get: () => galleryItems,
+      set: (v) => { galleryItems = v; },
+      configurable: true
+    });
+
+    window._cmsGalleryLoad = function(items) {
+      galleryItems = items || [];
+      renderGallery();
+    };
+
+    // type toggle in modal
+    typeSelect.addEventListener('change', () => {
+      const isVideo = typeSelect.value === 'video';
+      photoField.style.display = isVideo ? 'none' : '';
+      videoField.style.display = isVideo ? '' : 'none';
+    });
+
+    // image preview
+    document.getElementById('instImgFile').addEventListener('change', function() {
+      const f = this.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = e => {
+        document.getElementById('instImgPreviewImg').src = e.target.result;
+        document.getElementById('instImgPreview').style.display = '';
+      };
+      r.readAsDataURL(f);
+    });
+
+    function categoryLabel(cat) {
+      const map = {spc:'SPC', lath:'ไม้ระแนง', wallpanel:'ผนัง', wooden:'ไม้สั่งตัด', accessories:'อุปกรณ์', other:'อื่นๆ'};
+      return map[cat] || cat;
+    }
+
+    function getFbThumb(videoUrl) {
+      // ไม่สามารถดึง thumbnail จาก Facebook โดยตรง ใช้ placeholder
+      return '';
+    }
+
+    function renderGallery() {
+      // sync lightbox items ด้วย index จาก galleryItems จริง (ไม่ใช่ filtered)
+      window._setLbItems && window._setLbItems(galleryItems.map(item => ({
+        type: item.type, src: item.src || '',
+        videoUrl: item.videoUrl || '',
+        title: item.title || '', desc: item.desc || ''
+      })));
+
+      const activeFilter = document.querySelector('.filter-tab.active')?.dataset.filter || 'all';
+      grid.querySelectorAll('.gallery-card, .gallery-empty').forEach(el => el.remove());
+
+      const filtered = galleryItems
+        .map((item, realIdx) => ({ item, realIdx }))
+        .filter(({ item }) => {
+          if (activeFilter === 'all')   return true;
+          if (activeFilter === 'photo') return item.type === 'photo';
+          if (activeFilter === 'video') return item.type === 'video';
+          return item.category === activeFilter;
+        });
+
+      if (filtered.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'gallery-empty';
+        empty.textContent = 'ยังไม่มีผลงานในหมวดนี้';
+        grid.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach(({ item, realIdx }, filteredIdx) => {
+        const card = document.createElement('div');
+        card.className = 'gallery-card reveal';
+        const thumbSrc = item.src || item.thumb || '';
+        const isVideo = item.type === 'video';
+        const isFb =
+  isVideo &&
+  (
+    (item.videoUrl || '').includes('facebook.com') ||
+    (item.videoUrl || '').includes('fb.watch')
+  );
+        const isTt =
+  isVideo &&
+  (item.videoUrl || '').includes('tiktok.com');
+
+        card.innerHTML = `
+          <div class="gallery-media">
+            ${thumbSrc
+              ? `<img src="${thumbSrc}" alt="${item.title || ''}">`
+              : isFb
+                ? `<div style="width:100%;height:100%;background:#1877F2;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:#fff;font-size:.85rem;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    <span>Facebook Video</span>
+                   </div>`
+                : isTt
+                ? `<div style="width:100%;height:100%;background:#010101;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:#fff;font-size:.85rem;">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.76a4.84 4.84 0 0 1-1-.07z"/></svg>
+                    <span>TikTok Video</span>
+                   </div>`
+                : isVideo
+                ? `<div style="width:100%;height:100%;background:#333;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;">▶ Video</div>`
+                : '<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;color:var(--warm-dark);font-size:.85rem;">ไม่มีรูป</div>'
+            }
+            ${isVideo ? '<span class="video-badge">▶ VIDEO</span>' : ''}
+            ${isVideo ? '<div class="play-overlay"><svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,.5)"/><polygon points="10,8 16,12 10,16" fill="white"/></svg></div>' : ''}
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag">${categoryLabel(item.category)}</span>
+            <div class="gallery-title">${item.title || 'ผลงานใหม่'}</div>
+            ${item.desc ? `<div class="gallery-desc">${item.desc}</div>` : ''}
+          </div>
+          <div class="cms-card-edit">
+            <button class="cms-card-del">✕ ลบ</button>
+          </div>
+        `;
+
+        // คลิก card → lightbox โดยใช้ realIdx (ตรงกับ galleryItems จริง)
+        card.addEventListener('click', e => {
+          if (e.target.closest('.cms-card-edit')) return;
+          if (document.body.classList.contains('cms-editing')) return;
+          window.openGalleryLightbox(realIdx);
+        });
+
+        // ลบ — ใช้ realIdx ที่ตรงกับ galleryItems
+        card.querySelector('.cms-card-del').addEventListener('click', e => {
+          e.stopPropagation();
+          if (!confirm('ลบผลงานนี้?')) return;
+          galleryItems.splice(realIdx, 1);
+          renderGallery();
+        });
+
+        grid.appendChild(card);
+        setTimeout(() => {
+          const obs = new IntersectionObserver(entries => {
+            entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+          }, {threshold:.1});
+          obs.observe(card);
+        }, 0);
+      });
+    }
+
+    // filter tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderGallery();
+      });
+    });
+
+    // CMS add button
+    addBtn.addEventListener('click', () => {
+      if (!document.body.classList.contains('cms-editing')) return;
+      document.getElementById('instTitle').value = '';
+      document.getElementById('instDesc').value = '';
+      document.getElementById('instVideoUrl').value = '';
+      document.getElementById('instImgPreview').style.display = 'none';
+      document.getElementById('instImgFile').value = '';
+      document.getElementById('instThumbFile').value = '';
+      typeSelect.value = 'photo';
+      typeSelect.dispatchEvent(new Event('change'));
+      modal.style.display = 'flex';
+    });
+
+    document.getElementById('instCancelBtn').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // save ผ่าน modal
+    document.getElementById('instSaveBtn').addEventListener('click', async () => {
+      const type     = typeSelect.value;
+      const title    = document.getElementById('instTitle').value.trim();
+      const desc     = document.getElementById('instDesc').value.trim();
+      const category = document.getElementById('instCategory').value;
+      const saveBtn  = document.getElementById('instSaveBtn');
+
+      // validation
+      if (!title) { alert('กรุณาใส่ชื่อผลงาน'); return; }
+      if (type === 'photo' && !document.getElementById('instImgFile').files[0]) {
+        alert('กรุณาเลือกรูปภาพ'); return;
+      }
+      if (type === 'video' && !document.getElementById('instVideoUrl').value.trim()) {
+        alert('กรุณาใส่ลิงก์วิดีโอ'); return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'กำลังอัปโหลด...';
+
+      let src = '', videoUrl = '', thumb = '';
+      try {
+        if (type === 'photo') {
+          const file = document.getElementById('instImgFile').files[0];
+          src = await uploadToCloudinary(file);
+        } else {
+          videoUrl = document.getElementById('instVideoUrl').value.trim();
+          const thumbFile = document.getElementById('instThumbFile').files[0];
+          if (thumbFile) {
+            thumb = await uploadToCloudinary(thumbFile);
+          } else {
+            // YouTube auto-thumb
+            const yt = videoUrl.match(/(?:youtu\.be\/|[?&]v=)([\w-]{11})/);
+            if (yt) thumb = 'https://img.youtube.com/vi/' + yt[1] + '/hqdefault.jpg';
+            // Facebook: ไม่มี thumb อัตโนมัติ แสดง placeholder
+          }
+          src = thumb;
+        }
+
+        galleryItems.push({ type, title, desc, category, src, videoUrl, thumb });
+        renderGallery();
+        modal.style.display = 'none';
+        if (window._cmsToast) window._cmsToast('เพิ่มผลงานแล้ว — กด บันทึก เพื่อยืนยัน');
+      } catch(e) {
+        alert('เกิดข้อผิดพลาด: ' + e.message);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = '💾 บันทึก';
+      }
+    });
+
+    async function uploadToCloudinary(file) {
+      const CLOUD = 'daiipuvsb', PRESET = 'f3zirric';
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('upload_preset', PRESET);
+      const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD}/image/upload`, { method:'POST', body:fd });
+      const data = await res.json();
+      if (!data.secure_url) throw new Error('Upload failed');
+      return data.secure_url;
+    }
+
+    // โหลด gallery จาก Firebase เมื่อพร้อม (ใช้ event แทน polling)
+    function loadGalleryFromDB() {
+      if (!window._cmsDB) return;
+      window._cmsDB.ref('pages/reviews').once('value').then(snap => {
+        if (snap.exists() && snap.val().gallery) {
+          window._cmsGalleryLoad(snap.val().gallery || []);
+        }
+      });
+    }
+    if (window._cmsDB) {
+      loadGalleryFromDB();
+    } else {
+      window.addEventListener('firebase-ready', loadGalleryFromDB, { once: true });
+      // fallback
+      const _gPoll = setInterval(() => {
+        if (window._cmsDB) { clearInterval(_gPoll); loadGalleryFromDB(); }
+      }, 50);
+    }
+
+  })(); // ── END Gallery render IIFE ──
+
+  </script>
+
+  <!-- ════ OB CMS ════ -->
+  <script src="firebase-config.js"></script>
+  <script src="cms.js"></script>
+</body>
+</html>

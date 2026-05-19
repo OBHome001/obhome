@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OB HOME — Admin</title>
+  <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --warm:       #bca58e;
+      --warm-light: #d4c4b0;
+      --warm-dark:  #8a7560;
+      --black:      #0f0f0d;
+      --off-black:  #1a1a16;
+      --charcoal:   #2d2d28;
+      --white:      #faf9f6;
+      --off-white:  #f3f1ec;
+      --cream:      #ede8df;
+      --green:      #2c6e3a;
+      --red:        #c0392b;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background: var(--off-black);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* ════ LOGIN SCREEN ════ */
+    #login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      background: var(--off-black);
+    }
+    .login-box {
+      background: var(--charcoal);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%; max-width: 420px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .login-logo {
+      text-align: center; margin-bottom: 32px;
+    }
+    .login-logo span {
+      font-size: 2rem; font-weight: 700; letter-spacing: .04em;
+      color: var(--warm);
+    }
+    .login-logo p {
+      font-size: .85rem; color: rgba(255,255,255,.4);
+      margin-top: 4px; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,.5); letter-spacing: .1em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px; color: #fff;
+      font-family: inherit; font-size: 15px;
+      transition: border-color .2s;
+    }
+    .form-group input:focus {
+      outline: none; border-color: var(--warm);
+      background: rgba(188,165,142,.08);
+    }
+    .login-btn {
+      width: 100%; padding: 14px;
+      background: var(--warm); color: var(--off-black);
+      border: none; border-radius: 10px;
+      font-family: inherit; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all .2s; margin-top: 8px;
+    }
+    .login-btn:hover { background: var(--warm-light); transform: translateY(-2px); }
+    .login-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    #login-error {
+      color: #f88; font-size: 13px; text-align: center;
+      margin-top: 14px; display: none;
+    }
+
+    /* ════ DASHBOARD ════ */
+    #dashboard { display: none; }
+
+    .dash-header {
+      background: var(--charcoal);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 0 32px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dash-logo { font-size: 1.2rem; font-weight: 700; color: var(--warm); letter-spacing: .04em; }
+    .dash-user { font-size: 13px; color: rgba(255,255,255,.5); }
+    .dash-user strong { color: #fff; }
+    .logout-btn {
+      padding: 8px 18px; border-radius: 8px;
+      background: rgba(192,57,43,.2); border: 1px solid rgba(192,57,43,.4);
+      color: #f88; font-family: inherit; font-size: 13px; cursor: pointer;
+      transition: all .2s;
+    }
+    .logout-btn:hover { background: rgba(192,57,43,.35); }
+
+    .dash-body { padding: 40px 32px; max-width: 1100px; margin: 0 auto; }
+
+    .dash-section-title {
+      font-size: 11px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+      margin-bottom: 16px; margin-top: 40px;
+    }
+    .dash-section-title:first-child { margin-top: 0; }
+
+    /* ── Page Cards ── */
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .page-card {
+      background: var(--charcoal);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 22px 20px;
+      text-decoration: none; color: inherit;
+      transition: all .22s; display: block;
+    }
+    .page-card:hover {
+      border-color: var(--warm);
+      background: rgba(188,165,142,.07);
+      transform: translateY(-3px);
+    }
+    .page-card-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .page-card-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .page-card-desc { font-size: 12px; color: rgba(255,255,255,.4); }
+    .page-card-badge {
+      display: inline-block; margin-top: 10px;
+      font-size: 11px; padding: 3px 10px; border-radius: 20px;
+      background: rgba(188,165,142,.15); color: var(--warm-light);
+    }
+
+    /* ── Quick Actions ── */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .action-card {
+      background: var(--charcoal);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 22px 20px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .action-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(188,165,142,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .action-text h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .action-text p { font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.5; }
+
+    /* ── User Management ── */
+    .user-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--charcoal); border-radius: 14px; overflow: hidden;
+    }
+    .user-table th {
+      text-align: left; padding: 14px 18px;
+      font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .user-table td {
+      padding: 14px 18px; font-size: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .user-table tr:last-child td { border-bottom: none; }
+    .status-badge {
+      font-size: 11px; padding: 3px 10px; border-radius: 20px;
+    }
+    .status-active { background: rgba(44,110,58,.3); color: #6ef08a; }
+
+    /* ── Add Admin Form ── */
+    .add-admin-form {
+      background: var(--charcoal); border-radius: 14px;
+      padding: 24px; display: flex; gap: 12px; flex-wrap: wrap;
+      align-items: flex-end; border: 1px solid rgba(255,255,255,.06);
+    }
+    .add-admin-form .form-group { margin-bottom: 0; flex: 1; min-width: 180px; }
+    .add-admin-form .form-group label { color: rgba(255,255,255,.4); }
+    .add-admin-form .form-group input { padding: 11px 14px; font-size: 14px; }
+    .add-btn {
+      padding: 11px 22px; border-radius: 10px;
+      background: var(--warm); color: var(--off-black);
+      border: none; font-family: inherit; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+    .add-btn:hover { background: var(--warm-light); }
+    .add-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    #admin-msg {
+      font-size: 13px; margin-top: 10px;
+      padding: 10px 16px; border-radius: 8px; display: none;
+    }
+    .msg-ok  { background: rgba(44,110,58,.25); color: #6ef08a; }
+    .msg-err { background: rgba(192,57,43,.25); color: #f88; }
+
+    /* ── Stats ── */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 14px;
+    }
+    .stat-card {
+      background: var(--charcoal); border-radius: 14px;
+      padding: 20px; border: 1px solid rgba(255,255,255,.06);
+    }
+    .stat-val { font-size: 2rem; font-weight: 700; color: var(--warm); }
+    .stat-lbl { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 4px; }
+
+    /* responsive */
+    /* responsive */
+    @media (max-width: 768px) {
+      /* 1. ปรับ Header ให้ยืดหยุ่นและปัดบรรทัดได้ ไม่ให้ปุ่มล้นขอบ */
+      .dash-header { 
+        padding: 16px; 
+        height: auto; 
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .dash-header > div:nth-child(2) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+      }
+      /* ป้องกันอีเมลยาวๆ ดันจอ */
+      .dash-user {
+        word-break: break-all;
+        font-size: 12px;
+      }
+
+      /* 2. ปรับระยะขอบหน้าจอหลัก */
+      .dash-body { padding: 24px 16px; }
+      .login-box { padding: 36px 24px; }
+
+      /* 3. ปรับปุ่มการ์ดแก้ไขหน้าเว็บ ให้เรียง 1 คอลัมน์ ไม่ให้ล้นจอ */
+      .page-grid {
+        grid-template-columns: 1fr; 
+      }
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      /* ปรับสถานะภาพรวมให้เรียง 2 คอลัมน์ หรือ 1 คอลัมน์ */
+      .stats-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      }
+
+      /* 4. ปรับฟอร์มเพิ่มแอดมินให้ซ้อนกัน 100% พอดีจอ */
+      .add-admin-form {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+      }
+      .add-admin-form .form-group {
+        width: 100%;
+        min-width: 100%;
+      }
+      .add-btn {
+        width: 100%;
+        margin-top: 8px;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://firestore.googleapis.com">
+  <link rel="preconnect" href="https://identitytoolkit.googleapis.com">
+  <link rel="preconnect" href="https://securetoken.googleapis.com">
+  <link rel="dns-prefetch" href="https://firebaseio.com">
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+
+  <!-- ════ LOGIN ════ -->
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <span>✦ OB HOME</span>
+        <p>ระบบจัดการเว็บไซต์</p>
+      </div>
+      <div class="form-group">
+        <label>อีเมล</label>
+        <input type="email" id="login-email" placeholder="admin@obhome.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>รหัสผ่าน</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="login-btn" id="login-btn">เข้าสู่ระบบ</button>
+      <div id="login-error">อีเมลหรือรหัสผ่านไม่ถูกต้อง</div>
+    </div>
+  </div>
+
+  <!-- ════ DASHBOARD ════ -->
+  <div id="dashboard">
+    <div class="dash-header">
+      <div class="dash-logo">✦ OB HOME CMS</div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="dash-user">เข้าสู่ระบบในฐานะ <strong id="dash-email">-</strong></div>
+        <button class="logout-btn" id="dash-logout-btn">ออกจากระบบ</button>
+      </div>
+    </div>
+
+    <div class="dash-body">
+
+      <!-- Stats -->
+      <p class="dash-section-title">ภาพรวม</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-val">6</div>
+          <div class="stat-lbl">หน้าเว็บทั้งหมด</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-products">-</div>
+          <div class="stat-lbl">สินค้าทั้งหมด</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-admins">-</div>
+          <div class="stat-lbl">ผู้ดูแลระบบ</div>
+        </div>
+      </div>
+
+      <!-- Page Links -->
+      <p class="dash-section-title">แก้ไขหน้าเว็บ — คลิกเพื่อเปิด แล้วกด "เปิดแก้ไข" ที่แถบด้านล่าง</p>
+      <div class="page-grid">
+        <a href="home.html?edit=1" class="page-card">
+          <div class="page-card-icon">🏠</div>
+          <div class="page-card-name">หน้าแรก</div>
+          <div class="page-card-desc">Hero, จุดเด่น, รีวิว, ผลงาน, ติดต่อ</div>
+          <div class="page-card-badge">home.html</div>
+        </a>
+        <a href="spc.html?edit=1" class="page-card">
+          <div class="page-card-icon">🪨</div>
+          <div class="page-card-name">แผ่น SPC</div>
+          <div class="page-card-desc">สินค้า SPC Marble Board</div>
+          <div class="page-card-badge">spc.html</div>
+        </a>
+        <a href="lath.html?edit=1" class="page-card">
+          <div class="page-card-icon">🪵</div>
+          <div class="page-card-name">ไม้ระแนง</div>
+          <div class="page-card-desc">สินค้าไม้ระแนง</div>
+          <div class="page-card-badge">lath.html</div>
+        </a>
+        <a href="wooden.html?edit=1" class="page-card">
+          <div class="page-card-icon">🌳</div>
+          <div class="page-card-name">ไม้สั่งตัด</div>
+          <div class="page-card-desc">สินค้าไม้สั่งตัด</div>
+          <div class="page-card-badge">wooden.html</div>
+        </a>
+        <a href="wallpanel.html?edit=1" class="page-card">
+          <div class="page-card-icon">🖼️</div>
+          <div class="page-card-name">ผนังตกแต่ง</div>
+          <div class="page-card-desc">สินค้าผนังตกแต่ง</div>
+          <div class="page-card-badge">wallpanel.html</div>
+        </a>
+        <a href="accessories.html?edit=1" class="page-card">
+          <div class="page-card-icon">🔩</div>
+          <div class="page-card-name">อุปกรณ์ติดตั้ง</div>
+          <div class="page-card-desc">อุปกรณ์เสริมต่างๆ</div>
+          <div class="page-card-badge">accessories.html</div>
+        </a>
+      </div>
+
+      <!-- วิธีใช้ -->
+      <p class="dash-section-title">วิธีแก้ไขเว็บ (ทำตามขั้นตอน)</p>
+      <div class="action-grid">
+        <div class="action-card">
+          <div class="action-icon">1️⃣</div>
+          <div class="action-text">
+            <h4>คลิกการ์ดหน้าที่ต้องการ</h4>
+            <p>หน้าเว็บจะเปิดในแท็บใหม่ — login จะคงอยู่อัตโนมัติ</p>
+          </div>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">2️⃣</div>
+          <div class="action-text">
+            <h4>กด "✏️ เปิดแก้ไข" ที่แถบสีเข้มด้านล่าง</h4>
+            <p>กรอบเส้นประสีทองจะปรากฏรอบ element ที่แก้ได้</p>
+          </div>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">3️⃣</div>
+          <div class="action-text">
+            <h4>คลิกข้อความเพื่อแก้ / คลิกรูปเพื่อเปลี่ยน</h4>
+            <p>แก้ได้ทันทีบนหน้าเว็บจริง — ไม่ต้องรู้โค้ด</p>
+          </div>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">4️⃣</div>
+          <div class="action-text">
+            <h4>กด "💾 บันทึก"</h4>
+            <p>ข้อมูลขึ้น Firebase ทันที — ผู้เยี่ยมชมเห็นในไม่กี่วินาที</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- เพิ่ม admin -->
+      <p class="dash-section-title">จัดการผู้ดูแลระบบ</p>
+      <div class="add-admin-form">
+        <div class="form-group">
+          <label>อีเมลผู้ดูแลใหม่</label>
+          <input type="email" id="new-admin-email" placeholder="staff@obhome.com">
+        </div>
+        <div class="form-group">
+          <label>รหัสผ่าน (อย่างน้อย 6 ตัวอักษร)</label>
+          <input type="password" id="new-admin-pw" placeholder="••••••••">
+        </div>
+        <button class="add-btn" id="add-admin-btn">+ เพิ่มผู้ดูแล</button>
+      </div>
+      <div id="admin-msg"></div>
+
+      <!-- Admin list -->
+      <div style="margin-top:20px; overflow-x:auto;">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>อีเมล</th>
+              <th>สถานะ</th>
+              <th>วันที่สร้าง</th>
+            </tr>
+          </thead>
+          <tbody id="admin-list-body">
+            <tr><td colspan="3" style="color:rgba(255,255,255,.3); font-size:13px; text-align:center; padding:24px;">กำลังโหลด...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /dash-body -->
+  </div><!-- /dashboard -->
+
+  <!-- Firebase -->
+  <script>
+    (function () {
+      function waitFB(cb) {
+        if (window._cmsAuth && window._firebaseAuth) cb();
+        else setTimeout(() => waitFB(cb), 80);
+      }
+
+      waitFB(function () {
+        const auth = window._cmsAuth;
+        const { onAuthStateChanged, signOut, signInWithEmailAndPassword } = window._firebaseAuth;
+
+        // ── auth state ──
+        onAuthStateChanged(auth, user => {
+          if (user) {
+            // ตรวจ returnTo ก่อน — ถ้ามี redirect ไปเลย
+            const returnTo = sessionStorage.getItem('cms_returnTo');
+            if (returnTo) {
+              sessionStorage.removeItem('cms_returnTo');
+              window.location.href = returnTo;
+              return;
+            }
+            // ไม่มี returnTo → ไปหน้าล่าสุดที่เคยแก้ พร้อม ?edit=1
+            const lastPage = localStorage.getItem('cms_lastPage') || 'home.html';
+            // ตรวจว่า lastPage มี ?edit=1 อยู่แล้วหรือยัง
+            const dest = lastPage.includes('?') ? lastPage : lastPage + '?edit=1';
+            window.location.href = dest;
+          } else {
+            document.getElementById('login-screen').style.display = '';
+            document.getElementById('dashboard').style.display = 'none';
+          }
+        });
+
+        // ── login ──
+        document.getElementById('login-btn').addEventListener('click', doLogin);
+        document.getElementById('login-password').addEventListener('keydown', e => {
+          if (e.key === 'Enter') doLogin();
+        });
+
+        function doLogin() {
+          const email = document.getElementById('login-email').value.trim();
+          const pw    = document.getElementById('login-password').value;
+          const btn   = document.getElementById('login-btn');
+          const err   = document.getElementById('login-error');
+          err.style.display = 'none';
+          btn.disabled = true; btn.textContent = 'กำลังเข้าสู่ระบบ...';
+          signInWithEmailAndPassword(auth, email, pw)
+            .catch(() => {
+              err.style.display = '';
+              btn.disabled = false; btn.textContent = 'เข้าสู่ระบบ';
+            });
+        }
+
+        // ── logout ──
+        document.getElementById('dash-logout-btn').addEventListener('click', () => {
+          signOut(auth);
+        });
+
+        // ── เพิ่ม admin ──
+        document.getElementById('add-admin-btn').addEventListener('click', addAdmin);
+
+        async function addAdmin() {
+          const email = document.getElementById('new-admin-email').value.trim();
+          const pw    = document.getElementById('new-admin-pw').value;
+          const msg   = document.getElementById('admin-msg');
+          const btn   = document.getElementById('add-admin-btn');
+
+          if (!email || !pw) { showMsg('กรุณากรอกอีเมลและรหัสผ่าน', false); return; }
+          if (pw.length < 6)  { showMsg('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร', false); return; }
+
+          btn.disabled = true; btn.textContent = 'กำลังเพิ่ม...';
+          try {
+            // ใช้ createUserWithEmailAndPassword ผ่าน REST (ไม่ logout current user)
+            const apiKey  = firebase.app().options.apiKey;
+            const res     = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, password: pw, returnSecureToken: true }),
+            });
+            const data = await res.json();
+            if (data.error) throw new Error(data.error.message);
+            showMsg(`✓ เพิ่ม ${email} สำเร็จ`, true);
+            document.getElementById('new-admin-email').value = '';
+            document.getElementById('new-admin-pw').value    = '';
+            // บันทึก metadata ลง DB
+            const db = window._cmsDB;
+            await db.ref(`admins/${data.localId}`).set({ email, createdAt: Date.now() });
+            loadAdminList();
+            loadStats();
+          } catch (e) {
+            const errMap = {
+              'EMAIL_EXISTS': 'อีเมลนี้มีอยู่แล้ว',
+              'INVALID_EMAIL': 'อีเมลไม่ถูกต้อง',
+            };
+            showMsg(errMap[e.message] || e.message, false);
+          } finally {
+            btn.disabled = false; btn.textContent = '+ เพิ่มผู้ดูแล';
+          }
+        }
+
+        function showMsg(txt, ok) {
+          const m = document.getElementById('admin-msg');
+          m.textContent = txt;
+          m.className = ok ? 'msg-ok' : 'msg-err';
+          m.style.display = '';
+          setTimeout(() => { m.style.display = 'none'; }, 4000);
+        }
+
+        // ── โหลดรายชื่อ admin ──
+        async function loadAdminList() {
+          const db   = window._cmsDB;
+          const snap = await db.ref('admins').once('value');
+          const tbody = document.getElementById('admin-list-body');
+          if (!snap.exists()) {
+            tbody.innerHTML = '<tr><td colspan="3" style="color:rgba(255,255,255,.3); font-size:13px; text-align:center; padding:24px;">ยังไม่มีข้อมูล</td></tr>';
+            return;
+          }
+          const admins = snap.val();
+          tbody.innerHTML = Object.values(admins).map(a => `
+            <tr>
+              <td>${a.email || '-'}</td>
+              <td><span class="status-badge status-active">Active</span></td>
+              <td style="color:rgba(255,255,255,.4); font-size:13px;">${a.createdAt ? new Date(a.createdAt).toLocaleDateString('th-TH') : '-'}</td>
+            </tr>
+          `).join('');
+          document.getElementById('stat-admins').textContent = Object.keys(admins).length;
+        }
+
+        // ── stats ──
+        async function loadStats() {
+          const db = window._cmsDB;
+          const pages = ['spc','lath','wooden','wallpanel','accessories'];
+          let total = 0;
+          for (const p of pages) {
+            const snap = await db.ref(`pages/${p}/products`).once('value');
+            if (snap.exists()) total += snap.val().length;
+          }
+          document.getElementById('stat-products').textContent = total || '0';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

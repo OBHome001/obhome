@@ -1,0 +1,14 @@
+[[redirects]]
+  from = "/spc"
+  to = "/spc.html"
+  status = 200
+
+[[redirects]]
+  from = "/spc-601"
+  to = "/spc-601.html"
+  status = 200
+
+[[redirects]]
+  from = "/"
+  to = "/home.html"
+  status = 200
