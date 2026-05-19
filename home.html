@@ -19,6 +19,12 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;600&display=swap&font-display=swap"
     rel="stylesheet">
   <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
+  <!-- ป้องกันกระพริบ: ซ่อน body ก่อน CMS โหลดข้อมูล -->
+  <style>
+    body { opacity: 0; }
+    body.cms-ready { opacity: 1; transition: opacity .35s ease; }
+  </style>
+
   <style>
     :root {
       --warm: #bca58e;

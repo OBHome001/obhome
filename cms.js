@@ -330,7 +330,7 @@
   /* ── cache helpers ── */
   const CACHE_KEY = `cms_cache_${PAGE}`;
   const CACHE_TTL       = 5 * 60 * 1000; // 5 นาที — อายุสูงสุดของ cache
-  const CACHE_FRESH_TTL =      3 * 1000; // 3 วินาที — ลดให้ silent fetch ทำงานเร็วขึ้น
+  const CACHE_FRESH_TTL =     30 * 1000; // 30 วินาที — หลัง save/sync ป้องกัน silent fetch ทับ
 
   function readCache() {
     try {
@@ -355,7 +355,14 @@
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch (e) {}
   }
 
+  function revealPage() {
+    document.body.classList.add('cms-ready');
+  }
+
   function applyData(data) {
+    // ── ป้องกันกระพริบ: ถ้ากำลัง edit อยู่ ไม่ override DOM ──
+    if (editMode) return;
+
     // ── ข้อความ ──
     document.querySelectorAll('[data-cms-text]').forEach(el => {
       const key = el.dataset.cmsText;
@@ -452,6 +459,9 @@
         }).catch(() => {});
       }
     }
+
+    // ── แสดงหน้าหลัง apply เสร็จ (ป้องกันกระพริบ) ──
+    revealPage();
   }
 
   /* ── แก้ URL ใน Firebase ที่เคยบันทึกเป็น localhost (one-shot fix) ── */
@@ -469,22 +479,28 @@
   async function loadContent() {
     const grid = document.querySelector('.product-grid[data-cms-products]');
 
+    // fallback: ถ้า Firebase ช้ากว่า 3 วิ → reveal ไปก่อนเพื่อไม่ค้างขาว
+    const _revealTimer = setTimeout(revealPage, 3000);
+
     /* ── 1. แสดงจาก cache ทันที (ไม่รอ network) ── */
     const cached = readCache();
     if (cached) {
-      applyData(cached);
+      applyData(cached); // applyData จะ revealPage() ด้วย
+      clearTimeout(_revealTimer);
       if (grid) grid.style.visibility = '';
-      /* ถ้า cache เพิ่ง write มาไม่ถึง 8 วิ (หลัง save/sync) — ข้าม silent fetch
-         เพื่อป้องกันกระพริบเห็นค่าเก่าจาก Firebase round-trip */
-      if (!isCacheFresh()) {
+      /* silent fetch เพื่อ sync ข้อมูลล่าสุดจาก Firebase
+         แต่ถ้า editMode อยู่ หรือ cache เพิ่ง write — ข้ามทั้งหมด */
+      if (!editMode && !isCacheFresh()) {
         fetchAndCache(grid, /* silent= */ true);
       }
       return;
     }
 
-    /* ── 2. ไม่มี cache → fetch แบบปกติ (ซ่อน grid ระหว่างรอ) ── */
-    if (grid) grid.style.visibility = 'hidden';
+    /* ── 2. ไม่มี cache → fetch แบบปกติ ── */
+    if (editMode) { clearTimeout(_revealTimer); return; }
     await fetchAndCache(grid, false);
+    clearTimeout(_revealTimer);
+    revealPage(); // กรณี fetchAndCache ไม่มีข้อมูลใน Firebase
   }
 
   async function fetchAndCache(grid, silent) {
@@ -492,14 +508,16 @@
       const db = window._cmsDB;
       const { ref, get } = window._firebaseDB;
       const snap = await get(ref(db, `pages/${PAGE}`));
-      if (!snap.exists()) { if (grid && !silent) grid.style.visibility = ''; return; }
+      if (!snap.exists()) { revealPage(); return; }
       const data = snap.val();
       writeCache(data);
-      applyData(data);
+      // ถ้ากำลัง edit อยู่ — บันทึก cache ไว้ แต่ไม่ applyData ทับ DOM
+      if (!editMode) applyData(data); // applyData เรียก revealPage() เอง
     } catch (e) {
       console.warn('CMS load error:', e);
+      revealPage(); // error ก็ต้อง reveal ไม่งั้นหน้าขาวค้าง
     } finally {
-      if (grid) grid.style.visibility = '';
+      if (grid && !editMode) grid.style.visibility = '';
     }
   }
 
