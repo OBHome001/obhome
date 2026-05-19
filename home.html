@@ -1502,36 +1502,41 @@
     }
 
     // ── Before & After on home ──
+    // ดึงจาก pages/before-after (path เดียวกับหน้า before-after.html)
     function renderBaHome(items) {
-      if (!items || !Array.isArray(items)) items = [];
-      const grid = document.getElementById('baRowsHome');
+      if (!items || !Array.isArray(items) || items.length === 0) return;
+      const section = document.getElementById('baSectionHome');
+      const grid    = document.getElementById('baRowsHome');
       grid.innerHTML = '';
-      
-      // Show first 2 items as 2 rows (each with before/after pair)
-      items.slice(0, 2).forEach((item, idx) => {
+
+      items.slice(0, 2).forEach(function(item, idx) {
         const row = document.createElement('div');
         row.className = 'ba-row reveal';
-        row.innerHTML = `
-          <div class="ba-item">
-            <div class="ba-label">Before</div>
-            <img src="${item.before || ''}" alt="before" data-cms-img="ba${idx}_before_img">
-          </div>
-          <div class="ba-item">
-            <div class="ba-label">After</div>
-            <img src="${item.after || ''}" alt="after" data-cms-img="ba${idx}_after_img">
-          </div>
-        `;
+        row.innerHTML =
+          '<div class="ba-item">' +
+            '<div class="ba-label">Before</div>' +
+            '<img src="' + (item.before || '') + '" alt="before ' + (idx+1) + '" loading="lazy">' +
+          '</div>' +
+          '<div class="ba-item">' +
+            '<div class="ba-label">After</div>' +
+            '<img src="' + (item.after || '') + '" alt="after ' + (idx+1) + '" loading="lazy">' +
+          '</div>';
         grid.appendChild(row);
-        setTimeout(() => row.classList.add('visible'), 50);
+        setTimeout(function() { row.classList.add('visible'); }, 80 * (idx + 1));
       });
+
+      // แสดง section เฉพาะเมื่อมีข้อมูลจริง
+      section.style.display = '';
     }
 
     window._cmsBaLoad = renderBaHome;
 
     function loadBeforeAfter() {
       if (!window._cmsDB) return;
-      window._cmsDB.ref('pages/home/before_after').once('value').then(function(snap){
-        if (snap.exists()) renderBaHome(snap.val());
+      window._cmsDB.ref('pages/before-after').once('value').then(function(snap) {
+        if (snap.exists() && snap.val().before_after) {
+          renderBaHome(snap.val().before_after);
+        }
       }).catch(function(){});
     }
     if (window._cmsDB) {
@@ -1546,7 +1551,7 @@
   </script>
 
   <!-- Before After -->
-  <section class="ba-section">
+  <section class="ba-section" id="baSectionHome" style="display:none;">
 
     <span class="section-tag" style="color:var(--warm-light)">BEFORE &
       AFTER</span>
@@ -1555,37 +1560,7 @@
       ให้กลายเป็น <b>มุมพิเศษ !</b>
     </h2>
 
-    <div class="ba-rows" id="baRowsHome">
-
-      <!-- แถวที่ 1 -->
-      <div class="ba-row reveal">
-        <div class="ba-item">
-          <div class="ba-label">Before</div>
-          <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&q=60" alt="before" loading="lazy"
-            data-cms-img="ba1_before_img">
-        </div>
-        <div class="ba-item">
-          <div class="ba-label">After</div>
-          <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=60" alt="after" loading="lazy"
-            data-cms-img="ba1_after_img">
-        </div>
-      </div>
-
-      <!-- แถวที่ 2 -->
-      <div class="ba-row reveal">
-        <div class="ba-item">
-          <div class="ba-label">Before</div>
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=60" alt="before" loading="lazy"
-            data-cms-img="ba2_before_img">
-        </div>
-        <div class="ba-item">
-          <div class="ba-label">After</div>
-          <img src="https://images.unsplash.com/photo-1615873968403-89e068628265?w=600&q=60" alt="after" loading="lazy"
-            data-cms-img="ba2_after_img">
-        </div>
-      </div>
-
-    </div>
+    <div class="ba-rows" id="baRowsHome"></div>
 
     <div class="ba-actions">
       <a href="before-after" class="ba-view-more">ดูเพิ่มเติม →</a>

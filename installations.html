@@ -689,9 +689,16 @@
       border-color: rgba(188,165,142,.4);
     }
 
-    .gallery-card
-
-    /* ── Media box ── */
+    .gallery-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid rgba(188,165,142,.15);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,.05);
+      cursor: pointer;
+    }    /* ── Media box ── */
     .gallery-media {
       position: relative;
       aspect-ratio: 4/3;
@@ -950,8 +957,7 @@
     }
 
 
-    /* ── CMS edit overlay on card ── */    /* ── CMS edit overlay on card ── */
-    body.cms-editing 
+    /* ── CMS edit overlay on card ── */
     body.cms-editing .gallery-card .cms-card-edit {
       display: flex;
     }
@@ -2053,6 +2059,14 @@ function parseVideoEmbedUrl(url) {
       renderGallery();
     };
 
+    // รับ event จาก cms.js กรณีโหลดเร็วมากจน _cmsGalleryLoad ยังไม่พร้อม
+    window.addEventListener('cms-gallery-data', function(e) {
+      if (e.detail && !galleryItems.length) {
+        galleryItems = e.detail || [];
+        renderGallery();
+      }
+    });
+
     // type toggle in modal
     typeSelect.addEventListener('change', () => {
       const isVideo = typeSelect.value === 'video';
@@ -2169,6 +2183,16 @@ function parseVideoEmbedUrl(url) {
           if (!confirm('ลบผลงานนี้?')) return;
           galleryItems.splice(realIdx, 1);
           renderGallery();
+          // auto-save ลง Firebase ทันทีหลังลบ
+          if (window._cmsDB) {
+            window._cmsDB.ref('pages/installations').once('value').then(snap => {
+              const existing = (snap.exists() ? snap.val() : {});
+              existing.gallery = galleryItems;
+              return window._cmsDB.ref('pages/installations').set(existing);
+            }).then(() => {
+              if (window._cmsToast) window._cmsToast('✓ ลบและบันทึกสำเร็จ');
+            }).catch(err => alert('บันทึกผิดพลาด: ' + err.message));
+          }
         });
 
         grid.appendChild(card);

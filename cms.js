@@ -330,7 +330,7 @@
   /* ── cache helpers ── */
   const CACHE_KEY = `cms_cache_${PAGE}`;
   const CACHE_TTL       = 5 * 60 * 1000; // 5 นาที — อายุสูงสุดของ cache
-  const CACHE_FRESH_TTL =      8 * 1000; // 8 วินาที — ถ้า cache ใหม่กว่านี้ ข้าม silent fetch เพื่อป้องกันกระพริบ
+  const CACHE_FRESH_TTL =      3 * 1000; // 3 วินาที — ลดให้ silent fetch ทำงานเร็วขึ้น
 
   function readCache() {
     try {
@@ -401,35 +401,37 @@
 
     // ── gallery (หน้า installations / reviews) ──
     if (data.gallery) {
+      const _galleryData = data.gallery;
       if (window._cmsGalleryLoad) {
-        window._cmsGalleryLoad(data.gallery);
+        window._cmsGalleryLoad(_galleryData);
       } else {
-        // รอ function พร้อม (หน้า load gallery script หลัง applyData)
+        // รอ function พร้อม — เพิ่ม timeout เป็น 6s กันกรณีโหลดช้า
         const _waitGallery = setInterval(() => {
           if (window._cmsGalleryLoad) {
             clearInterval(_waitGallery);
-            window._cmsGalleryLoad(data.gallery);
+            window._cmsGalleryLoad(_galleryData);
           }
         }, 30);
-        // หมดเวลา 3 วินาทีถ้า function ไม่มา
-        setTimeout(() => clearInterval(_waitGallery), 3000);
+        setTimeout(() => clearInterval(_waitGallery), 6000);
+        // ยิง event เผื่อ gallery script ฟังอยู่
+        window.dispatchEvent(new CustomEvent('cms-gallery-data', { detail: _galleryData }));
       }
     }
 
     // ── before & after gallery ──
     if (data.before_after) {
+      const _baData = data.before_after;
       if (window._cmsBaLoad) {
-        window._cmsBaLoad(data.before_after);
+        window._cmsBaLoad(_baData);
       } else {
-        // รอ function พร้อม
         const _waitBA = setInterval(() => {
           if (window._cmsBaLoad) {
             clearInterval(_waitBA);
-            window._cmsBaLoad(data.before_after);
+            window._cmsBaLoad(_baData);
           }
         }, 30);
-        // หมดเวลา 3 วินาทีถ้า function ไม่มา
-        setTimeout(() => clearInterval(_waitBA), 3000);
+        setTimeout(() => clearInterval(_waitBA), 6000);
+        window.dispatchEvent(new CustomEvent('cms-ba-data', { detail: _baData }));
       }
     }
     // ── แผนที่ ──
@@ -923,13 +925,16 @@
       // ── แผนที่ ──
       const mapEl = document.querySelector('[data-cms-map]');
       if (mapEl && mapEl.src) payload.mapSrc = mapEl.src;
-      // gallery items (หน้า installations)
+      // gallery items (หน้า installations/reviews)
       if (window._cmsGallery && window._cmsGallery.length) payload.gallery = window._cmsGallery;
+      // before_after hook (หน้า before-after)
+      if (window._cmsSaveExtra) await window._cmsSaveExtra(payload);
       await set(dbRef(db, `pages/${PAGE}`), payload);
 
       const cachePayload = { texts, images, products, links };
       if (mapEl && mapEl.src) cachePayload.mapSrc = mapEl.src;
       if (window._cmsGallery && window._cmsGallery.length) cachePayload.gallery = window._cmsGallery;
+      if (payload.before_after) cachePayload.before_after = payload.before_after;
       writeCache(cachePayload); // อัปเดต cache ทันทีหลัง save
       toast('✓ บันทึกสำเร็จ!');
     } catch (err) {

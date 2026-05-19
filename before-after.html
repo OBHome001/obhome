@@ -3,19 +3,19 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="ผลงานก่อน และ ติดตั้ง                                                                                          OB HOME — รูปภาพและวิดีโอรีวิว">
+  <meta name="description" content="ผลงานก่อน และ ติดตั้ง OB HOME — รูปภาพและวิดีโอรีวิว">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- อนุญาต unload event สำหรับ Firebase SDK และ iframe embed -->
   <meta http-equiv="Permissions-Policy" content="unload=*">
   <title>ก่อน-หลัง ติดตั้งวัสดุแต่งบ้าน พัทยา ชลบุรี - OB HOME</title>
-  <meta property="og:title" content="รีวิวลูกค้า - OB HOME">
-  <meta property="og:description" content="รีวิวจากลูกค้าจริง OB HOME ไม้ระแนง SPC ผนังตกแต่ง">
-  <meta property="og:url" content="https://obhome.co.th/reviews">
+  <meta property="og:title" content="Before & After - OB HOME">
+  <meta property="og:description" content="ผลงานก่อน-หลังติดตั้ง OB HOME ไม้ระแนง SPC ผนังตกแต่ง">
+  <meta property="og:url" content="https://obhome.co.th/before-after">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 
@@ -34,11 +34,18 @@
       --transition: all .4s cubic-bezier(.16, 1, .3, 1);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     @font-face {
-      font-family: 'I' ,'Opun', sans-serif;
+      font-family: 'Opun';
       src: url('fonts/Opun%20Semi%20Bold.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
@@ -64,7 +71,9 @@
     /* ─── NAVIGATION BAR ─── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 1000;
       height: 72px;
       padding: 0 4%;
@@ -73,18 +82,17 @@
       align-items: center;
       justify-content: space-between;
       transition: height .35s ease, box-shadow .35s ease, background .35s ease;
-      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, .08);
     }
 
     nav.scrolled {
       height: 62px;
-      background: rgba(188,165,142,.97);
+      background: rgba(188, 165, 142, .97);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 4px 24px rgba(0,0,0,.13);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .13);
     }
 
-    /* ─── LOGO ─── */
     .nav-logo {
       display: flex;
       align-items: center;
@@ -120,7 +128,6 @@
       font-weight: 400;
     }
 
-    /* ─── LINKS (desktop) ─── */
     .nav-links {
       display: flex;
       list-style: none;
@@ -130,9 +137,9 @@
       padding: 0;
     }
 
-    .nav-links > li > a,
+    .nav-links>li>a,
     .dropdown-btn {
-      color: rgba(255,255,255,.92);
+      color: rgba(255, 255, 255, .92);
       text-decoration: none;
       padding: 8px 14px;
       border-radius: 8px;
@@ -149,18 +156,12 @@
       line-height: 1.6;
     }
 
-    .nav-links > li > a:hover,
+    .nav-links>li>a:hover,
     .dropdown-btn:hover {
-      background: rgba(255,255,255,.15);
+      background: rgba(255, 255, 255, .15);
       color: #fff;
     }
 
-    .nav-links > li > a.active {
-      background: rgba(255,255,255,.18);
-      color: #fff;
-    }
-
-    /* ─── DROPDOWN ─── */
     .dropdown {
       position: relative;
     }
@@ -190,7 +191,7 @@
       transform: translateY(-6px) scale(.98);
       transform-origin: top left;
       transition: opacity .22s ease, transform .22s ease, visibility .22s;
-      box-shadow: 0 12px 32px rgba(0,0,0,.15);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .15);
     }
 
     .dropdown.active .dropdown-menu {
@@ -199,7 +200,9 @@
       transform: translateY(0) scale(1);
     }
 
-    .dropdown-menu li { width: 100%; }
+    .dropdown-menu li {
+      width: 100%;
+    }
 
     .dropdown-menu a {
       display: flex;
@@ -223,11 +226,10 @@
     }
 
     .dropdown-menu a:hover {
-      background: rgba(255,255,255,.18);
+      background: rgba(255, 255, 255, .18);
       color: #fff;
     }
 
-    /* ─── HAMBURGER BUTTON ─── */
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -236,7 +238,7 @@
       width: 42px;
       height: 42px;
       border: none;
-      background: rgba(255,255,255,.12);
+      background: rgba(255, 255, 255, .12);
       border-radius: 10px;
       cursor: pointer;
       z-index: 1002;
@@ -245,7 +247,7 @@
     }
 
     .nav-toggle:hover {
-      background: rgba(255,255,255,.22);
+      background: rgba(255, 255, 255, .22);
     }
 
     .nav-toggle span {
@@ -254,175 +256,674 @@
       height: 2px;
       background: #fff;
       border-radius: 4px;
-      transition: transform .28s cubic-bezier(.16,1,.3,1), opacity .2s ease, width .25s ease;
+      transition: transform .28s cubic-bezier(.16, 1, .3, 1), opacity .2s ease, width .25s ease;
     }
 
-    .nav-toggle span:nth-child(1) { margin-bottom: 5px; }
-    .nav-toggle span:nth-child(2) { margin-bottom: 5px; }
+    .nav-toggle span:nth-child(1) {
+      margin-bottom: 5px;
+    }
+
+    .nav-toggle span:nth-child(2) {
+      margin-bottom: 5px;
+    }
 
     .nav-toggle.active span:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
     }
+
     .nav-toggle.active span:nth-child(2) {
       opacity: 0;
       width: 0;
     }
+
     .nav-toggle.active span:nth-child(3) {
       transform: translateY(-7px) rotate(-45deg);
     }
 
-    /* ─── HERO BANNER ─── */
-    .hero-banner {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.45)), url('assets/SPC_Promote.jpg') center/cover no-repeat;
-      height: 45vh;
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--warm);
+      color: rgb(255, 255, 255);
+      padding: 40px 20px;
+      margin-top: 80px;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      /* จัดให้อยู่ตรงกลาง */
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-weight: 400;
+    }
+
+    .footer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
       text-align: center;
-      color: #fff;
-      padding: 0 20px;
-    }
-    .hero-banner h1 {
-      font-size: 2.8rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      letter-spacing: 0.02em;
-      margin-top: auto;
-    }
-    .hero-banner p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 600px;
-      font-weight: 300;
     }
 
-    /* ─── GALLERY CONTAINER ─── */
-    .gallery-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
+    footer [data-cms-text="footer_text"] {
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      letter-spacing: 0.04em;
     }
 
-    /* ─── CMS ADMIN PANEL (ถอดดีไซน์จากหน้า Reviews มาเป๊ะๆ) ─── */
-    .admin-panel {
-      background: #fff;
-      border: 2px dashed var(--warm);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 40px;
-    }
-    .admin-panel h3 {
-      font-size: 1.15rem;
-      color: var(--warm-dark);
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-    .admin-form {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      align-items: flex-end;
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .form-group label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--charcoal);
-    }
-    .form-group input[type="file"] {
-      padding: 8px;
-      border: 1px solid var(--warm-light);
-      border-radius: 6px;
-      background: var(--white);
-      font-size: 0.8rem;
-    }
-    .form-group input[type="text"] {
-      padding: 10px;
-      border: 1px solid var(--warm-light);
-      border-radius: 6px;
-      font-size: 0.85rem;
-      outline: none;
-      font-family: inherit;
-    }
-    #addBtn {
-      background: var(--charcoal);
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-weight: 500;
-      cursor: pointer;
+    .footer-divider {
+      color: rgba(255, 255, 255, 0.5);
       font-size: 0.9rem;
-      transition: var(--transition);
-    }
-    #addBtn:hover {
-      background: var(--black);
-    }
-    .admin-actions {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-    #saveBtn {
-      background: var(--warm-dark);
-      color: #fff;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    #saveBtn:hover {
-      background: var(--black);
     }
 
-    /* ─── GALLERY GRID & CARDS (เหมือนโครงสร้างหน้า Reviews แต่จัดคู่ภาพด้านใน) ─── */
-    .gallery-grid {
+    footer a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 140px auto 100px;
+      padding: 0 5%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      display: block;
+      font-size: .8rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-family: 'Opun', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--black);
+    }
+
+    /* GRID SYSTEM: Desktop 4, Mobile 2 */
+    .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 30px;
     }
-    .gallery-card {
-      background: #fff;
-      border-radius: 12px;
+
+    .product-card {
+      background: white;
+      border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-      border: 1px solid var(--off-white);
-      position: relative;
       transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
     }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-img-box {
+      width: 100%;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: #f1f1f1;
+    }
+
+    .product-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.8s;
+    }
+
+    .product-card:hover .product-img-box img {
+      transform: scale(1.1);
+    }
+
+    .product-info {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-code {
+      font-size: 0.75rem;
+      color: var(--warm-dark);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .product-name {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      font-weight: 500;
+      color: var(--black);
+      line-height: 1.4;
+    }
+
+    .product-pattern {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .pattern-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+
+
+    .btn-view:hover {
+      transform: translateY(-3px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: .8s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Desktop: ปรับขนาด Lightbox — ย้ายไปรวมใน section lightbox แล้ว ── */
+
+
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    footer {
+      background: var(--warm);
+      color: rgb(255, 255, 255);
+      padding: 40px 20px;
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* จัดให้อยู่ตรงกลาง */
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-weight: 400;
+    }
+
+    .footer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      text-align: center;
+    }
+
+    footer [data-cms-text="footer_text"] {
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-divider {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      footer {
+        padding: 30px 16px;
+      }
+
+      .footer-wrapper {
+        flex-direction: column;
+        /* เรียงซ้อนกันแนวตั้งเมื่อจอมือถือเล็ก */
+        gap: 8px;
+      }
+
+      .footer-divider {
+        display: none;
+        /* ซ่อนเส้นคั่น | ออก เพื่อความสะอาดตาบนมือถือ */
+      }
+
+      footer [data-cms-text="footer_text"] {
+        white-space: normal;
+        line-height: 1.5;
+      }
+    }
+
+
+    @media (max-width: 768px) {
+
+      /* ─── MOBILE NAV ─── */
+      nav {
+        height: 64px;
+        padding: 0 16px;
+      }
+
+      nav.scrolled {
+        height: 60px;
+      }
+
+      .nav-logo {
+        gap: 10px;
+      }
+
+      .nav-logo-icon {
+        height: 34px;
+        width: auto;
+      }
+
+      .nav-logo-main {
+        font-size: 1.05rem;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      /* ─── MOBILE MENU PANEL ─── */
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        right: 0;
+        left: 0;
+        width: 100%;
+        background: var(--warm);
+        border-top: 1px solid rgba(255, 255, 255, .15);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+        padding: 12px 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
+      }
+
+      .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .nav-links>li {
+        width: 100%;
+        list-style: none;
+      }
+
+      .nav-links>li>a {
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        padding: 11px 14px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, .92);
+      }
+
+      .nav-links>li>a:hover {
+        background: rgba(255, 255, 255, .15);
+        color: #fff;
+      }
+
+      /* ─── MOBILE DROPDOWN ─── */
+      .dropdown {
+        width: 100%;
+      }
+
+      .dropdown-btn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 11px 14px;
+        border-radius: 10px;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, .92);
+      }
+
+      .dropdown-btn:hover {
+        background: rgba(255, 255, 255, .15);
+        color: #fff;
+      }
+
+      .dropdown-menu {
+        position: static;
+        min-width: 100%;
+        margin-top: 4px;
+        background: rgba(0, 0, 0, .1);
+        border-radius: 10px;
+        padding: 6px;
+        box-shadow: none;
+        border: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+
+      .dropdown-menu a {
+        font-size: .95rem;
+        padding: 10px 14px;
+        border-radius: 8px;
+      }
+
+      .dropdown.active .dropdown-menu {
+        display: block;
+      }
+
+      .container {
+        margin-top: 100px;
+      }
+
+      .section-header {
+        margin-bottom: 40px;
+      }
+
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+
+      /* Mobile: 2 Columns */
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .product-info {
+        padding: 15px;
+      }
+
+      .product-name {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+      }
+
+      .product-pattern {
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+      }
+
+
+      footer {
+        padding: 30px 12px;
+      }
+    }
+
+    /* ════ INSTALLATIONS PAGE ════ */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 100px 40px 60px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      background: rgba(188, 165, 142, .1);
+      border: 1px solid rgba(188, 165, 142, .3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--off-black);
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      margin-top: 12px;
+      font-size: .95rem;
+      color: rgba(15, 15, 13, .5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Filter tabs ── */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 22px;
+      border-radius: 30px;
+      border: 1.5px solid rgba(188, 165, 142, .4);
+      background: transparent;
+      color: var(--warm-dark);
+      font-family: 'Opun', sans-serif;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: .04em;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: var(--warm);
+      border-color: var(--warm);
+      color: var(--off-black);
+    }
+
+    /* ── Gallery grid ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+
+
     .gallery-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .1);
+      border-color: rgba(188, 165, 142, .4);
     }
-    
-    /* โครงสร้างการจัดหน้าคู่ Before & After */
+
+    .gallery-card
+
+    /* ── Media box ── */
+    .gallery-media {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .gallery-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .gallery-card:hover .gallery-media img {
+      transform: scale(1.06);
+    }
+
+    /* ── Video badge ── */
+    .gallery-media .video-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, .6);
+      color: #fff;
+      font-size: .7rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: .08em;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── Play button overlay ── */
+    .gallery-media .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, .25);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .gallery-media .play-overlay svg {
+      width: 56px;
+      height: 56px;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .4));
+    }
+
+    .gallery-card:hover .play-overlay {
+      opacity: 1;
+    }
+
+    /* มือถือ (touch device): แสดง play ตลอดเวลา */
+    @media (hover: none),
+    (pointer: coarse) {
+      .gallery-media .play-overlay {
+        opacity: 1;
+        background: rgba(0, 0, 0, .28);
+      }
+    }
+
+    /* ── Card info ── */
+    .gallery-info {
+      padding: 18px 20px 20px;
+    }
+
+    .gallery-tag {
+      display: inline-block;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      margin-bottom: 6px;
+    }
+
+    .gallery-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--off-black);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .gallery-desc {
+      font-size: .82rem;
+      color: rgba(15, 15, 13, .5);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ── CMS add button ── */
+    .cms-gallery-add {
+      display: none;
+      width: 100%;
+      padding: 20px;
+      border: 2px dashed rgba(188, 165, 142, .4);
+      border-radius: 16px;
+      background: transparent;
+      color: var(--warm-dark);
+      font-family: 'Opun', sans-serif;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: .06em;
+      margin-top: 4px;
+    }
+
+    .cms-gallery-add:hover {
+      background: rgba(188, 165, 142, .08);
+      border-color: var(--warm);
+    }
+
+    body.cms-editing .cms-gallery-add {
+      display: block;
+    }
+
+    /* ══════════════════════════════════════
+
+    /* ── Before-After card layout ── */
     .ba-comparison {
       display: flex;
       width: 100%;
       background: var(--off-black);
     }
+
     .ba-item {
       flex: 1;
       position: relative;
       aspect-ratio: 4/5;
       overflow: hidden;
     }
+
     .ba-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
+
     .gallery-card:hover .ba-item img {
       transform: scale(1.03);
     }
+
     .ba-label {
       position: absolute;
       bottom: 12px;
@@ -437,102 +938,469 @@
       backdrop-filter: blur(4px);
       z-index: 2;
     }
+
     .ba-item:last-child .ba-label {
       background: rgba(188, 165, 142, 0.85);
     }
-    .gallery-info {
-      padding: 20px;
-      border-top: 1px solid var(--off-white);
-    }
-    .gallery-info h4 {
-      font-size: 1.05rem;
-      color: var(--black);
-      font-weight: 500;
-      line-height: 1.4;
-    }
 
-    /* ปุ่มลบสไตล์ดั้งเดิม */
-    .delete-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #ff4d4d;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      z-index: 10;
-      font-size: 0.8rem;
+    /* ── card base (ต้องมี position:relative สำหรับ cms-card-edit) ── */
+    .gallery-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, .06);
+      position: relative;
       transition: var(--transition);
-    }
-    .delete-btn:hover {
-      background: #e60000;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
     }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--warm);
-      color: rgb(255, 255, 255);
-      padding: 40px 20px;
-      margin-top: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ── ปุ่มลบแบบ reviews ── */
+    .cms-card-del {
+      background: #dc3232;
+      color: #fff;
     }
-    .footer-wrapper {
+
+    .cms-card-del:hover {
+      background: #b82020;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       LIGHTBOX — v6 final
+    ══════════════════════════════════════════════════════ */
+    #rev-gallery-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(0, 0, 0, .92);
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease, visibility .22s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #rev-gallery-lightbox.open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* กล่อง media — จัดกลาง */
+    #lbMediaWrap {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
+      max-width: 100vw;
+      max-height: 100vh;
+      pointer-events: auto;
+      touch-action: auto;
+    }
+
+    /* รูปภาพ */
+    #lbImg {
+      display: none; /* ไม่ใช้แล้ว — ใช้ lb-pair-wrap แทน */
+    }
+
+    /* คู่รูป Before / After ใน lightbox */
+    .lb-pair-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      text-align: center;
-    }
-    footer [data-cms-text="footer_text"] {
-      font-size: clamp(0.75rem, 2vw, 0.85rem);
-      letter-spacing: 0.04em;
-    }
-    .footer-divider {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.9rem;
-    }
-    footer a {
-      color: rgba(255, 255, 255, 0.85);
-      text-decoration: none;
-      font-size: clamp(0.75rem, 2vw, 0.85rem);
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-    footer a:hover { color: #fff; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 992px) {
-      nav { padding: 20px; }
-      nav.scrolled { padding: 15px 20px; }
+      max-width: min(1080px, 92vw);
+      width: 100%;
     }
 
-    @media (max-width: 768px) {
-      .menu-toggle { display: flex; }
-      .nav-links {
-        position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--off-black); flex-direction: column; justify-content: center; gap: 40px; transition: var(--transition); box-shadow: -10px 0 40px rgba(0,0,0,0.3); padding: 40px;
-      }
-      .nav-links.active { right: 0; }
-      .nav-links a { color: #fff; font-size: 1.1rem; }
-      .dropdown-menu { position: static; transform: none; background: transparent; border: none; box-shadow: none; width: 100%; opacity: 1; pointer-events: auto; display: none; padding: 10px 0 0 0; }
-      .dropdown.active .dropdown-menu { display: block; }
-      .dropdown-menu a { color: rgba(255,255,255,0.6) !important; font-size: 0.95rem; }
-      .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); background: #fff; }
-      .menu-toggle.active span:nth-child(2) { opacity: 0; }
-      .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); background: #fff; }
-      .hero-banner h1 { font-size: 2.2rem; }
-      .gallery-grid { grid-template-columns: 1fr; }
+    .lb-pair-item {
+      position: relative;
+    }
+
+    .lb-pair-item img {
+      width: 100%;
+      max-height: 76vh;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .lb-pair-item .ba-label {
+      position: absolute;
+      left: 10px; bottom: 10px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(4px);
+      padding: 3px 10px;
+      color: #fff;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 4px;
     }
 
     @media (max-width: 600px) {
-      footer { padding: 30px 16px; }
-      .footer-wrapper { flex-direction: column; gap: 8px; }
-      .footer-divider { display: none; }
+      .lb-pair-wrap { grid-template-columns: 1fr; gap: 8px; }
+      .lb-pair-item img { max-height: 38vh; }
     }
+
+    /* วิดีโอ .mp4 */
+    #lbVideo {
+      display: none;
+      width: min(92vw, calc(82vh * 16/9));
+      height: min(82vh, calc(92vw * 9/16));
+      background: #000;
+      border-radius: 8px;
+      pointer-events: auto;
+      touch-action: auto;
+    }
+
+    /* iframe — ขนาดกำหนดโดย JS ก่อน display */
+    #lbIframe {
+      display: none;
+      border: none;
+      background: #000;
+      pointer-events: auto;
+      touch-action: auto;
+      border-radius: 8px;
+    }
+
+    /* caption */
+    .lb-caption {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, .9);
+      font-size: .82rem;
+      text-align: center;
+      width: max-content;
+      max-width: min(80vw, 420px);
+      padding: 6px 16px;
+      background: rgba(0, 0, 0, .55);
+      border-radius: 14px;
+      pointer-events: none;
+      z-index: 5;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.5;
+    }
+
+    /* ปุ่มปิด */
+    .lb-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, .3);
+      background: rgba(0, 0, 0, .6);
+      color: #fff;
+      font-size: 1.4rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 30;
+      pointer-events: auto;
+      transition: background .18s;
+    }
+
+    .lb-close:hover {
+      background: rgba(255, 255, 255, .2);
+    }
+
+    /* ปุ่ม prev/next */
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, .15);
+      color: #fff;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 30;
+      pointer-events: auto;
+      transition: background .18s;
+    }
+
+    .lb-nav:hover {
+      background: rgba(255, 255, 255, .3);
+    }
+
+    .lb-prev {
+      left: 14px;
+    }
+
+    .lb-next {
+      right: 14px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .lb-nav {
+        display: none;
+      }
+
+      .lb-close {
+        top: 12px;
+        right: 12px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+      }
+    }
+
+
+    /* ── CMS edit overlay on card ── */
+
+    body.cms-editing .gallery-card .cms-card-edit {
+      display: flex;
+    }
+
+    .cms-card-edit {
+      display: none;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .cms-card-edit button {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: .72rem;
+      cursor: pointer;
+      font-family: 'Opun', sans-serif;
+    }
+
+    .cms-card-del {
+      background: #dc3232;
+      color: #fff;
+    }
+
+    .cms-card-del:hover {
+      background: #b82020;
+    }
+
+    /* ── Empty state ── */
+    .gallery-empty {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 80px 20px;
+      color: rgba(15, 15, 13, .3);
+      font-size: .95rem;
+    }
+
+
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+      /* ── gallery-empty ── */
+      .gallery-empty {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 80px 20px;
+        color: rgba(15, 15, 13, .3);
+        font-size: .95rem;
+      }
+
+      /* ── reveal ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1);
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (max-width: 600px) {
+        footer {
+          padding: 30px 16px;
+        }
+
+        .footer-wrapper {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .footer-divider {
+          display: none;
+        }
+
+        footer [data-cms-text="footer_text"] {
+          white-space: normal;
+          line-height: 1.5;
+        }
+      }
+
+      @media (max-width: 768px) {
+
+        /* ─── MOBILE NAV ─── */
+        nav {
+          height: 64px;
+          padding: 0 16px;
+        }
+
+        nav.scrolled {
+          height: 60px;
+        }
+
+        .nav-logo {
+          gap: 10px;
+        }
+
+        .nav-logo-icon {
+          height: 34px;
+          width: auto;
+        }
+
+        .nav-logo-main {
+          font-size: 1.05rem;
+        }
+
+        .nav-toggle {
+          display: flex;
+        }
+
+        /* ─── MOBILE MENU PANEL ─── */
+        .nav-links {
+          position: fixed;
+          top: 64px;
+          right: 0;
+          left: 0;
+          width: 100%;
+          background: var(--warm);
+          border-top: 1px solid rgba(255, 255, 255, .15);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+          padding: 12px 16px 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-8px);
+          transition: opacity .25s ease, transform .25s ease, visibility .25s;
+        }
+
+        .nav-links.active {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .nav-links>li {
+          width: 100%;
+          list-style: none;
+        }
+
+        .nav-links>li>a {
+          display: block;
+          width: 100%;
+          font-size: 1rem;
+          padding: 11px 14px;
+          border-radius: 10px;
+          color: rgba(255, 255, 255, .92);
+        }
+
+        .nav-links>li>a:hover {
+          background: rgba(255, 255, 255, .15);
+          color: #fff;
+        }
+
+        /* ─── MOBILE DROPDOWN ─── */
+        .dropdown {
+          width: 100%;
+        }
+
+        .dropdown-btn {
+          width: 100%;
+          justify-content: space-between;
+          padding: 11px 14px;
+          border-radius: 10px;
+          font-size: 1rem;
+          color: rgba(255, 255, 255, .92);
+        }
+
+        .dropdown-btn:hover {
+          background: rgba(255, 255, 255, .15);
+          color: #fff;
+        }
+
+        .dropdown-menu {
+          position: static;
+          min-width: 100%;
+          margin-top: 4px;
+          background: rgba(0, 0, 0, .1);
+          border-radius: 10px;
+          padding: 6px;
+          box-shadow: none;
+          border: none;
+          display: none;
+          opacity: 1;
+          visibility: visible;
+          transform: none;
+        }
+
+        .dropdown-menu a {
+          font-size: .95rem;
+          padding: 10px 14px;
+          border-radius: 8px;
+        }
+
+        .dropdown.active .dropdown-menu {
+          display: block;
+        }
+
+        html,
+        body {
+          width: 100%;
+          overflow-x: hidden;
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .container {
+          padding: 80px 16px 40px;
+        }
+
+        footer {
+          padding: 30px 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+      }
   </style>
 </head>
 
@@ -558,12 +1426,12 @@
           สินค้า <span class="dropdown-arrow">▾</span>
         </button>
         <ul class="dropdown-menu" id="dropdownMenu">
-      <li><a href="spc">แผ่น SPC</a></li>
-      <li><a href="lath">ไม้ระแนง</a></li>
-      <li><a href="wooden">ไม้สั่งตัด</a></li>
-      <li><a href="wallpanel">ผนังตกแต่ง</a></li>
-      <li><a href="accessories">อุปกรณ์ติดตั้ง</a></li>
-    </ul>
+          <li><a href="spc">แผ่น SPC</a></li>
+          <li><a href="lath">ไม้ระแนง</a></li>
+          <li><a href="wooden">ไม้สั่งตัด</a></li>
+          <li><a href="wallpanel">ผนังตกแต่ง</a></li>
+          <li><a href="accessories">อุปกรณ์ติดตั้ง</a></li>
+        </ul>
       </li>
       <li><a href="home#projects">ผลงานติดตั้ง</a></li>
       <li><a href="reviews">รีวิวลูกค้า</a></li>
@@ -571,39 +1439,31 @@
     </ul>
   </nav>
 
-  <header class="hero-banner">
-    <h1 data-cms-text="ba_title">Before & After</h1>
-    <p data-cms-text="ba_subtitle">พิสูจน์ความแตกต่างของพื้นที่ก่อนและหลังการแปลงโฉมด้วยวัสดุตกแต่งระดับพรีเมียมจาก OB HOME</p>
-  </header>
-
-  <main class="gallery-container">
-
-    <div class="admin-panel" id="adminPanel" style="display: none;">
-      <h3>🛠️ ระบบจัดการรูปภาพ Before & After (สำหรับผู้ดูแลระบบ)</h3>
-      <div class="admin-form">
-        <div class="form-group">
-          <label>รูปภาพ Before (ก่อนทำ):</label>
-          <input type="file" id="beforeFile" accept="image/*">
-        </div>
-        <div class="form-group">
-          <label>รูปภาพ After (หลังทำ):</label>
-          <input type="file" id="afterFile" accept="image/*">
-        </div>
-        <div class="form-group">
-          <label>คำอธิบายชื่อผลงาน:</label>
-          <input type="text" id="baCaption" placeholder="เช่น ผลงานติดตั้งไม้ระแนง ผนังห้องนั่งเล่น">
-        </div>
-        <button type="button" id="addBtn">➕ เพิ่มคู่รูปภาพ</button>
-      </div>
-      <div class="admin-actions">
-        <button type="button" id="saveBtn">💾 บันทึก</button>
-      </div>
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label" data-cms-text="ba_label">BEFORE & AFTER</span>
+      <h1 class="section-title" data-cms-text="ba_title">ก่อน & หลัง</h1>
+      <p class="section-subtitle" data-cms-text="ba_subtitle">
+        พิสูจน์ความแตกต่างของพื้นที่ก่อนและหลังการแปลงโฉมด้วยวัสดุตกแต่งระดับพรีเมียมจาก OB HOME</p>
     </div>
 
-    <div class="gallery-grid" id="galleryGrid">
-      </div>
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">ทั้งหมด</button>
+      <button class="filter-tab" data-filter="spc">SPC</button>
+      <button class="filter-tab" data-filter="lath">ไม้ระแนง</button>
+      <button class="filter-tab" data-filter="wallpanel">ผนัง</button>
+      <button class="filter-tab" data-filter="other">อื่นๆ</button>
+    </div>
 
-  </main>
+    <!-- Gallery grid -->
+    <div class="gallery-grid" id="baGrid">
+      <div class="gallery-empty">ยังไม่มีผลงาน</div>
+    </div>
+
+    <!-- CMS add button (แสดงเฉพาะ admin mode) -->
+    <button class="cms-gallery-add" id="cmsBaAdd">+ เพิ่มผลงาน Before & After ใหม่</button>
+  </div>
 
   <footer>
     <div class="footer-wrapper">
@@ -614,133 +1474,693 @@
   </footer>
 
   <script>
-    /* ── เมนูนำทางและ Animation สไตล์เว็บหน้าหลัก ── */
     const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-  const dropdownBtn = document.getElementById('dropdownBtn');
-  const dropdown = document.querySelector('.dropdown');
-  const nav = document.querySelector('nav');
+    const navLinks = document.getElementById('navLinks');
+    const dropdownBtn = document.getElementById('dropdownBtn');
+    const dropdown = document.querySelector('.dropdown');
+    const nav = document.querySelector('nav');
 
-  /* ── เปิด/ปิด เมนูมือถือ (Hamburger) ── */
-  menuToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const open = navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('active', open);
-    if (!open) dropdown.classList.remove('active');
-  });
-
-  /* ── เปิด/ปิด Dropdown สินค้า ── */
-  dropdownBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle('active');
-  });
-
-  /* ── คลิกที่ลิงก์แล้วให้ปิดเมนูอัตโนมัติ ── */
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-      menuToggle.classList.remove('active');
-      dropdown.classList.remove('active');
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active', open);
+      if (!open) dropdown.classList.remove('active');
     });
-  });
 
-  /* ── คลิกข้างนอกเมนูให้ปิดเมนูทั้งหมด ── */
-  document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target)) {
-      navLinks.classList.remove('active');
-      menuToggle.classList.remove('active');
-      dropdown.classList.remove('active');
-    }
-  });
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('active');
+    });
 
-  /* ── ตรวจจับการ Scroll เพื่อเปลี่ยนสี Navbar ── */
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        dropdown.classList.remove('active');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target)) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        dropdown.classList.remove('active');
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    /* ── reveal on scroll ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 
-  <script src="firebase-config.js"></script>
+  <!-- ════ CHAT WIDGET ════ -->
+  <div class="chat-widget" id="chatWidget">
+
+    <!-- Main FAB button -->
+    <button class="chat-fab" id="chatFab" aria-label="ติดต่อเรา">
+      <span class="chat-fab-icon chat-icon-closed">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+      </span>
+      <span class="chat-fab-icon chat-icon-open" style="display:none;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </span>
+    </button>
+
+    <!-- Options panel -->
+    <div class="chat-options" id="chatOptions">
+      <div class="chat-options-header">ช่องทางติดต่อ</div>
+
+      <a href="https://www.facebook.com/obhomestore" target="_blank" rel="noopener noreferrer"
+        class="chat-option chat-option--fb">
+        <span class="chat-option-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+          </svg>
+        </span>
+        <span class="chat-option-text">
+          <span class="chat-option-name">Facebook</span>
+          <span class="chat-option-sub">OB HOME ไม้ระแนงพัทยา</span>
+        </span>
+      </a>
+
+      <a href="https://page.line.me/203fmurc?openQrModal=true" target="_blank" rel="noopener noreferrer"
+        class="chat-option chat-option--line">
+        <span class="chat-option-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+          </svg>
+        </span>
+        <span class="chat-option-text">
+          <span class="chat-option-name">LINE</span>
+          <span class="chat-option-sub">@203fmurc</span>
+        </span>
+      </a>
+
+      <a href="tel:0917036286" class="chat-option chat-option--phone">
+        <span class="chat-option-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l1.62-1.62a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15z" />
+          </svg>
+        </span>
+        <span class="chat-option-text">
+          <span class="chat-option-name">โทรหาเรา</span>
+          <span class="chat-option-sub">091-7036286</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <style>
+    /* ─── Chat Widget ─── */
+    .chat-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9998;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    /* Options panel */
+    .chat-options {
+      pointer-events: none;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .18), 0 2px 8px rgba(0, 0, 0, .08);
+      padding: 6px;
+      width: 270px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px) scale(.96);
+      transform-origin: bottom right;
+      transition: opacity .28s cubic-bezier(.16, 1, .3, 1), transform .28s cubic-bezier(.16, 1, .3, 1), visibility .28s;
+    }
+
+    .chat-options.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .chat-options-header {
+      padding: 10px 14px 6px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #999;
+      font-family: 'Opun', 'IBM Plex Sans Thai', sans-serif;
+    }
+
+    /* Individual option */
+    .chat-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    .chat-option:hover {
+      transform: translateX(-3px);
+    }
+
+    .chat-option:active {
+      transform: scale(.97);
+    }
+
+    .chat-option-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .chat-option--fb .chat-option-icon {
+      background: #1877F2;
+    }
+
+    .chat-option--line .chat-option-icon {
+      background: #06C755;
+    }
+
+    .chat-option--phone .chat-option-icon {
+      background: var(--warm, #bca58e);
+    }
+
+    .chat-option--fb:hover {
+      background: rgba(24, 119, 242, .08);
+    }
+
+    .chat-option--line:hover {
+      background: rgba(6, 199, 85, .08);
+    }
+
+    .chat-option--phone:hover {
+      background: rgba(188, 165, 142, .12);
+    }
+
+    .chat-option-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .chat-option-name {
+      font-weight: 600;
+      font-size: .9rem;
+      color: #1a1a1a;
+      font-family: 'Opun', 'IBM Plex Sans Thai', sans-serif;
+      line-height: 1.3;
+    }
+
+    .chat-option-sub {
+      font-size: .78rem;
+      color: #888;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      line-height: 1.3;
+    }
+
+    /* FAB */
+    .chat-fab {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+      width: 56px;
+      height: 56px;
+      background: var(--warm-dark);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-family: 'Opun', 'IBM Plex Sans Thai', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(45, 74, 48, .5), 0 2px 8px rgba(0, 0, 0, .18);
+      transition: transform .22s cubic-bezier(.16, 1, .3, 1), box-shadow .22s ease, background .2s ease;
+      letter-spacing: .02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .chat-fab:hover {
+      background: var(--warm);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(45, 74, 48, .5), 0 2px 8px rgba(0, 0, 0, .2);
+    }
+
+    .chat-fab:active {
+      transform: scale(.97);
+    }
+
+    .chat-fab.active {
+      background: var(--warm);
+      box-shadow: 0 4px 16px rgb(0, 0, 0);
+    }
+
+    /* Pulse ring */
+    .chat-fab::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 30px;
+      border: 2px solid #2d4a30;
+      opacity: 0;
+      animation: chat-pulse 2.5s ease-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes chat-pulse {
+      0% {
+        opacity: .6;
+        transform: scale(1);
+      }
+
+      70% {
+        opacity: 0;
+        transform: scale(1.18);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.18);
+      }
+    }
+
+    .chat-fab {
+      position: relative;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 480px) {
+      .chat-widget {
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .chat-options {
+        width: calc(100vw - 32px);
+        max-width: 300px;
+      }
+
+      .chat-fab {
+        width: 52px;
+        height: 52px;
+      }
+    }
+  </style>
 
   <script>
-    /* ─── ระบบดึงข้อมูลและจัดการแอดมินหลังบ้าน (Firebase + Cloudinary) ─── */
-    (function() {
-      let localBaItems = []; 
+    (function () {
+      const fab = document.getElementById('chatFab');
+      const options = document.getElementById('chatOptions');
+      const iconClosed = fab.querySelector('.chat-icon-closed');
+      const iconOpen = fab.querySelector('.chat-icon-open');
 
-      // ฟังก์ชันเรนเดอร์โครงสร้างการ์ดแบบเดียวกับหน้า reviews ทุกประการ
-      window._cmsBaLoad = function(items) {
-        localBaItems = items || [];
-        const grid = document.getElementById('galleryGrid');
-        if (!grid) return;
-        grid.innerHTML = '';
+      fab.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpen = options.classList.toggle('open');
+        fab.classList.toggle('active', isOpen);
+        iconClosed.style.display = isOpen ? 'none' : '';
+        iconOpen.style.display = isOpen ? '' : 'none';
+      });
 
-        if (localBaItems.length === 0) {
-          grid.innerHTML = '<div style="text-align:center; grid-column: 1/-1; color: var(--gray); padding: 40px;">ยังไม่มีข้อมูลผลงาน Before & After ในระบบ</div>';
+      document.addEventListener('click', function (e) {
+        if (!document.getElementById('chatWidget').contains(e.target)) {
+          options.classList.remove('open');
+          fab.classList.remove('active');
+          iconClosed.style.display = '';
+          iconOpen.style.display = 'none';
+        }
+      });
+    })();
+  </script>
+  <!-- ════ END CHAT WIDGET ════ -->
+
+  <!-- ════ Lightbox (รูปคู่ Before-After) ════ -->
+  <div id="rev-gallery-lightbox">
+    <button class="lb-close" id="lbClose" aria-label="ปิด">×</button>
+    <div id="lbMediaWrap">
+      <div class="lb-pair-wrap">
+        <div class="lb-pair-item">
+          <div class="ba-label">Before</div>
+          <img id="lbImgBefore" src="" alt="before">
+        </div>
+        <div class="lb-pair-item">
+          <div class="ba-label">After</div>
+          <img id="lbImgAfter" src="" alt="after">
+        </div>
+      </div>
+    </div>
+    <div class="lb-caption" id="lbCaption"></div>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="ก่อนหน้า">&#8249;</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="ถัดไป">&#8250;</button>
+  </div>
+
+  <!-- CMS add/edit modal — Before & After -->
+  <div id="cms-ba-modal"
+    style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,.7); align-items:center; justify-content:center;">
+    <div
+      style="background:#faf9f6; border-radius:18px; padding:32px; width:90%; max-width:520px; max-height:90vh; overflow-y:auto;">
+      <h3 style="margin-bottom:20px; font-size:1.1rem;">เพิ่ม / แก้ไข Before & After</h3>
+
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">หมวดหมู่</label>
+      <select id="baCategory"
+        style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif; background:#fff;">
+        <option value="spc">แผ่น SPC</option>
+        <option value="lath">ไม้ระแนง</option>
+        <option value="wallpanel">ผนังตกแต่ง</option>
+        <option value="other">อื่นๆ</option>
+      </select>
+
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">ชื่อผลงาน</label>
+      <input id="baTitle" type="text" placeholder="เช่น บ้านคุณเอ พัทยา"
+        style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif;">
+
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">คำอธิบาย
+        (ไม่บังคับ)</label>
+      <textarea id="baDesc" placeholder="รายละเอียดงานสั้นๆ" rows="2"
+        style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif; resize:none;"></textarea>
+
+      <!-- รูป Before -->
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">📷 รูป Before
+        (ก่อนทำ)</label>
+      <input id="baBeforeFile" type="file" accept="image/*" style="display:none">
+      <button onclick="document.getElementById('baBeforeFile').click()"
+        style="width:100%; padding:12px; border-radius:10px; border:1.5px dashed rgba(188,165,142,.5); background:transparent; cursor:pointer; color:var(--warm-dark); font-family:'Opun',sans-serif; margin-bottom:8px;">📷
+        เลือกรูป Before</button>
+      <div id="baBeforePreview" style="display:none; margin-bottom:12px;"><img id="baBeforePreviewImg" alt="Before"
+          style="width:100%; border-radius:8px; max-height:160px; object-fit:cover;"></div>
+
+      <!-- รูป After -->
+      <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">✨ รูป After
+        (หลังทำ)</label>
+      <input id="baAfterFile" type="file" accept="image/*" style="display:none">
+      <button onclick="document.getElementById('baAfterFile').click()"
+        style="width:100%; padding:12px; border-radius:10px; border:1.5px dashed rgba(188,165,142,.5); background:transparent; cursor:pointer; color:var(--warm-dark); font-family:'Opun',sans-serif; margin-bottom:8px;">✨
+        เลือกรูป After</button>
+      <div id="baAfterPreview" style="display:none; margin-bottom:16px;"><img id="baAfterPreviewImg" alt="After"
+          style="width:100%; border-radius:8px; max-height:160px; object-fit:cover;"></div>
+
+      <div style="display:flex; gap:10px; margin-top:8px;">
+        <button id="baSaveBtn"
+          style="flex:1; padding:12px; border-radius:12px; border:none; background:var(--warm); color:var(--off-black); font-family:'Opun',sans-serif; font-size:.95rem; font-weight:600; cursor:pointer;">💾
+          บันทึก</button>
+        <button id="baCancelBtn"
+          style="flex:1; padding:12px; border-radius:12px; border:1.5px solid rgba(188,165,142,.4); background:transparent; color:var(--warm-dark); font-family:'Opun',sans-serif; cursor:pointer;">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * ── Lightbox (รูปคู่ Before & After) ──
+     */
+    (function () {
+      const lb         = document.getElementById('rev-gallery-lightbox');
+      const lbBefore   = document.getElementById('lbImgBefore');
+      const lbAfter    = document.getElementById('lbImgAfter');
+      const lbCaption  = document.getElementById('lbCaption');
+      let items = [], current = 0;
+
+      // items คือ array ของ { before, after, title }
+      function showItem(idx) {
+        if (!items.length) return;
+        current = (idx + items.length) % items.length;
+        const item = items[current];
+        lbBefore.src = item.before || '';
+        lbAfter.src  = item.after  || '';
+        if (lbCaption) lbCaption.textContent = item.title || '';
+      }
+
+      window.openGalleryLightbox = function (idx) {
+        showItem(idx);
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window._setLbItems = function (arr) { items = arr || []; };
+
+      function closeLb() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        // หยุดไม่ให้รูปค้างในหน่วยความจำ
+        lbBefore.src = '';
+        lbAfter.src  = '';
+      }
+
+      document.getElementById('lbClose').addEventListener('click', closeLb);
+      lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape')      closeLb();
+        if (e.key === 'ArrowRight')  showItem(current + 1);
+        if (e.key === 'ArrowLeft')   showItem(current - 1);
+      });
+      document.getElementById('lbPrev').addEventListener('click', () => showItem(current - 1));
+      document.getElementById('lbNext').addEventListener('click', () => showItem(current + 1));
+
+      // swipe support
+      let _tx = 0;
+      lb.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend',   e => {
+        const diff = _tx - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) showItem(diff > 0 ? current + 1 : current - 1);
+      }, { passive: true });
+    })();
+
+    // ── Gallery render ──
+    (function () {
+      const grid = document.getElementById('baGrid');
+      const addBtn = document.getElementById('cmsBaAdd');
+      const modal = document.getElementById('cms-ba-modal');
+      let galleryItems = [];
+
+      // expose สำหรับ cms.js
+      Object.defineProperty(window, '_cmsGallery', {
+        get: () => galleryItems,
+        set: (v) => { galleryItems = v; },
+        configurable: true
+      });
+
+      window._cmsBaLoad = function (items) {
+        galleryItems = items || [];
+        renderGallery();
+      };
+
+      window.addEventListener('cms-ba-data', function (e) {
+        if (e.detail && !galleryItems.length) {
+          galleryItems = e.detail || [];
+          renderGallery();
+        }
+      });
+
+      function categoryLabel(cat) {
+        const map = { spc: 'SPC', lath: 'ไม้ระแนง', wallpanel: 'ผนัง', other: 'อื่นๆ' };
+        return map[cat] || cat;
+      }
+
+      // active filter
+      let activeFilter = 'all';
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeFilter = tab.dataset.filter;
+          renderGallery();
+        });
+      });
+
+      function renderGallery() {
+        // sync lightbox — ส่งคู่ { before, after, title } ตรงๆ
+        window._setLbItems && window._setLbItems(
+          galleryItems.map(item => ({
+            before: item.before || '',
+            after:  item.after  || '',
+            title:  item.title  || ''
+          }))
+        );
+
+        grid.querySelectorAll('.gallery-card, .gallery-empty').forEach(el => el.remove());
+
+        const filtered = galleryItems
+          .map((item, realIdx) => ({ item, realIdx }))
+          .filter(({ item }) => activeFilter === 'all' || item.category === activeFilter);
+
+        if (filtered.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'gallery-empty';
+          empty.textContent = 'ยังไม่มีผลงานในหมวดนี้';
+          grid.appendChild(empty);
           return;
         }
 
-        const isEditing = document.body.classList.contains('cms-editing');
-
-        localBaItems.forEach((item, idx) => {
+        filtered.forEach(({ item, realIdx }) => {
           const card = document.createElement('div');
-          card.className = 'gallery-card';
-          
-          let deleteBtnHtml = '';
-          if (isEditing) {
-            deleteBtnHtml = `<button class="delete-btn" data-idx="${idx}">🗑️ ลบ</button>`;
-          }
+          card.className = 'gallery-card reveal';
 
           card.innerHTML = `
-            ${deleteBtnHtml}
-            <div class="ba-comparison">
-              <div class="ba-item">
-                <div class="ba-label">Before</div>
-                <img src="${item.before || ''}" alt="ก่อนติดตั้ง">
-              </div>
-              <div class="ba-item">
-                <div class="ba-label">After</div>
-                <img src="${item.after || ''}" alt="หลังติดตั้ง">
-              </div>
+          <div class="ba-comparison">
+            <div class="ba-item" data-lb-idx="${realIdx * 2}">
+              <div class="ba-label">Before</div>
+              <img src="${item.before || ''}" alt="ก่อนติดตั้ง">
             </div>
-            <div class="gallery-info">
-              <h4>${item.caption || 'ผลงานจาก OB HOME'}</h4>
+            <div class="ba-item" data-lb-idx="${realIdx * 2 + 1}">
+              <div class="ba-label">After</div>
+              <img src="${item.after || ''}" alt="หลังติดตั้ง">
             </div>
-          `;
-          grid.appendChild(card);
-        });
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag">${categoryLabel(item.category)}</span>
+            <div class="gallery-title">${item.title || 'ผลงานจาก OB HOME'}</div>
+            ${item.desc ? '<div class="gallery-desc">' + item.desc + '</div>' : ''}
+          </div>
+          <div class="cms-card-edit">
+            <button class="cms-card-del">✕ ลบ</button>
+          </div>
+        `;
 
-        // ผูกการทำงานปุ่มลบให้กับแอดมิน
-        grid.querySelectorAll('.delete-btn').forEach(btn => {
-          btn.addEventListener('click', function() {
-            const index = parseInt(this.getAttribute('data-idx'));
-            if(confirm('คุณแน่ใจหรือไม่ว่าต้องการลบผลงานคู่นี้?')) {
-              localBaItems.splice(index, 1);
-              window._cmsBaLoad(localBaItems); 
+          // คลิกที่ card → lightbox เปิดคู่รูปนั้น
+          card.addEventListener('click', e => {
+            if (e.target.closest('.cms-card-edit')) return;
+            if (document.body.classList.contains('cms-editing')) return;
+            window.openGalleryLightbox(realIdx);
+          });
+
+          // ปุ่มลบ
+          card.querySelector('.cms-card-del').addEventListener('click', e => {
+            e.stopPropagation();
+            if (!confirm('ลบผลงานคู่นี้?')) return;
+            galleryItems.splice(realIdx, 1);
+            renderGallery();
+            // auto-save หลังลบ
+            if (window._cmsDB) {
+              window._cmsDB.ref('pages/before-after').once('value').then(snap => {
+                const existing = snap.exists() ? snap.val() : {};
+                existing.before_after = galleryItems;
+                return window._cmsDB.ref('pages/before-after').set(existing);
+              }).then(() => {
+                if (window._cmsToast) window._cmsToast('✓ ลบและบันทึกสำเร็จ');
+              }).catch(err => alert('บันทึกผิดพลาด: ' + err.message));
             }
           });
+
+          grid.appendChild(card);
+
+          // reveal observer
+          setTimeout(() => {
+            const obs = new IntersectionObserver(entries => {
+              entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+            }, { threshold: .1 });
+            obs.observe(card);
+          }, 0);
         });
-      };
-
-      // ตรวจสอบสถานะการเข้าระบบผ่านคลาสหลักคอมโพเนนต์ cms-editing เหมือนหน้ารีวิว
-      function checkAdminState() {
-        const adminPanel = document.getElementById('adminPanel');
-        if (!adminPanel) return;
-
-        if (document.body.classList.contains('cms-editing') || (window._cmsAuth && window._cmsAuth.currentUser)) {
-          if (adminPanel.style.display !== 'block') {
-            adminPanel.style.display = 'block';
-            window._cmsBaLoad(localBaItems); 
-          }
-        } else {
-          if (adminPanel.style.display !== 'none') {
-            adminPanel.style.display = 'none';
-            window._cmsBaLoad(localBaItems); 
-          }
-        }
       }
 
-      setInterval(checkAdminState, 1000);
+      // ── CMS add button ──
+      addBtn.addEventListener('click', () => {
+        if (!document.body.classList.contains('cms-editing')) return;
+        document.getElementById('baTitle').value = '';
+        document.getElementById('baDesc').value = '';
+        document.getElementById('baBeforeFile').value = '';
+        document.getElementById('baAfterFile').value = '';
+        document.getElementById('baBeforePreview').style.display = 'none';
+        document.getElementById('baAfterPreview').style.display = 'none';
+        modal.style.display = 'flex';
+      });
 
-      // อัปโหลดรูปภาพเข้า Cloudinary หลัก
+      document.getElementById('baCancelBtn').addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      // preview รูป
+      document.getElementById('baBeforeFile').addEventListener('change', function () {
+        const f = this.files[0]; if (!f) return;
+        const r = new FileReader();
+        r.onload = e => {
+          document.getElementById('baBeforePreviewImg').src = e.target.result;
+          document.getElementById('baBeforePreview').style.display = '';
+        };
+        r.readAsDataURL(f);
+      });
+
+      document.getElementById('baAfterFile').addEventListener('change', function () {
+        const f = this.files[0]; if (!f) return;
+        const r = new FileReader();
+        r.onload = e => {
+          document.getElementById('baAfterPreviewImg').src = e.target.result;
+          document.getElementById('baAfterPreview').style.display = '';
+        };
+        r.readAsDataURL(f);
+      });
+
+      // save ผ่าน modal
+      document.getElementById('baSaveBtn').addEventListener('click', async () => {
+        const title = document.getElementById('baTitle').value.trim();
+        const desc = document.getElementById('baDesc').value.trim();
+        const category = document.getElementById('baCategory').value;
+        const saveBtn = document.getElementById('baSaveBtn');
+
+        if (!title) { alert('กรุณาใส่ชื่อผลงาน'); return; }
+        if (!document.getElementById('baBeforeFile').files[0]) { alert('กรุณาเลือกรูป Before'); return; }
+        if (!document.getElementById('baAfterFile').files[0]) { alert('กรุณาเลือกรูป After'); return; }
+
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'กำลังอัปโหลด...';
+
+        try {
+          const [beforeUrl, afterUrl] = await Promise.all([
+            uploadToCloudinary(document.getElementById('baBeforeFile').files[0]),
+            uploadToCloudinary(document.getElementById('baAfterFile').files[0])
+          ]);
+
+          galleryItems.unshift({ category, title, desc, before: beforeUrl, after: afterUrl });
+          renderGallery();
+          modal.style.display = 'none';
+          if (window._cmsToast) window._cmsToast('เพิ่มผลงานแล้ว — กด บันทึก เพื่อยืนยัน');
+        } catch (e) {
+          alert('เกิดข้อผิดพลาด: ' + e.message);
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = '💾 บันทึก';
+        }
+      });
+
       async function uploadToCloudinary(file) {
         const CLOUD = 'daiipuvsb', PRESET = 'f3zirric';
         const fd = new FormData();
@@ -752,100 +2172,35 @@
         return data.secure_url;
       }
 
-      // ดึงข้อมูลอาเรย์โครงสร้างคู่ภาพจาก Node ใหญ่ของ Firebase
-      function loadDataFromFirebase() {
+      // ── hook ให้ cms.js saveAll() บันทึก before_after key ด้วย ──
+      window._cmsSaveExtra = async function (payload) {
+        payload.before_after = galleryItems;
+        delete payload.gallery; // หน้านี้ไม่ใช้ gallery key
+      };
+
+      // โหลดจาก Firebase — ใช้ before_after key เดียวกันตลอด
+      function loadGalleryFromDB() {
         if (!window._cmsDB) return;
         window._cmsDB.ref('pages/before-after').once('value').then(snap => {
-          if (snap.exists()) {
-            const data = snap.val();
-            let items = [];
-            if (Array.isArray(data)) {
-              items = data;
-            } else if (data.items) {
-              items = data.items;
-            }
-            window._cmsBaLoad(items);
-          } else {
-            window._cmsBaLoad([]);
-          }
-        }).catch(err => {
-          console.error("Firebase load err:", err);
-        });
+          const data = snap.exists() ? snap.val() : {};
+          window._cmsBaLoad(data.before_after || []);
+        }).catch(err => console.error('Firebase load err:', err));
       }
 
       if (window._cmsDB) {
-        loadDataFromFirebase();
+        loadGalleryFromDB();
       } else {
-        window.addEventListener('firebase-ready', loadDataFromFirebase, { once: true });
+        window.addEventListener('firebase-ready', loadGalleryFromDB, { once: true });
+        const _poll = setInterval(() => {
+          if (window._cmsDB) { clearInterval(_poll); loadGalleryFromDB(); }
+        }, 50);
       }
-
-      // กดเพิ่มข้อมูลคู่ภาพ (เหมือนปุ่ม addBtn หน้ารีวิว)
-      document.getElementById('addBtn').addEventListener('click', async function() {
-        const beforeInp = document.getElementById('beforeFile');
-        const afterInp = document.getElementById('afterFile');
-        const captionInp = document.getElementById('baCaption');
-
-        if (!beforeInp.files[0] || !afterInp.files[0]) {
-          alert('กรุณาเลือกไฟล์ภาพให้ครบทั้งสองช่อง (Before และ After)');
-          return;
-        }
-
-        this.disabled = true;
-        this.textContent = '⏳ กำลังอัปโหลด...';
-
-        try {
-          // ใช้ Promise.all ในการอัปโหลดไฟล์พร้อมๆ กันแบบคู่ขนานขยายความเร็ว
-          const [beforeUrl, afterUrl] = await Promise.all([
-            uploadToCloudinary(beforeInp.files[0]),
-            uploadToCloudinary(afterInp.files[0])
-          ]);
-
-          localBaItems.unshift({
-            before: beforeUrl,
-            after: afterUrl,
-            caption: captionInp.value.trim() || 'ผลงานติดตั้งจาก OB HOME'
-          });
-
-          window._cmsBaLoad(localBaItems);
-
-          beforeInp.value = '';
-          afterInp.value = '';
-          captionInp.value = '';
-          alert('เพิ่มผลงานแล้ว — กด บันทึก เพื่อยืนยัน');
-
-        } catch(e) {
-          alert('เกิดข้อผิดพลาดในการอัปโหลดภาพ: ' + e.message);
-        } finally {
-          this.disabled = false;
-          this.textContent = '➕ เพิ่มคู่รูปภาพ';
-        }
-      });
-
-      // ปุ่มบันทึกลงฐานข้อมูลหลัก (ใช้ ID: saveBtn ข้อความแกนกลางแบบเดียวกับหน้า reviews)
-      document.getElementById('saveBtn').addEventListener('click', async function() {
-        if (!window._cmsDB) {
-          alert('ไม่พบฐานข้อมูลเชื่อมต่อหลัก');
-          return;
-        }
-
-        this.disabled = true;
-        this.textContent = '💾 กำลังบันทึก...';
-
-        try {
-          await window._cmsDB.ref('pages/before-after').set(localBaItems);
-          alert('บันทึกข้อมูลสำเร็จเรียบร้อยแล้ว!');
-        } catch(e) {
-          alert('บันทึกผิดพลาด: ' + e.message);
-        } finally {
-          this.disabled = false;
-          this.textContent = '💾 บันทึก';
-        }
-      });
-
-    })();
+    
+    })(); // ── END Gallery render IIFE ──
   </script>
 
+  <!-- ════ OB CMS ════ -->
+  <script src="firebase-config.js"></script>
   <script src="cms.js"></script>
 </body>
-
 </html>
