@@ -17,6 +17,12 @@
     nav_stainless:    { th:'สแตนเลส',          en:'Stainless' },
     nav_furniture:    { th:'เฟอร์นิเจอร์ฟิตติ้ง',          en:'Furniture Fittings' },
     nav_accessories:  { th:'ฮาร์ดแวร์ & อุปกรณ์ติดตั้ง',     en:'Hardware & Accessories' },
+    nav_services:  { th:'บริการ',     en:'Services' },
+    nav_promotions:  { th:'โปรโมชั่น',     en:'Promotions' },
+    nav_installations:  { th:'บริการติดตั้ง',     en:'Installation Services' },
+    nav_aftersale:  { th:'บริการหลังการขาย',     en:'After-Sales Service' },
+    nav_manual:  { th:'คู่มือการติดตั้ง',     en:'Installation Manual' },
+
 
     /* ── HOME ── */
     hero_tag:         { th:'OB HOME MATERIALS',   en:'OB HOME MATERIALS' },
@@ -74,7 +80,7 @@
     btn_tel:          { th:'โทรเลย',              en:'Call Now' },
     footer_text:      { th:'© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.', en:'© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.' },
     footer_privacy:   { th:'นโยบายความเป็นส่วนตัว', en:'Privacy Policy' },
-    promo_badge:      { th:'🔥 โปรโมชั่น',        en:'🔥 Promotion' },
+    promo_badge:      { th:'🔥 โปรโมชั่นพิเศษ ❗️❗️',        en:'🔥 Promotion ❗️❗️' },
     promo_cta:        { th:'สอบถามราคา',          en:'Inquire Now' },
 
     /* ── PRODUCT PAGES (lath/spc/wooden/furniture/accessories) ── */

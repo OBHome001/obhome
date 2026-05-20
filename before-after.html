@@ -1484,36 +1484,53 @@
   <script>
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
-    const dropdownBtn = document.getElementById('dropdownBtn');
-    const dropdown = document.querySelector('.dropdown');
     const nav = document.querySelector('nav');
+    const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+
+    dropdownBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        // หา li ตัวแม่ที่มีคลาส .dropdown
+        const currentDropdown = btn.parentElement;
+
+        // (ทางเลือก) ปิด dropdown ตัวอื่นที่ไม่ได้คลิก เพื่อไม่ให้มันเปิดซ้อนกัน
+        document.querySelectorAll('.dropdown').forEach(d => {
+          if (d !== currentDropdown) {
+            d.classList.remove('active');
+          }
+        });
+
+        // สลับคลาส active เปิด/ปิด เฉพาะเมนูที่ถูกคลิก
+        currentDropdown.classList.toggle('active');
+      });
+    });
+
+    /* ── close menu when a link is clicked ── */
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        // ปิด dropdown ทั้งหมด
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+      });
+    });
+
+    /* ── close everything on outside click ── */
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target)) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        // ปิด dropdown ทั้งหมด
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+      }
+    });
 
     menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       const open = navLinks.classList.toggle('active');
       menuToggle.classList.toggle('active', open);
       if (!open) dropdown.classList.remove('active');
-    });
-
-    dropdownBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdown.classList.toggle('active');
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
-        dropdown.classList.remove('active');
-      });
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!nav.contains(e.target)) {
-        navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
-        dropdown.classList.remove('active');
-      }
     });
 
     window.addEventListener('scroll', () => {
