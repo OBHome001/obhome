@@ -573,7 +573,7 @@
           <span class="price-original">ราคา: ${p.price} ฿</span>
           <span class="price-discount">${p.discount} ฿</span>
         </div>` : p.price ? `<div class="product-price-tag">ราคา: ${p.price} ฿</div>` : ''}
-        <button class="btn-view">ดูรายละเอียด</button>
+        <button class="btn-view" data-lang="btn_view">ดูรายละเอียด</button>
         <div class="cms-extra-fields" style="display:none">
           <span class="cms-extra-label">ราคา:</span>
           <span data-cms-product-field="${idx}:price" class="cms-extra-val">${p.price || ''}</span>

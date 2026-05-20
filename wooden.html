@@ -622,7 +622,7 @@
   <meta property="og:image" content="https://obhome.co.th/assets/logo.png">
 </head>
 
-<body>
+<body data-lang-page="title_wooden">
 
   <nav>
     <a href="home" class="nav-logo">
@@ -638,29 +638,29 @@
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="home">หน้าแรก</a></li>
+      <li><a href="home" data-lang="nav_home">หน้าแรก</a></li>
       <li class="dropdown">
         <button class="dropdown-btn" id="dropdownBtn">
-          สินค้า <span class="dropdown-arrow">▾</span>
+          <span data-lang="nav_products">สินค้า</span> <span class="dropdown-arrow">▾</span>
         </button>
         <ul class="dropdown-menu" id="dropdownMenu">
-      <li><a href="spc">แผ่น SPC</a></li>
-      <li><a href="lath">ไม้ระแนง</a></li>
-      <li><a href="wooden">ไม้สั่งตัด</a></li>
-      <li><a href="wallpanel">ผนังตกแต่ง</a></li>
-      <li><a href="accessories">อุปกรณ์ติดตั้ง</a></li>
+      <li><a href="spc" data-lang="nav_spc">แผ่น SPC</a></li>
+      <li><a href="lath" data-lang="nav_lath">ไม้ระแนง</a></li>
+      <li><a href="wooden" data-lang="nav_wooden">ไม้สั่งตัด</a></li>
+      <li><a href="wallpanel" data-lang="nav_wallpanel">ผนังตกแต่ง</a></li>
+      <li><a href="accessories" data-lang="nav_accessories">อุปกรณ์ติดตั้ง</a></li>
     </ul>
       </li>
-      <li><a href="home#projects">ผลงานติดตั้ง</a></li>
-      <li><a href="home#reviews">รีวิวลูกค้า</a></li>
-      <li><a href="home#contact">ติดต่อเรา</a></li>
+      <li><a href="home#projects" data-lang="nav_projects">ผลงานติดตั้ง</a></li>
+      <li><a href="home#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
+      <li><a href="home#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
     </ul>
   </nav>
 
   <div class="container">
     <div class="section-header reveal">
       <span class="section-label">Premium ไม้สั่งตัดทุกขนาด</span>
-      <h1 class="section-title">ไม้สั่งตัด</h1>
+      <h1 class="section-title" data-lang="nav_wooden">ไม้สั่งตัด</h1>
     </div>
 
     <!-- ════ FILTER BAR ════ -->
@@ -677,12 +677,12 @@
       <!-- ② เรียงตาม dropdown -->
       <div class="filter-sort-wrap">
         <div class="filter-sort-wrap-inner">
-          <span class="filter-sort-label">เรียงตาม</span>
+          <span class="filter-sort-label" data-lang="filter_sort_label">เรียงตาม</span>
           <div style="position:relative">
             <select class="filter-sort-select" id="filterSort">
-              <option value="">-- ค่าเริ่มต้น --</option>
-              <option value="price_asc">ราคา: น้อย → มาก</option>
-              <option value="price_desc">ราคา: มาก → น้อย</option>
+              <option value="" data-lang="filter_default">-- ค่าเริ่มต้น --</option>
+              <option value="price_asc" data-lang="filter_price_asc">ราคา: น้อย → มาก</option>
+              <option value="price_desc" data-lang="filter_price_desc">ราคา: มาก → น้อย</option>
             </select>
             <span class="filter-sort-arrow">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -696,7 +696,7 @@
 
       <!-- ④ ล้างทั้งหมด -->
       <button class="filter-clear-all" id="filterClearAll">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> data-lang="filter_clear">
         ล้างทั้งหมด
       </button>
     </div>
@@ -710,7 +710,7 @@
     <div class="footer-wrapper">
       <span data-cms-text="footer_text">© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.</span>
       <span class="footer-divider">|</span>
-      <a href="privacy-policy">นโยบายความเป็นส่วนตัว</a>
+      <a href="privacy-policy" data-lang="footer_privacy">นโยบายความเป็นส่วนตัว</a>
     </div>
   </footer>
 
@@ -1062,23 +1062,23 @@
 
           <dl class="pdm-specs">
             <div class="pdm-spec-row" id="pdmPriceRow">
-              <dt>ราคา</dt>
+              <dt data-lang="lbl_price">ราคา</dt>
               <dd id="pdmPrice"></dd>
             </div>
             <div class="pdm-spec-row pdm-hidden" id="pdmDiscountRow">
-              <dt>ราคาพิเศษ</dt>
+              <dt data-lang="lbl_special_price">ราคาพิเศษ</dt>
               <dd id="pdmDiscount" style="color:#e03030;font-weight:700"></dd>
             </div>
             <div class="pdm-spec-row" id="pdmSizeRow">
-              <dt>ขนาด</dt>
+              <dt data-lang="lbl_size">ขนาด</dt>
               <dd id="pdmSize"></dd>
             </div>
             <div class="pdm-spec-row" id="pdmThickRow">
-              <dt>ความหนา</dt>
+              <dt data-lang="lbl_thick">ความหนา</dt>
               <dd id="pdmThick"></dd>
             </div>
             <div class="pdm-spec-row" id="pdmPatternRow">
-              <dt>ลาย / สี</dt>
+              <dt data-lang="lbl_pattern">ลาย / สี</dt>
               <dd id="pdmPattern"></dd>
             </div>
           </dl>
@@ -1610,7 +1610,7 @@
     <div id="pdm-lightbox">
     <button id="pdm-lightbox-close" aria-label="ปิด">×</button>
     <img id="pdm-lightbox-img" src="" alt="">
-    <span id="pdm-lightbox-hint">คลิกที่รูปหรือกด ESC เพื่อปิด</span>
+    <span id="pdm-lightbox-hint" data-lang="modal_hint">คลิกที่รูปหรือกด ESC เพื่อปิด</span>
   </div>
   <script>
   (function(){
@@ -1673,10 +1673,10 @@
       var tag = card.querySelector('.product-price-tag');
       if (!tag) return;
       if (price && discount) {
-        tag.innerHTML = '<span class="price-original">ราคา: ' + price + ' ฿</span>'
+        tag.innerHTML = '<span class="price-original">' + (window._obLang ? window._obLang.t('lbl_price')||'ราคา' : 'ราคา') + ': ' + price + ' ฿</span>'
           + '<span class="price-discount">' + discount + ' ฿</span>';
       } else if (price) {
-        tag.innerHTML = 'ราคา: ' + price + ' ฿';
+        tag.innerHTML = (window._obLang ? window._obLang.t('lbl_price')||'ราคา' : 'ราคา') + ': ' + price + ' ฿';
         tag.style.display = '';
       } else {
         tag.innerHTML = '';
@@ -1737,7 +1737,7 @@
       var countEl  = document.getElementById('filterCount');
       var clearBtn = document.getElementById('filterClearAll');
       if (emptyEl)  emptyEl.style.display = visible.length === 0 ? 'block' : 'none';
-      if (countEl)  countEl.innerHTML     = (q || sortKey) ? ('แสดง <b>' + visible.length + '</b> รายการ') : '';
+      if (countEl)  countEl.innerHTML     = (q || sortKey) ? ((window._obLang ? window._obLang.t('filter_showing')||'แสดง' : 'แสดง') + ' <b>' + visible.length + '</b> ' + (window._obLang ? window._obLang.t('filter_items')||'รายการ' : 'รายการ')) : '';
       if (clearBtn) clearBtn.classList.toggle('visible', !!(q || sortKey));
 
       _busy = false;
@@ -1796,7 +1796,7 @@
       if (!document.getElementById('filterEmpty')) {
         var empty = document.createElement('div');
         empty.id = 'filterEmpty'; empty.className = 'filter-empty';
-        empty.innerHTML = '<span class="filter-empty-icon">&#128269;</span>ไม่พบสินค้าที่ตรงกัน';
+        empty.innerHTML = '<span class="filter-empty-icon">&#128269;</span>' + (window._obLang ? window._obLang.t('filter_noresult') || 'ไม่พบสินค้าที่ตรงกัน' : 'ไม่พบสินค้าที่ตรงกัน');
         grid.appendChild(empty);
       }
 
@@ -1818,5 +1818,6 @@
   </script>
   <script src="chatbot.js"></script>
 
+  <script src="lang.js"></script>
 </body>
 </html>

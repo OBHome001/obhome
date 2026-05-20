@@ -1210,7 +1210,7 @@
   <meta property="og:image" content="https://obhome.co.th/assets/logo.png">
 </head>
 
-<body>
+<body data-lang-page="title_home">
 
   <nav>
     <a href="home" class="nav-logo">
@@ -1226,25 +1226,25 @@
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#home">หน้าแรก</a></li>
+      <li><a href="#home" data-lang="nav_home">หน้าแรก</a></li>
 
       <li class="dropdown">
         <button class="dropdown-btn" id="dropdownBtn">
-          สินค้า
+          <span data-lang="nav_products">สินค้า</span>
           <span class="dropdown-arrow">▾</span>
         </button>
         <ul class="dropdown-menu" id="dropdownMenu">
-          <li><a href="spc">แผ่น SPC</a></li>
-          <li><a href="lath">ไม้ระแนง</a></li>
-          <li><a href="wooden">ไม้สั่งตัด</a></li>
-          <li><a href="wallpanel">ผนังตกแต่ง</a></li>
-          <li><a href="accessories">อุปกรณ์ติดตั้ง</a></li>
+          <li><a href="spc" data-lang="nav_spc">แผ่น SPC</a></li>
+          <li><a href="lath" data-lang="nav_lath">ไม้ระแนง</a></li>
+          <li><a href="wooden" data-lang="nav_wooden">ไม้สั่งตัด</a></li>
+          <li><a href="wallpanel" data-lang="nav_wallpanel">ผนังตกแต่ง</a></li>
+          <li><a href="accessories" data-lang="nav_accessories">อุปกรณ์ติดตั้ง</a></li>
         </ul>
       </li>
 
-      <li><a href="#projects">ผลงานติดตั้ง</a></li>
-      <li><a href="#reviews">รีวิวลูกค้า</a></li>
-      <li><a href="#contact">ติดต่อเรา</a></li>
+      <li><a href="#projects" data-lang="nav_projects">ผลงานติดตั้ง</a></li>
+      <li><a href="#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
+      <li><a href="#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
     </ul>
   </nav>
 
@@ -1262,7 +1262,7 @@
       <h1 class="hero-title" data-cms-text="hero_title">
         ศูนย์รวมสินค้า
         <br>
-        <strong><i>ไม้ระแนง</i> & <i>แผ่น SPC</i></strong><br>
+        <strong><i data-lang="nav_lath">ไม้ระแนง</i> & <i data-lang="nav_spc">แผ่น SPC</i></strong><br>
       </h1>
 
       <p data-cms-text="hero_desc">
@@ -1329,19 +1329,19 @@
     <div class="reviews-stats reveal">
       <div class="reviews-stat">
         <div class="reviews-stat-num">500+</div>
-        <div class="reviews-stat-label">ลูกค้า</div>
+        <div class="reviews-stat-label" data-lang="stat_household">ลูกค้า</div>
       </div>
       <div class="reviews-stat">
         <div class="reviews-stat-num">4.9★</div>
-        <div class="reviews-stat-label">คะแนนเฉลี่ย</div>
+        <div class="reviews-stat-label" data-lang="stat_rating">คะแนนเฉลี่ย</div>
       </div>
       <div class="reviews-stat">
-        <div class="reviews-stat-num">2 ปี</div>
-        <div class="reviews-stat-label">ประสบการณ์</div>
+        <div class="reviews-stat-num" data-lang="years">2 ปี</div>
+        <div class="reviews-stat-label" data-lang="stat_years">ประสบการณ์</div>
       </div>
     </div>
 
-    <a href="reviews" class="review-see-more reveal">ดูรีวิวทั้งหมด →</a>
+    <a href="reviews" class="review-see-more reveal" data-lang="reviews_btn">ดูรีวิวทั้งหมด →</a>
 
   </section>
 
@@ -1425,7 +1425,7 @@
     <div class="ba-rows" id="baRowsHome"></div>
 
     <div class="ba-actions">
-      <a href="before-after" class="ba-view-more">ดูเพิ่มเติม →</a>
+      <a href="before-after" class="ba-view-more" data-lang="ba_btn">ดูเพิ่มเติม →</a>
     </div>
 
   </section>
@@ -1443,40 +1443,40 @@
       <div class="prod-card reveal">
         <img alt="SPC   2435" src="assets/SPC - 2435.png" loading="lazy" data-cms-img="prod1_img">
         <div class="prod-overlay">
-          <div class="prod-name" data-cms-text="prod1_name">ไม้ระแนง</div>
-          <a href="lath" class="prod-btn" data-cms-link="prod1_link">ดูสินค้าเพิ่มเติม</a>
+          <div class="prod-name" data-cms-text="prod1_name" data-lang="nav_lath">ไม้ระแนง</div>
+          <a href="lath" class="prod-btn" data-cms-link="prod1_link" data-lang="prod_btn">ดูสินค้าเพิ่มเติม</a>
         </div>
       </div>
 
       <div class="prod-card reveal">
         <img alt="แผ่น SPC BG" src="assets/แผ่น SPC BG.jpg" loading="lazy" data-cms-img="prod2_img">
         <div class="prod-overlay">
-          <div class="prod-name" data-cms-text="prod2_name">แผ่น SPC</div>
-          <a href="spc" class="prod-btn" data-cms-link="prod2_link">ดูสินค้าเพิ่มเติม</a>
+          <div class="prod-name" data-cms-text="prod2_name" data-lang="nav_spc">แผ่น SPC</div>
+          <a href="spc" class="prod-btn" data-cms-link="prod2_link" data-lang="prod_btn">ดูสินค้าเพิ่มเติม</a>
         </div>
       </div>
 
       <div class="prod-card reveal">
         <img alt="prod3 img" src data-cms-img="prod3_img">
         <div class="prod-overlay">
-          <div class="prod-name" data-cms-text="prod3_name">ผนังตกแต่ง</div>
-          <a href="wallpanel" class="prod-btn" data-cms-link="prod3_link">ดูสินค้าเพิ่มเติม</a>
+          <div class="prod-name" data-cms-text="prod3_name" data-lang="nav_wallpanel">ผนังตกแต่ง</div>
+          <a href="wallpanel" class="prod-btn" data-cms-link="prod3_link" data-lang="prod_btn">ดูสินค้าเพิ่มเติม</a>
         </div>
       </div>
 
       <div class="prod-card reveal">
         <img alt="prod4 img" src data-cms-img="prod4_img">
         <div class="prod-overlay">
-          <div class="prod-name" data-cms-text="prod4_name">อุปกรณ์ติดตั้ง</div>
-          <a href="accessories" class="prod-btn" data-cms-link="prod4_link">ดูสินค้าเพิ่มเติม</a>
+          <div class="prod-name" data-cms-text="prod4_name" data-lang="nav_accessories">อุปกรณ์ติดตั้ง</div>
+          <a href="accessories" class="prod-btn" data-cms-link="prod4_link" data-lang="prod_btn">ดูสินค้าเพิ่มเติม</a>
         </div>
       </div>
 
       <div class="prod-card reveal">
         <img alt="prod5 img" src data-cms-img="prod5_img">
         <div class="prod-overlay">
-          <div class="prod-name" data-cms-text="prod5_name">ไม้สั่งตัด</div>
-          <a href="wooden" class="prod-btn" data-cms-link="prod5_link">ดูสินค้าเพิ่มเติม</a>
+          <div class="prod-name" data-cms-text="prod5_name" data-lang="nav_wooden">ไม้สั่งตัด</div>
+          <a href="wooden" class="prod-btn" data-cms-link="prod5_link" data-lang="prod_btn">ดูสินค้าเพิ่มเติม</a>
         </div>
       </div>
 
@@ -1524,7 +1524,7 @@
     </div>
 
     <div style="text-align:center;" class="reveal">
-      <a href="installations" class="btn-warm">ดูผลงานติดตั้ง</a>
+      <a href="installations" class="btn-warm" data-lang="projects_btn">ดูผลงานติดตั้ง</a>
     </div>
 
   </section>
@@ -1540,7 +1540,7 @@
       </h2>
 
       <div class="contact-item">
-        <strong class="tel">โทร</strong>
+        <strong class="tel" data-lang="lbl_tel">โทร</strong>
         <p data-cms-text="contact_phone">091-7036286</p>
       </div>
 
@@ -1555,7 +1555,7 @@
       </div>
 
       <div class="contact-item">
-        <strong class="hours">เวลาทำการ</strong>
+        <strong class="hours" data-lang="lbl_hours">เวลาทำการ</strong>
         <p data-cms-text="contact_hours">จันทร์ - เสาร์ / 07:30 - 17:00 น.</p>
       </div>
 
@@ -1564,17 +1564,17 @@
           rel="noopener noreferrer" data-cms-link="contact_line_url">LINE</a>
         <a href="https://www.facebook.com/obhomestore" class="social-btn_face" target="_blank" rel="noopener noreferrer"
           data-cms-link="contact_fb_url">Facebook</a>
-        <a href="tel:0917036286" class="social-btn_tel" data-cms-link="contact_tel_url">โทรเลย</a>
+        <a href="tel:0917036286" class="social-btn_tel" data-cms-link="contact_tel_url" data-lang="btn_tel">โทรเลย</a>
       </div>
 
     </div>
 
     <div class="map-frame reveal" style="position:relative; margin-top: 2rem;">
-      <strong class="map">ที่อยู่</strong>
-      <p style="font-size:.85rem; color:#000000; margin: 6px 0 12px 0; line-height:1.6;">
-        54/13 หมู่ 1 3240 หนองปรือ<br>
-        Amphoe Bang Lamung,<br>
-        Chang Wat Chon Buri 20150
+      <strong class="map" data-lang="lbl_address">ที่อยู่</strong>
+      <p style="font-size:.85rem; color:#000000; margin: 6px 0 12px 0; line-height:1.6;" data-lang="contact_addr">
+        54/13 หมู่ 1 3240 ตำบล หนองปรือ,<br>
+        อำเภอ บางละมุง,<br>
+        จังหวัด ชลบุรี 20150
       </p>
       <iframe id="contactMapIframe" loading="lazy"
         data-cms-map="contact_map"
@@ -1603,7 +1603,7 @@
     <div class="footer-wrapper">
       <span data-cms-text="footer_text">© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.</span>
       <span class="footer-divider">|</span>
-      <a href="privacy-policy">นโยบายความเป็นส่วนตัว</a>
+      <a href="privacy-policy" data-lang="footer_privacy">นโยบายความเป็นส่วนตัว</a>
     </div>
   </footer>
 
@@ -2356,6 +2356,7 @@
   <!-- ════ OB CMS ════ -->
   <script src="cms.js"></script>
   <script src="chatbot.js"></script>
+  <script src="lang.js"></script>
 </body>
 
 </html>

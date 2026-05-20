@@ -1009,7 +1009,7 @@
   <meta property="og:image" content="https://obhome.co.th/assets/logo.png">
 </head>
 
-<body>
+<body data-lang-page="title_reviews">
 
   <nav>
     <a href="home" class="nav-logo">
@@ -1025,22 +1025,22 @@
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="home">หน้าแรก</a></li>
+      <li><a href="home" data-lang="nav_home">หน้าแรก</a></li>
       <li class="dropdown">
         <button class="dropdown-btn" id="dropdownBtn">
-          สินค้า <span class="dropdown-arrow">▾</span>
+          <span data-lang="nav_products">สินค้า</span> <span class="dropdown-arrow">▾</span>
         </button>
         <ul class="dropdown-menu" id="dropdownMenu">
-      <li><a href="spc">แผ่น SPC</a></li>
-      <li><a href="lath">ไม้ระแนง</a></li>
-      <li><a href="wooden">ไม้สั่งตัด</a></li>
-      <li><a href="wallpanel">ผนังตกแต่ง</a></li>
-      <li><a href="accessories">อุปกรณ์ติดตั้ง</a></li>
+      <li><a href="spc" data-lang="nav_spc">แผ่น SPC</a></li>
+      <li><a href="lath" data-lang="nav_lath">ไม้ระแนง</a></li>
+      <li><a href="wooden" data-lang="nav_wooden">ไม้สั่งตัด</a></li>
+      <li><a href="wallpanel" data-lang="nav_wallpanel">ผนังตกแต่ง</a></li>
+      <li><a href="accessories" data-lang="nav_accessories">อุปกรณ์ติดตั้ง</a></li>
     </ul>
       </li>
-      <li><a href="home#projects">ผลงานติดตั้ง</a></li>
-      <li><a href="reviews">รีวิวลูกค้า</a></li>
-      <li><a href="home#contact">ติดต่อเรา</a></li>
+      <li><a href="home#projects" data-lang="nav_projects">ผลงานติดตั้ง</a></li>
+      <li><a href="reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
+      <li><a href="home#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
     </ul>
   </nav>
 
@@ -1048,7 +1048,7 @@
   <div class="container">
     <div class="section-header reveal">
       <span class="section-label" data-cms-text="rev_label">CUSTOMER REVIEW</span>
-      <h1 class="section-title" data-cms-text="rev_title">รีวิวลูกค้า</h1>
+      <h1 class="section-title" data-cms-text="rev_title" data-lang="nav_reviews">รีวิวลูกค้า</h1>
       <p class="section-subtitle" data-cms-text="rev_subtitle">รวมรีวิวจากลูกค้าจริง ทั้งรูปภาพและวิดีโอ</p>
     </div>
 
@@ -1058,7 +1058,7 @@
       <button class="filter-tab" data-filter="photo">รูปภาพ</button>
       <button class="filter-tab" data-filter="video">วิดีโอ</button>
       <button class="filter-tab" data-filter="spc">SPC</button>
-      <button class="filter-tab" data-filter="lath">ไม้ระแนง</button>
+      <button class="filter-tab" data-filter="lath" data-lang="nav_lath">ไม้ระแนง</button>
       <button class="filter-tab" data-filter="wallpanel">ผนัง</button>
       <button class="filter-tab" data-filter="other">อื่นๆ</button>
     </div>
@@ -1076,7 +1076,7 @@
     <div class="footer-wrapper">
       <span data-cms-text="footer_text">© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.</span>
       <span class="footer-divider">|</span>
-      <a href="privacy-policy">นโยบายความเป็นส่วนตัว</a>
+      <a href="privacy-policy" data-lang="footer_privacy">นโยบายความเป็นส่วนตัว</a>
     </div>
   </footer>
 
@@ -1807,10 +1807,10 @@
 
       <label style="display:block; margin-bottom:6px; font-size:.82rem; color:var(--warm-dark);">หมวดหมู่</label>
       <select id="instCategory" style="width:100%; padding:10px; border-radius:10px; border:1.5px solid rgba(188,165,142,.4); margin-bottom:16px; font-family:'Opun',sans-serif; background:#fff;">
-        <option value="spc">แผ่น SPC</option>
-        <option value="lath">ไม้ระแนง</option>
-        <option value="wallpanel">ผนังตกแต่ง</option>
-        <option value="wooden">ไม้สั่งตัด</option>
+        <option value="spc" data-lang="nav_spc">แผ่น SPC</option>
+        <option value="lath" data-lang="nav_lath">ไม้ระแนง</option>
+        <option value="wallpanel" data-lang="nav_wallpanel">ผนังตกแต่ง</option>
+        <option value="wooden" data-lang="nav_wooden">ไม้สั่งตัด</option>
         <option value="accessories">อุปกรณ์</option>
         <option value="other">อื่นๆ</option>
       </select>
@@ -2324,5 +2324,6 @@ function parseVideoEmbedUrl(url) {
   <script src="firebase-config.js"></script>
   <script src="cms.js"></script>
   <script src="chatbot.js"></script>
+  <script src="lang.js"></script>
 </body>
 </html>
