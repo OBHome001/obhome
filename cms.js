@@ -530,10 +530,11 @@
     grid.querySelectorAll('.product-card').forEach(c => c.remove());
     products.forEach((p, i) => {
       const card = buildProductCard(p, i);
-      // ให้ visible ทันทีถ้าหน้าจอเห็นแล้ว ไม่รอ observer
       card.classList.add('visible');
       grid.insertBefore(card, grid.querySelector('.cms-add-product-btn'));
     });
+    /* re-apply current lang to newly created cards */
+    if (window._obLang) window._obLang.apply(window._obLang.current());
   }
 
   function buildProductCard(p, idx) {
@@ -567,12 +568,12 @@
           <div class="pattern-dot" style="background:${p.color || '#ccc'}"></div>
           <span data-cms-product-field="${idx}:pattern">${p.pattern || ''}</span>
         </div>
-        ${isLath && p.groove ? `<div class="product-groove-tag">ร่อง: ${p.groove}</div>` : ''}
+        ${isLath && p.groove ? `<div class="product-groove-tag"><span data-lang="lbl_groove">ร่อง</span>: ${p.groove}</div>` : ''}
         ${p.price && p.discount ? `
         <div class="product-price-tag">
-          <span class="price-original">ราคา: ${p.price} ฿</span>
+          <span class="price-original"><span data-lang="lbl_price">ราคา</span>: ${p.price} ฿</span>
           <span class="price-discount">${p.discount} ฿</span>
-        </div>` : p.price ? `<div class="product-price-tag">ราคา: ${p.price} ฿</div>` : ''}
+        </div>` : p.price ? `<div class="product-price-tag"><span data-lang="lbl_price">ราคา</span>: ${p.price} ฿</div>` : ''}
         <button class="btn-view" data-lang="btn_view">ดูรายละเอียด</button>
         <div class="cms-extra-fields" style="display:none">
           <span class="cms-extra-label" data-lang="lbl_price">ราคา:</span>

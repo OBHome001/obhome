@@ -11,11 +11,12 @@
     nav_projects:     { th:'ผลงานติดตั้ง',       en:'Projects' },
     nav_reviews:      { th:'รีวิวลูกค้า',        en:'Reviews' },
     nav_contact:      { th:'ติดต่อเรา',           en:'Contact' },
-    nav_spc:          { th:'แผ่น SPC',            en:'SPC Flooring' },
-    nav_lath:         { th:'ไม้ระแนง',            en:'Lath Wood' },
+    nav_spc:          { th:'แผ่นผนัง SPC',            en:'SPC Flooring' },
+    nav_lath:         { th:'ไม้ระแนง WPC',            en:'WPC Lath Wood' },
     nav_wooden:       { th:'ไม้สั่งตัด',          en:'Custom Wood' },
-    nav_wallpanel:    { th:'ผนังตกแต่ง',          en:'Wall Panel' },
-    nav_accessories:  { th:'อุปกรณ์ติดตั้ง',     en:'Accessories' },
+    nav_stainless:    { th:'สแตนเลส',          en:'Stainless' },
+    nav_furniture:    { th:'เฟอร์นิเจอร์ฟิตติ้ง',          en:'Furniture Fittings' },
+    nav_accessories:  { th:'ฮาร์ดแวร์ & อุปกรณ์ติดตั้ง',     en:'Hardware & Accessories' },
 
     /* ── HOME ── */
     hero_tag:         { th:'OB HOME MATERIALS',   en:'OB HOME MATERIALS' },
@@ -81,8 +82,15 @@
     filter_default:   { th:'-- ค่าเริ่มต้น --',  en:'-- Default --' },
     filter_price_asc: { th:'ราคา: น้อย → มาก',   en:'Price: Low → High' },
     filter_price_desc:{ th:'ราคา: มาก → น้อย',   en:'Price: High → Low' },
-    filter_groove_deep:{ th:'ร่อง: ลึก',          en:'Groove: Deep' },
-    filter_groove_shallow:{ th:'ร่อง: ตื้น',      en:'Groove: Shallow' },
+    filter_groove_deep:       { th:'ร่อง: ลึก',              en:'Groove: Deep' },
+    filter_groove_shallow:    { th:'ร่อง: ตื้น',             en:'Groove: Shallow' },
+    filter_groove_curve:      { th:'ร่อง: เว้าโค้ง',         en:'Groove: Curved' },
+    filter_groove_shallow3:   { th:'ร่อง: ตื้น 3 รอน',      en:'Groove: Shallow 3-Rib' },
+    filter_groove_halfcircle: { th:'ร่อง: รอนโค้งครึ่งวงกลม', en:'Groove: Half-Circle Rib' },
+    filter_groove_largerib:   { th:'ร่อง: ตื้นรอนใหญ่',     en:'Groove: Large Rib' },
+    filter_groove_wide:       { th:'ร่อง: ตื้นหน้ากว้าง',   en:'Groove: Wide Face' },
+    filter_groove_flat:       { th:'ร่อง: แผ่นเรียบ',        en:'Groove: Flat' },
+    filter_groove_acoustic:   { th:'ร่อง: เก็บเสียง',        en:'Groove: Acoustic' },
     filter_clear:     { th:'ล้างทั้งหมด',         en:'Clear All' },
     filter_noresult:  { th:'ไม่พบสินค้าที่ตรงกัน', en:'No matching products found' },
     filter_showing:   { th:'แสดง',                en:'Showing' },
@@ -178,6 +186,38 @@
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('lang-active', btn.dataset.langTarget === lang);
     });
+
+    /* 7. remove anti-flash style */
+    const antiFlash = document.getElementById('lang-anti-flash');
+    if (antiFlash) antiFlash.remove();
+
+    /* 8. re-apply lang to dynamically created cards (cms products) */
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      const v = T[el.dataset.lang];
+      if (v && v[lang] !== undefined) el.innerHTML = v[lang];
+    });
+
+    /* 9. re-render product price tags (innerHTML ถูก hardcode ไว้ — ต้อง rebuild ใหม่) */
+    const priceLbl  = (T['lbl_price']  && T['lbl_price'][lang])  || 'ราคา';
+    const grooveLbl = (T['lbl_groove'] && T['lbl_groove'][lang]) || 'ร่อง';
+    document.querySelectorAll('.product-card').forEach(card => {
+      /* price tag */
+      const tag = card.querySelector('.product-price-tag');
+      if (tag) {
+        const price    = (card.dataset.pdmPrice    || '').trim();
+        const discount = (card.dataset.pdmDiscount || '').trim();
+        if (price && discount) {
+          tag.innerHTML = '<span class="price-original">' + priceLbl + ': ' + price + ' ฿</span>'
+            + '<span class="price-discount">' + discount + ' ฿</span>';
+        } else if (price) {
+          tag.innerHTML = priceLbl + ': ' + price + ' ฿';
+          tag.style.display = '';
+        }
+      }
+      /* groove label */
+      const grooveSpan = card.querySelector('.product-groove-tag [data-lang="lbl_groove"]');
+      if (grooveSpan) grooveSpan.textContent = grooveLbl;
+    });
   }
 
   function createSwitcher() {
@@ -213,6 +253,14 @@
         .lang-btn{font-size:.85rem;padding:6px 14px}
       }`;
     document.head.appendChild(s);
+
+    /* ── Anti-flash: ถ้า lang=en ให้ซ่อน [data-lang] ก่อน จนกว่าจะ apply เสร็จ ── */
+    if (currentLang !== 'th') {
+      const antiFlash = document.createElement('style');
+      antiFlash.id = 'lang-anti-flash';
+      antiFlash.textContent = '[data-lang],[data-cms-text]{visibility:hidden!important}';
+      document.head.appendChild(antiFlash);
+    }
   }
 
   function init() {

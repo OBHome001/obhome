@@ -641,18 +641,22 @@
 
     <ul class="nav-links" id="navLinks">
       <li><a href="home" data-lang="nav_home">หน้าแรก</a></li>
+
       <li class="dropdown">
         <button class="dropdown-btn" id="dropdownBtn">
-          <span data-lang="nav_products">สินค้า</span> <span class="dropdown-arrow">▾</span>
+          <span data-lang="nav_products">สินค้า</span>
+          <span class="dropdown-arrow">▾</span>
         </button>
         <ul class="dropdown-menu" id="dropdownMenu">
-      <li><a href="spc" data-lang="nav_spc">แผ่น SPC</a></li>
-      <li><a href="lath" data-lang="nav_lath">ไม้ระแนง</a></li>
-      <li><a href="wooden" data-lang="nav_wooden">ไม้สั่งตัด</a></li>
-      <li><a href="wallpanel" data-lang="nav_wallpanel">ผนังตกแต่ง</a></li>
-      <li><a href="accessories" data-lang="nav_accessories">อุปกรณ์ติดตั้ง</a></li>
-    </ul>
+          <li><a href="spc" data-lang="nav_spc">แผ่นผนัง SPC</a></li>
+          <li><a href="lath" data-lang="nav_lath">ไม้ระแนง WPC</a></li>
+          <li><a href="wooden" data-lang="nav_wooden">ไม้สั่งตัด</a></li>
+          <li><a href="#" data-lang="nav_stainless">สแตนเลส</a></li>
+          <li><a href="furniture" data-lang="nav_furniture">เฟอร์นิเจอร์ฟิตติ้ง</a></li>
+          <li><a href="accessories" data-lang="nav_accessories">ฮาร์ดแวร์ & อุปกรณ์ติดตั้ง</a></li>
+        </ul>
       </li>
+
       <li><a href="home#projects" data-lang="nav_projects">ผลงานติดตั้ง</a></li>
       <li><a href="home#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
       <li><a href="home#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
@@ -685,15 +689,15 @@
               <option value="" data-lang="filter_default">-- ค่าเริ่มต้น --</option>
               <option value="price_asc" data-lang="filter_price_asc">ราคา: น้อย → มาก</option>
               <option value="price_desc" data-lang="filter_price_desc">ราคา: มาก → น้อย</option>
-              <option value="groove:ลึก">ร่อง: ลึก</option>
-              <option value="groove:ตื้น">ร่อง: ตื้น</option>
-              <option value="groove:เว้าโค้ง">ร่อง: เว้าโค้ง</option>
-              <option value="groove:ตื้น 3 รอน">ร่อง: ตื้น 3 รอน</option>
-              <option value="groove:รอนโค้งครึ่งวงกลม">ร่อง: รอนโค้งครึ่งวงกลม</option>
-              <option value="groove:ตื้นรอนใหญ่">ร่อง: ตื้นรอนใหญ่</option>
-              <option value="groove:ตื้นหน้ากว้าง">ร่อง: ตื้นหน้ากว้าง</option>
-              <option value="groove:แผ่นเรียบ">ร่อง: แผ่นเรียบ</option>
-              <option value="groove:เก็บเสียง">ร่อง: เก็บเสียง</option>
+              <option value="groove:ลึก"        data-lang="filter_groove_deep">ร่อง: ลึก</option>
+              <option value="groove:ตื้น"        data-lang="filter_groove_shallow">ร่อง: ตื้น</option>
+              <option value="groove:เว้าโค้ง"    data-lang="filter_groove_curve">ร่อง: เว้าโค้ง</option>
+              <option value="groove:ตื้น 3 รอน"  data-lang="filter_groove_shallow3">ร่อง: ตื้น 3 รอน</option>
+              <option value="groove:รอนโค้งครึ่งวงกลม" data-lang="filter_groove_halfcircle">ร่อง: รอนโค้งครึ่งวงกลม</option>
+              <option value="groove:ตื้นรอนใหญ่" data-lang="filter_groove_largerib">ร่อง: ตื้นรอนใหญ่</option>
+              <option value="groove:ตื้นหน้ากว้าง" data-lang="filter_groove_wide">ร่อง: ตื้นหน้ากว้าง</option>
+              <option value="groove:แผ่นเรียบ"   data-lang="filter_groove_flat">ร่อง: แผ่นเรียบ</option>
+              <option value="groove:เก็บเสียง"   data-lang="filter_groove_acoustic">ร่อง: เก็บเสียง</option>
             </select>
             <span class="filter-sort-arrow">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
