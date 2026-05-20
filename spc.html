@@ -127,18 +127,21 @@
       display: flex;
       list-style: none;
       align-items: center;
-      gap: 2px;
+      gap: 0;
       margin: 0;
       padding: 0;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
     }
 
     .nav-links > li > a,
     .dropdown-btn {
       color: rgba(255,255,255,.92);
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 7px 10px;
       border-radius: 8px;
-      font-size: .95rem;
+      font-size: .875rem;
       font-weight: 500;
       font-family: 'Opun', sans-serif;
       transition: background .2s ease, color .2s ease;
@@ -147,8 +150,9 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      line-height: 1.6;
+      gap: 4px;
+      line-height: 1.4;
+      white-space: nowrap;
     }
 
     .nav-links > li > a:hover,
@@ -485,7 +489,7 @@
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
             /* ─── MOBILE NAV ─── */
       nav {
         height: 64px;
@@ -654,6 +658,7 @@
 
     <ul class="nav-links" id="navLinks">
       <li><a href="home" data-lang="nav_home">หน้าแรก</a></li>
+      
       <li class="dropdown">
         <button class="dropdown-btn" id="dropdownBtn">
           <span data-lang="nav_products">สินค้า</span>
@@ -688,8 +693,8 @@
         <span class="search-icon">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </span>
-        <input class="filter-search" id="filterSearch" type="search" placeholder="ค้นหาชื่อ / ID สินค้า…" autocomplete="off">
-        <button class="filter-search-clear" id="filterSearchClear" aria-label="ล้างค้นหา">✕</button>
+        <input class="filter-search" id="filterSearch" type="search" data-placeholder="filter_search_placeholder" placeholder="ค้นหาชื่อ / ID สินค้า…" autocomplete="off">
+        <button class="filter-search-clear" id="filterSearchClear" data-aria-label="filter_search_clear_label" aria-label="ล้างค้นหา">✕</button>
       </div>
 
       <!-- ② เรียงตาม dropdown -->
@@ -715,7 +720,7 @@
       <!-- ④ ล้างทั้งหมด -->
       <button class="filter-clear-all" id="filterClearAll" data-lang="filter_clear">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        ล้างทั้งหมด
+        <span data-lang="filter_clear">ล้างทั้งหมด</span>
       </button>
     </div>
 

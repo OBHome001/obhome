@@ -462,6 +462,15 @@
 
     // ── แสดงหน้าหลัง apply เสร็จ (ป้องกันกระพริบ) ──
     revealPage();
+
+    // ── re-apply ภาษาปัจจุบัน ทันทีหลัง CMS เขียน DOM เสร็จ ──
+    // แก้ bug: applyData เขียนทับด้วยค่า Firebase (ภาษาไทย) ทุกครั้ง
+    // ต้อง re-apply lang เพื่อให้ตรงกับที่ user เลือกไว้
+    if (window._obLang && window._obLang.current() !== 'th') {
+      window._obLang.apply(window._obLang.current());
+    }
+    // dispatch event ให้ lang.js รู้ว่า CMS เสร็จแล้ว
+    window.dispatchEvent(new CustomEvent('cms-data-applied'));
   }
 
   /* ── แก้ URL ใน Firebase ที่เคยบันทึกเป็น localhost (one-shot fix) ── */
@@ -512,7 +521,7 @@
       const data = snap.val();
       writeCache(data);
       // ถ้ากำลัง edit อยู่ — บันทึก cache ไว้ แต่ไม่ applyData ทับ DOM
-      if (!editMode) applyData(data); // applyData เรียก revealPage() เอง
+      if (!editMode) applyData(data); // applyData เรียก revealPage() + _obLang.apply() เอง
     } catch (e) {
       console.warn('CMS load error:', e);
       revealPage(); // error ก็ต้อง reveal ไม่งั้นหน้าขาวค้าง

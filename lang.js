@@ -47,7 +47,7 @@
     products_title:   { th:'หมวดหมู่ <b>สินค้า</b>', en:'Product <b>Categories</b>' },
     prod1_name:       { th:'ไม้ระแนง',            en:'Lath Wood' },
     prod2_name:       { th:'แผ่น SPC',            en:'SPC Flooring' },
-    prod3_name:       { th:'ผนังตกแต่ง',          en:'Wall Panel' },
+    prod3_name:       { th:'เฟอร์นิเจอร์ฟิตติ้ง',          en:'Furniture' },
     prod4_name:       { th:'อุปกรณ์ติดตั้ง',     en:'Accessories' },
     prod5_name:       { th:'ไม้สั่งตัด',          en:'Custom Wood' },
     prod_btn:         { th:'ดูสินค้าเพิ่มเติม',  en:'View Products' },
@@ -77,7 +77,7 @@
     promo_badge:      { th:'🔥 โปรโมชั่น',        en:'🔥 Promotion' },
     promo_cta:        { th:'สอบถามราคา',          en:'Inquire Now' },
 
-    /* ── PRODUCT PAGES (lath/spc/wooden/wallpanel/accessories) ── */
+    /* ── PRODUCT PAGES (lath/spc/wooden/furniture/accessories) ── */
     filter_sort_label:{ th:'เรียงตาม',            en:'Sort by' },
     filter_default:   { th:'-- ค่าเริ่มต้น --',  en:'-- Default --' },
     filter_price_asc: { th:'ราคา: น้อย → มาก',   en:'Price: Low → High' },
@@ -95,6 +95,8 @@
     filter_noresult:  { th:'ไม่พบสินค้าที่ตรงกัน', en:'No matching products found' },
     filter_showing:   { th:'แสดง',                en:'Showing' },
     filter_items:     { th:'รายการ',              en:'items' },
+    filter_search_placeholder: { th:'ค้นหาชื่อ / ID สินค้า…', en:'Search by name / product ID…' },
+    filter_search_clear_label: { th:'ล้างค้นหา',  en:'Clear search' },
     lbl_price:        { th:'ราคา',                en:'Price' },
     lbl_special_price:{ th:'ราคาพิเศษ',          en:'Special Price' },
     lbl_groove:       { th:'ร่อง',               en:'Groove' },
@@ -107,7 +109,7 @@
     section_lath:     { th:'Premium ไม้ระแนง',   en:'Premium Lath Wood' },
     section_spc:      { th:'Premium แผ่น SPC',   en:'Premium SPC Flooring' },
     section_wooden:   { th:'Premium ไม้สั่งตัด', en:'Premium Custom Wood' },
-    section_wallpanel:{ th:'Premium ผนังตกแต่ง', en:'Premium Wall Panel' },
+    section_furniture:{ th:'Premium เฟอร์นิเจอร์ฟิตติ้ง', en:'Premium Furniture' },
     section_acc:      { th:'Premium อุปกรณ์',    en:'Premium Accessories' },
     btn_view:         { th:'ดูรายละเอียด',    en:'View Details' },
     pattern_label:      { th:'ลาย',                en:'Pattern' },
@@ -137,7 +139,7 @@
     title_lath:       { th:'ไม้ระแนงทุกแบบ - OB HOME', en:'All Lath Wood - OB HOME' },
     title_spc:        { th:'แผ่น SPC Marble Board - OB HOME', en:'SPC Marble Board - OB HOME' },
     title_wooden:     { th:'ไม้สั่งตัด - OB HOME', en:'Custom Wood - OB HOME' },
-    title_wallpanel:  { th:'ผนังตกแต่ง - OB HOME', en:'Wall Panel - OB HOME' },
+    title_furniture:  { th:'เฟอร์นิเจอร์ฟิตติ้ง - OB HOME', en:'Furniture - OB HOME' },
     title_accessories:{ th:'อุปกรณ์ติดตั้ง - OB HOME', en:'Accessories - OB HOME' },
     title_reviews:    { th:'รีวิวลูกค้า - OB HOME', en:'Customer Reviews - OB HOME' },
     title_installations:{ th:'ผลงานติดตั้ง - OB HOME', en:'Installation Projects - OB HOME' },
@@ -182,6 +184,18 @@
     /* 5. html lang attribute */
     document.documentElement.lang = lang;
 
+    /* 5b. Update placeholder attributes from data-placeholder */
+    document.querySelectorAll('[data-placeholder]').forEach(el => {
+      const v = T[el.dataset.placeholder];
+      if (v && v[lang] !== undefined) el.placeholder = v[lang];
+    });
+
+    /* 5c. Update aria-label attributes from data-aria-label */
+    document.querySelectorAll('[data-aria-label]').forEach(el => {
+      const v = T[el.dataset.ariaLabel];
+      if (v && v[lang] !== undefined) el.setAttribute('aria-label', v[lang]);
+    });
+
     /* 6. switcher active state */
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('lang-active', btn.dataset.langTarget === lang);
@@ -218,6 +232,13 @@
       const grooveSpan = card.querySelector('.product-groove-tag [data-lang="lbl_groove"]');
       if (grooveSpan) grooveSpan.textContent = grooveLbl;
     });
+
+    /* 10. re-render filter empty-state (ที่สร้าง dynamically ใน filter script) */
+    const filterEmpty = document.getElementById('filterEmpty');
+    if (filterEmpty) {
+      const noResultTxt = (T['filter_noresult'] && T['filter_noresult'][lang]) || 'ไม่พบสินค้าที่ตรงกัน';
+      filterEmpty.innerHTML = '<span class="filter-empty-icon">&#128269;</span>' + noResultTxt;
+    }
   }
 
   function createSwitcher() {
@@ -267,6 +288,13 @@
     injectCSS();
     injectSwitcher();
     applyLang(currentLang);
+
+    // ── re-apply หลัง CMS โหลดข้อมูลจาก Firebase เสร็จ ──
+    // cms.js dispatch 'cms-data-applied' หลัง applyData() เสร็จ
+    // กรณีที่ lang.js โหลดก่อน Firebase เสร็จ จะยังได้ apply ถูกต้อง
+    window.addEventListener('cms-data-applied', function () {
+      if (currentLang !== 'th') applyLang(currentLang);
+    });
   }
 
   if (document.readyState === 'loading') {

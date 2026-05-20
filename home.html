@@ -144,18 +144,21 @@
       display: flex;
       list-style: none;
       align-items: center;
-      gap: 2px;
+      gap: 0;
       margin: 0;
       padding: 0;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
     }
 
     .nav-links>li>a,
     .dropdown-btn {
       color: rgba(255, 255, 255, .92);
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 7px 10px;
       border-radius: 8px;
-      font-size: .95rem;
+      font-size: .875rem;
       font-weight: 500;
       font-family: 'Opun', sans-serif;
       transition: background .2s ease, color .2s ease;
@@ -164,8 +167,9 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      line-height: 1.6;
+      gap: 4px;
+      line-height: 1.4;
+      white-space: nowrap;
     }
 
     .nav-links>li>a:hover,
@@ -954,7 +958,7 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
 
       html,
       body {
@@ -1460,8 +1464,8 @@
       <div class="prod-card reveal">
         <img alt="prod3 img" src data-cms-img="prod3_img">
         <div class="prod-overlay">
-          <div class="prod-name" data-cms-text="prod3_name" data-lang="nav_wallpanel">ผนังตกแต่ง</div>
-          <a href="wallpanel" class="prod-btn" data-cms-link="prod3_link" data-lang="prod_btn">ดูสินค้าเพิ่มเติม</a>
+          <div class="prod-name" data-cms-text="prod3_name" data-lang="nav_furniture">เฟอร์นิเจอร์ฟิตติ้ง</div>
+          <a href="furniture" class="prod-btn" data-cms-link="prod3_link" data-lang="prod_btn">ดูสินค้าเพิ่มเติม</a>
         </div>
       </div>
 
