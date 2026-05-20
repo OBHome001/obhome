@@ -1,5 +1,3 @@
-export const config = { runtime: 'nodejs' };
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -8,18 +6,13 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  let body = req.body;
-  if (typeof body === 'string') {
-    try { body = JSON.parse(body); } catch(e) {}
-  }
-
-  const { messages, productContext } = body || {};
+  const { messages, productContext } = req.body || {};
   if (!messages || !Array.isArray(messages)) {
-    return res.status(400).json({ reply: 'ขออภัยครับ เกิดข้อผิดพลาดในการส่งข้อมูล' });
+    return res.status(400).json({ reply: 'ข้อมูลไม่ถูกต้อง' });
   }
 
   const systemPrompt = `คุณคือ "น้องโอบี" ผู้ช่วยขายของร้าน OB HOME จำหน่ายวัสดุแต่งบ้านคุณภาพสูง
-ตอบเป็นภาษาไทยเสมอ กระชับ เป็นมิตร และแม่นยำ ใช้ emoji ได้บ้างให้ดูน่าใช้
+ตอบเป็นภาษาไทยเสมอ กระชับ เป็นมิตร และแม่นยำ ใช้ emoji ได้บ้าง
 
 ข้อมูลร้าน:
 - ที่อยู่: 54/13 หมู่ 1 หนองปรือ อ.บางละมุง จ.ชลบุรี 20150
@@ -37,12 +30,9 @@ export default async function handler(req, res) {
 - อุปกรณ์ติดตั้ง
 
 ข้อมูลสินค้าปัจจุบัน:
-${productContext || 'ไม่มีข้อมูลสินค้าในขณะนี้'}
+${productContext || 'ไม่มีข้อมูลสินค้า'}
 
-กฎการตอบ:
-- ถ้าถามราคา ให้บอกจากข้อมูลด้านบน ถ้าไม่มีให้แนะนำโทรถามร้าน
-- ถ้าถามนอกเหนือสินค้าร้าน ให้แนะนำติดต่อร้านโดยตรง
-- ห้ามแต่งข้อมูลหรือเดาราคา`;
+กฎ: ถ้าถามราคาให้บอกจากข้อมูลด้านบน ถ้าไม่มีให้แนะนำโทรถามร้าน ห้ามเดาราคา`;
 
   try {
     const geminiRes = await fetch(
@@ -62,18 +52,12 @@ ${productContext || 'ไม่มีข้อมูลสินค้าใน�
     );
 
     const data = await geminiRes.json();
-
-    if (data.error) {
-      console.error('Gemini error:', data.error);
-      return res.status(200).json({ reply: 'ขออภัยครับ ระบบ AI มีปัญหาชั่วคราว กรุณาติดต่อร้านโดยตรงที่ 091-7036286 ครับ' });
-    }
-
     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text
-      || 'ขออภัยครับ ไม่สามารถตอบได้ในขณะนี้';
+      || 'ขออภัยครับ ไม่สามารถตอบได้ กรุณาติดต่อ 091-7036286';
     return res.status(200).json({ reply });
 
   } catch (err) {
-    console.error('Handler error:', err);
-    return res.status(200).json({ reply: 'ขออภัยครับ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งครับ 🙏' });
+    console.error(err);
+    return res.status(200).json({ reply: 'ขออภัยครับ เกิดข้อผิดพลาด กรุณาลองใหม่ 🙏' });
   }
 }
