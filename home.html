@@ -19,6 +19,8 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;600&display=swap&font-display=swap"
     rel="stylesheet">
   <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <!-- ป้องกันกระพริบ: ซ่อน body ก่อน CMS โหลดข้อมูล -->
   <style>
     body { opacity: 0; }
@@ -402,18 +404,37 @@
     .high-card {
       background: white;
       padding: 35px;
-      border-radius: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(188,165,142,.12);
+      transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s cubic-bezier(.16,1,.3,1);
+    }
+
+    .high-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.08);
     }
 
     .high-icon {
-      font-size: 2rem;
+      width: 52px;
+      height: 52px;
+      background: rgba(188,165,142,.12);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
       color: var(--warm);
-      margin-bottom: 15px;
+      font-size: 1.5rem;
+      transition: background .2s;
+    }
+
+    .high-card:hover .high-icon {
+      background: rgba(188,165,142,.22);
     }
 
     .high-title {
-      font-size: 1.1rem;
-      font-weight: 500;
+      font-size: 1.05rem;
+      font-weight: 600;
       margin-bottom: 10px;
       letter-spacing: -.01em;
     }
@@ -421,7 +442,8 @@
     .high-desc {
       color: #666;
       font-weight: 300;
-      font-size: .8rem;
+      font-size: .82rem;
+      line-height: 1.65;
     }
 
     .reviews {
@@ -433,8 +455,42 @@
       font-size: 0.9rem;
       color: rgba(15,15,13,.55);
       line-height: 1.8;
-      margin: 0 auto 36px;
+      margin: 0 auto 28px;
       max-width: 540px;
+    }
+
+    .reviews-stats {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin: 0 auto 36px;
+      max-width: 380px;
+      border: 1px solid rgba(188,165,142,.25);
+      border-radius: 14px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .reviews-stat {
+      flex: 1;
+      padding: 16px 10px;
+      text-align: center;
+      border-right: 1px solid rgba(188,165,142,.2);
+    }
+
+    .reviews-stat:last-child { border-right: none; }
+
+    .reviews-stat-num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--warm-dark);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .reviews-stat-label {
+      font-size: .72rem;
+      color: rgba(15,15,13,.45);
     }
 
     .review-see-more {
@@ -465,29 +521,31 @@
       padding-bottom: 60px;
     }
 
-    /* 2-column Before/After rows */
+    /* Before/After 2×2 grid */
     .ba-rows {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
       margin-bottom: 40px;
     }
 
+    /* แต่ละ pair = before | after เคียงกัน */
     .ba-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 4px;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
     .ba-item {
       position: relative;
       overflow: hidden;
-      border-radius: 6px;
     }
 
     .ba-item img {
       width: 100%;
-      aspect-ratio: 16/9;
+      aspect-ratio: 4/3;
       object-fit: cover;
       display: block;
       transition: transform .6s ease;
@@ -499,16 +557,33 @@
 
     .ba-label {
       position: absolute;
-      left: 14px;
-      bottom: 14px;
-      background: rgba(0, 0, 0, .55);
+      left: 10px;
+      bottom: 10px;
+      background: rgba(0, 0, 0, .52);
       backdrop-filter: blur(4px);
-      padding: 4px 12px;
+      padding: 3px 10px;
       color: white;
-      font-size: .8rem;
+      font-size: .72rem;
       letter-spacing: .12em;
       text-transform: uppercase;
       border-radius: 4px;
+    }
+
+    /* placeholder เมื่อยังไม่มีรูป */
+    .ba-placeholder {
+      aspect-ratio: 4/3;
+      background: rgba(255,255,255,.07);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.25);
+      font-size: .75rem;
+      letter-spacing: .06em;
+    }
+
+    @media (max-width: 600px) {
+      .ba-rows { grid-template-columns: 1fr; }
     }
 
     .ba-actions {
@@ -1203,7 +1278,7 @@
     <div class="highlight-grid">
 
       <div class="high-card reveal">
-        <div class="high-icon">✦</div>
+        <div class="high-icon"><i class="ti ti-medal" aria-hidden="true"></i></div>
         <h3 class="high-title" data-cms-text="high1_title">วัสดุคุณภาพสูง</h3>
         <p class="high-desc" data-cms-text="high1_desc">คัดสรรวัสดุที่สวยงาม
           แข็งแรง
@@ -1211,21 +1286,21 @@
       </div>
 
       <div class="high-card reveal">
-        <div class="high-icon">✦</div>
+        <div class="high-icon"><i class="ti ti-tools" aria-hidden="true"></i></div>
         <h3 class="high-title" data-cms-text="high2_title">ทีมช่างมืออาชีพ</h3>
         <p class="high-desc" data-cms-text="high2_desc">ประสบการณ์ติดตั้งจริง
           พร้อมดูแลทุกขั้นตอน</p>
       </div>
 
       <div class="high-card reveal">
-        <div class="high-icon">✦</div>
+        <div class="high-icon"><i class="ti ti-tag" aria-hidden="true"></i></div>
         <h3 class="high-title" data-cms-text="high3_title">ราคาคุ้มค่า</h3>
         <p class="high-desc" data-cms-text="high3_desc">ราคาโรงงาน
           คุณภาพระดับพรีเมียม</p>
       </div>
 
       <div class="high-card reveal">
-        <div class="high-icon">✦</div>
+        <div class="high-icon"><i class="ti ti-headset" aria-hidden="true"></i></div>
         <h3 class="high-title" data-cms-text="high4_title">บริการหลังการขาย</h3>
         <p class="high-desc" data-cms-text="high4_desc">ดูแลลูกค้าต่อเนื่อง
           พร้อมให้คำปรึกษา</p>
@@ -1241,6 +1316,21 @@
     <h2 class="section-title" data-cms-text="reviews_title">เสียงตอบรับจาก <b>ลูกค้าจริง</b></h2>
     <p class="reviews-desc reveal" data-cms-text="reviews_desc">ลูกค้าหลายร้อยครัวเรือนไว้วางใจเลือกใช้วัสดุและบริการจาก OB HOME<br>มาดูประสบการณ์จริงจากลูกค้าของเราได้เลย</p>
 
+    <div class="reviews-stats reveal">
+      <div class="reviews-stat">
+        <div class="reviews-stat-num">500+</div>
+        <div class="reviews-stat-label">ลูกค้า</div>
+      </div>
+      <div class="reviews-stat">
+        <div class="reviews-stat-num">4.9★</div>
+        <div class="reviews-stat-label">คะแนนเฉลี่ย</div>
+      </div>
+      <div class="reviews-stat">
+        <div class="reviews-stat-num">5 ปี</div>
+        <div class="reviews-stat-label">ประสบการณ์</div>
+      </div>
+    </div>
+
     <a href="reviews" class="review-see-more reveal">ดูรีวิวทั้งหมด →</a>
 
   </section>
@@ -1253,29 +1343,42 @@
     // ── Before & After on home ──    // ── Before & After on home ──
     // ดึงจาก pages/before-after (path เดียวกับหน้า before-after.html)
     function renderBaHome(items) {
-      if (!items || !Array.isArray(items) || items.length === 0) return;
       const section = document.getElementById('baSectionHome');
       const grid    = document.getElementById('baRowsHome');
       grid.innerHTML = '';
-
-      items.slice(0, 2).forEach(function(item, idx) {
-        const row = document.createElement('div');
-        row.className = 'ba-row reveal';
-        row.innerHTML =
-          '<div class="ba-item">' +
-            '<div class="ba-label">Before</div>' +
-            '<img src="' + (item.before || '') + '" alt="before ' + (idx+1) + '" loading="lazy">' +
-          '</div>' +
-          '<div class="ba-item">' +
-            '<div class="ba-label">After</div>' +
-            '<img src="' + (item.after || '') + '" alt="after ' + (idx+1) + '" loading="lazy">' +
-          '</div>';
-        grid.appendChild(row);
-        setTimeout(function() { row.classList.add('visible'); }, 80 * (idx + 1));
-      });
-
-      // แสดง section เฉพาะเมื่อมีข้อมูลจริง
       section.style.display = '';
+
+      // แสดง 4 คู่ใน grid 2×2 — ถ้าข้อมูลน้อยกว่า 4 ใช้ placeholder
+      var show = (items && Array.isArray(items)) ? items.slice(0, 4) : [];
+      var total = Math.max(show.length, show.length === 0 ? 0 : show.length);
+
+      // ถ้าไม่มีข้อมูลเลย ซ่อน section
+      if (show.length === 0) { section.style.display = 'none'; return; }
+
+      // เติม placeholder ให้ครบ 4 ถ้าข้อมูลน้อยกว่า 4
+      while (show.length < 4) { show.push(null); }
+
+      show.forEach(function(item, idx) {
+        var row = document.createElement('div');
+        row.className = 'ba-row reveal';
+        if (item) {
+          row.innerHTML =
+            '<div class="ba-item">' +
+              '<img src="' + (item.before || '') + '" alt="before ' + (idx+1) + '" loading="lazy">' +
+              '<div class="ba-label">Before</div>' +
+            '</div>' +
+            '<div class="ba-item">' +
+              '<img src="' + (item.after || '') + '" alt="after ' + (idx+1) + '" loading="lazy">' +
+              '<div class="ba-label">After</div>' +
+            '</div>';
+        } else {
+          row.innerHTML =
+            '<div class="ba-placeholder">Before</div>' +
+            '<div class="ba-placeholder">After</div>';
+        }
+        grid.appendChild(row);
+        setTimeout(function() { row.classList.add('visible'); }, 60 * (idx + 1));
+      });
     }
 
     window._cmsBaLoad = renderBaHome;
