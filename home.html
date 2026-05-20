@@ -426,131 +426,15 @@
 
     .reviews {
       background: var(--cream);
+      text-align: center;
     }
 
-    /* ── Review media grid ── */
-    .review-media-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-bottom: 36px;
-    }
-
-    /* Card style — รูปบน, ข้อมูลล่าง */
-    .review-media-card {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      background: var(--off-white);
-      border: 1px solid rgba(188,165,142,.15);
-      cursor: pointer;
-      transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s cubic-bezier(.16,1,.3,1), border-color .25s;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .review-media-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(0,0,0,.1);
-      border-color: rgba(188,165,142,.4);
-    }
-
-    /* กล่องรูป — aspect ratio 4:3 */
-    .rev-media-box {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      background: var(--cream);
-      flex-shrink: 0;
-    }
-
-    .rev-media-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .6s cubic-bezier(.16,1,.3,1);
-    }
-
-    .review-media-card:hover .rev-media-box img {
-      transform: scale(1.06);
-    }
-
-    .review-media-card .video-badge {
-      position: absolute;
-      top: 10px; left: 10px;
-      background: rgba(0,0,0,.55);
-      color: #fff;
-      font-size: .65rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      padding: 4px 8px;
-      border-radius: 20px;
-      backdrop-filter: blur(4px);
-    }
-
-    .review-media-card .play-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.22);
-      opacity: 0;
-      transition: opacity .3s;
-    }
-
-    .review-media-card:hover .play-overlay { opacity: 1; }
-
-    @media (hover: none), (pointer: coarse) {
-      .review-media-card .play-overlay { opacity: 1; }
-    }
-
-    .review-media-card .play-overlay svg {
-      width: 52px; height: 52px;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.4));
-    }
-
-    /* ข้อมูลใต้รูป */
-    .rev-card-info {
-      padding: 12px 14px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      border-top: 1px solid rgba(188,165,142,.15);
-    }
-
-    
-
-    .rev-card-name {
-      font-size: .95rem;
-      font-weight: 700;
-      color: var(--off-black);
-      line-height: 1.4;
-      word-break: keep-all;
-      overflow-wrap: break-word;
-    }
-
-    .rev-card-desc {
-      font-size: .78rem;
-      font-weight: 400;
-      color: rgba(15,15,13,.42);
-      line-height: 1.55;
-      word-break: keep-all;
-      overflow-wrap: break-word;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* placeholder เมื่อไม่มีรูป */
-    .rev-card-no-img {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--warm-dark); font-size: .85rem;
+    .reviews-desc {
+      font-size: 0.9rem;
+      color: rgba(15,15,13,.55);
+      line-height: 1.8;
+      margin: 0 auto 36px;
+      max-width: 540px;
     }
 
     .review-see-more {
@@ -574,20 +458,6 @@
     .review-see-more:hover {
       background: var(--warm-dark);
       transform: translateY(-2px);
-    }
-
-    @media (max-width: 768px) {
-      .review-media-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .review-media-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
     }
     .ba-section {
       background: var(--green-dark);
@@ -1369,145 +1239,18 @@
 
     <span class="section-tag" data-cms-text="reviews_tag">CUSTOMER REVIEW</span>
     <h2 class="section-title" data-cms-text="reviews_title">เสียงตอบรับจาก <b>ลูกค้าจริง</b></h2>
-
-    <!-- Media grid 3 คอลัม — โหลดจาก Firebase pages/reviews -->
-    <div class="review-media-grid" id="reviewMediaGrid">
-      <div class="review-media-card reveal" style="background:#e8e3dc;"></div>
-      <div class="review-media-card reveal" style="background:#ddd8d0;"></div>
-      <div class="review-media-card reveal" style="background:#e8e3dc;"></div>
-      <div class="review-media-card reveal" style="background:#ddd8d0;"></div>
-    </div>
+    <p class="reviews-desc reveal" data-cms-text="reviews_desc">ลูกค้าหลายร้อยครัวเรือนไว้วางใจเลือกใช้วัสดุและบริการจาก OB HOME<br>มาดูประสบการณ์จริงจากลูกค้าของเราได้เลย</p>
 
     <a href="reviews" class="review-see-more reveal">ดูรีวิวทั้งหมด →</a>
 
   </section>
 
-  <!-- Review Lightbox -->
-  <div id="rev-lightbox" style="display:none;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;flex-direction:column;gap:16px;">
-    <button id="revLbClose" style="position:absolute;top:18px;right:22px;background:none;border:none;color:#fff;font-size:2.2rem;cursor:pointer;opacity:.8;line-height:1;">×</button>
-    <img id="revLbImg" src="" alt="" style="max-width:92vw;max-height:75vh;object-fit:contain;border-radius:10px;display:none;">
-    <div id="revLbVideo" style="display:none;"></div>
-    <div id="revLbCaption" style="color:rgba(255,255,255,.8);font-size:.9rem;text-align:center;max-width:500px;padding:0 20px;line-height:1.6;"></div>
-  </div>
+  <!-- Review Lightbox removed -->
+
 
   <script>
   (function(){
-    const lb    = document.getElementById('rev-lightbox');
-    const lbImg = document.getElementById('revLbImg');
-    const lbVid = document.getElementById('revLbVideo');
-    const lbCap = document.getElementById('revLbCaption');
-    let items   = [];
-
-    function openRevLb(idx) {
-      const item = items[idx];
-      if (!item) return;
-      lbImg.style.display = 'none';
-      lbVid.style.display = 'none';
-      lbVid.innerHTML = '';
-      lbCap.innerHTML = (item.title ? '<strong>' + item.title + '</strong>' : '') +
-                        (item.desc  ? '<br>' + item.desc : '');
-      if (item.type === 'video') {
-        const yt = (item.videoUrl||'').match(/(?:youtu\.be\/|[?&]v=)([\w-]{11})/);
-        if (yt) {
-          const iframe = document.createElement('iframe');
-          iframe.src = 'https://www.youtube.com/embed/' + yt[1] + '?autoplay=1';
-          iframe.allow = 'autoplay; fullscreen';
-          iframe.style.cssText = 'width:min(640px,90vw);height:min(360px,50vw);border:none;border-radius:10px;';
-          lbVid.appendChild(iframe);
-          lbVid.style.display = 'block';
-        } else {
-          window.open(item.videoUrl, '_blank'); return;
-        }
-      } else {
-        lbImg.src = item.src || '';
-        lbImg.style.display = 'block';
-      }
-      lb.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeRevLb() {
-      lb.style.display = 'none';
-      document.body.style.overflow = '';
-      lbVid.innerHTML = '';
-    }
-
-    document.getElementById('revLbClose').addEventListener('click', closeRevLb);
-    lb.addEventListener('click', function(e){ if(e.target===lb) closeRevLb(); });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeRevLb(); });
-
-    function renderRevGrid(reviewItems) {
-      items = reviewItems || [];
-      const grid = document.getElementById('reviewMediaGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-      const show = items.slice(0, 4);
-      if (show.length === 0) {
-        [1,2,3,4].forEach(function(n) {
-          var ph = document.createElement('div');
-          ph.className = 'review-media-card reveal';
-          var box = document.createElement('div');
-          box.className = 'rev-media-box';
-          box.style.background = n%2===0 ? '#ddd8d0' : '#e8e3dc';
-          ph.appendChild(box);
-          grid.appendChild(ph);
-        });
-        return;
-      }
-      show.forEach(function(item, i) {
-        var card = document.createElement('div');
-        card.className = 'review-media-card reveal';
-        var isVideo = item.type === 'video';
-        var thumb = item.src || item.thumb || '';
-
-        // กล่องรูป
-        var mediaBox = '<div class="rev-media-box">';
-        if (thumb) {
-          mediaBox += '<img src="' + thumb + '" alt="' + (item.title||'') + '">';
-        } else {
-          mediaBox += '<div class="rev-card-no-img">รีวิว ' + (i+1) + '</div>';
-        }
-        if (isVideo) {
-          mediaBox += '<span class="video-badge">▶ VIDEO</span>';
-          mediaBox += '<div class="play-overlay"><svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,.5)"/><polygon points="10,8 16,12 10,16" fill="white"/></svg></div>';
-        }
-        mediaBox += '</div>';
-
-        // ข้อมูลใต้รูป
-        var info = '<div class="rev-card-info">';
-        if (item.title) info += '<div class="rev-card-name">' + item.title + '</div>';
-        if (item.desc)  info += '<div class="rev-card-desc">' + item.desc + '</div>';
-        info += '</div>';
-
-        card.innerHTML = mediaBox + info;
-        card.addEventListener('click', (function(idx){ return function(){ openRevLb(idx); }; })(i));
-        grid.appendChild(card);
-        setTimeout(function(){
-          new IntersectionObserver(function(entries){
-            entries.forEach(function(en){ if(en.isIntersecting) en.target.classList.add('visible'); });
-          },{threshold:.1}).observe(card);
-        }, 0);
-      });
-    }
-
-    window._cmsReviewsLoad = renderRevGrid;
-
-    function loadReviews() {
-      if (!window._cmsDB) return;
-      window._cmsDB.ref('pages/reviews').once('value').then(function(snap){
-        if (snap.exists() && snap.val().gallery) renderRevGrid(snap.val().gallery);
-      }).catch(function(){});
-    }
-    if (window._cmsDB) {
-      loadReviews();
-    } else {
-      window.addEventListener('firebase-ready', loadReviews, { once: true });
-      var _rPoll = setInterval(function() {
-        if (window._cmsDB) { clearInterval(_rPoll); loadReviews(); }
-      }, 50);
-    }
-
-    // ── Before & After on home ──
+    // ── Before & After on home ──    // ── Before & After on home ──
     // ดึงจาก pages/before-after (path เดียวกับหน้า before-after.html)
     function renderBaHome(items) {
       if (!items || !Array.isArray(items) || items.length === 0) return;
