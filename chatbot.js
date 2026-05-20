@@ -290,7 +290,7 @@
       'กฎ: ถ้าถามราคาให้บอกจากข้อมูลด้านบน ถ้าไม่มีให้แนะนำโทรถามร้าน ห้ามเดาราคา'
     ].join('\n');
 
-    fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' + GEMINI_KEY, {
+    fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + GEMINI_KEY, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
