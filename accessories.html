@@ -644,7 +644,7 @@
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="home" data-lang="nav_home">หน้าแรก</a></li>
+      <li><a href="#home" data-lang="nav_home">หน้าแรก</a></li>
 
       <li class="dropdown">
         <button class="dropdown-btn" id="dropdownBtn">
@@ -657,13 +657,25 @@
           <li><a href="wooden" data-lang="nav_wooden">ไม้สั่งตัด</a></li>
           <li><a href="#" data-lang="nav_stainless">สแตนเลส</a></li>
           <li><a href="furniture" data-lang="nav_furniture">เฟอร์นิเจอร์ฟิตติ้ง</a></li>
-          <li><a href="accessories" data-lang="nav_accessories">ฮาร์ดแวร์ & อุปกรณ์ติดตั้ง</a></li>
+          <li><a href="accessories" data-lang="nav_accessories">ฮาร์ดแวร์ &
+              อุปกรณ์ติดตั้ง</a></li>
         </ul>
       </li>
 
-      <li><a href="home#projects" data-lang="nav_projects">ผลงานติดตั้ง</a></li>
-      <li><a href="home#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
-      <li><a href="home#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
+      <li class="dropdown">
+        <button class="dropdown-btn" id="dropdownBtn">
+          <span data-lang="nav_services">บริการ</span>
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+          <li><a href="installations" data-lang="nav_installations">บริการติดตั้ง</a></li>
+          <li><a href="aftersale" data-lang="nav_aftersale">บริการหลังการขาย</a></li>
+          <li><a href="manual" data-lang="nav_manual">คู่มือติดตั้ง</a></li>
+        </ul>
+      </li>
+      <li><a href="#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
+      <li><a href="promotions" data-lang="nav_promotions">โปรโมชั่น</a></li>
+      <li><a href="#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
     </ul>
   </nav>
 
