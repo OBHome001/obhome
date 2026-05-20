@@ -264,15 +264,48 @@
     sendBtn.disabled = true;
     showTyping();
 
-    fetch('/api/chat', {
+    var GEMINI_KEY = 'AIzaSyB6hvkVuyWQyxBtLPjk9TsvLJ5s-kkvaXQ'; // ← ใส่ API key ของคุณตรงนี้
+
+    var systemPrompt = [
+      'คุณคือ "น้องโอบี" ผู้ช่วยขายของร้าน OB HOME จำหน่ายวัสดุแต่งบ้านคุณภาพสูง',
+      'ตอบเป็นภาษาไทยเสมอ กระชับ เป็นมิตร และแม่นยำ ใช้ emoji ได้บ้าง',
+      '',
+      'ข้อมูลร้าน:',
+      '- ที่อยู่: 54/13 หมู่ 1 หนองปรือ อ.บางละมุง จ.ชลบุรี 20150',
+      '- โทร: 091-7036286',
+      '- LINE: @203fmurc',
+      '- Facebook: OB HOME ไม้ระแนงพัทยา ราคาถูก',
+      '- เวลาทำการ: จันทร์-เสาร์ 07:30-17:00 น.',
+      '- พื้นที่บริการ: พัทยา หนองปรือ ชลบุรี และทั่วประเทศ',
+      '',
+      'สินค้าหลัก:',
+      '- ไม้ระแนง WPC (หลายแบบร่อง)',
+      '- แผ่น SPC Marble Board (กันน้ำ 100%)',
+      '- ผนังตกแต่ง Wall Panel',
+      '- ไม้สั่งตัด และอุปกรณ์ติดตั้ง',
+      '',
+      'ข้อมูลสินค้า:',
+      productContext || 'ไม่มีข้อมูลสินค้าขณะนี้',
+      '',
+      'กฎ: ถ้าถามราคาให้บอกจากข้อมูลด้านบน ถ้าไม่มีให้แนะนำโทรถามร้าน ห้ามเดาราคา'
+    ].join('\n');
+
+    fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: history, productContext: productContext })
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        contents: history.map(function(m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        }),
+        generationConfig: { maxOutputTokens: 1024, temperature: 0.3 }
+      })
     })
     .then(function(r) { return r.json(); })
     .then(function(data) {
       removeTyping();
-      var reply = data.reply || 'ขออภัยครับ ไม่สามารถตอบได้ในขณะนี้';
+      var reply = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text)
+        || 'ขออภัยครับ ไม่สามารถตอบได้ กรุณาติดต่อ 091-7036286';
       addMessage('bot', reply);
       history.push({ role: 'assistant', content: reply });
     })
