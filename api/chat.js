@@ -1,12 +1,22 @@
+export const config = { runtime: 'nodejs' };
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.obhomestore.com');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).end();
 
-  const { messages, productContext } = req.body;
-  if (!messages) return res.status(400).json({ error: 'missing messages' });
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  let body = req.body;
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch(e) {}
+  }
+
+  const { messages, productContext } = body || {};
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ reply: 'ขออภัยครับ เกิดข้อผิดพลาดในการส่งข้อมูล' });
+  }
 
   const systemPrompt = `คุณคือ "น้องโอบี" ผู้ช่วยขายของร้าน OB HOME จำหน่ายวัสดุแต่งบ้านคุณภาพสูง
 ตอบเป็นภาษาไทยเสมอ กระชับ เป็นมิตร และแม่นยำ ใช้ emoji ได้บ้างให้ดูน่าใช้
@@ -20,23 +30,22 @@ export default async function handler(req, res) {
 - พื้นที่บริการ: พัทยา หนองปรือ ชลบุรี และทั่วประเทศ
 
 สินค้าหลัก:
-- ไม้ระแนง WPC (หลายประเภทร่อง: ลึก, ตื้น, เว้าโค้ง, ตื้น 3 รอน, รอนโค้งครึ่งวงกลม, ตื้นรอนใหญ่, ตื้นหน้ากว้าง, แผ่นเรียบ, เก็บเสียง)
+- ไม้ระแนง WPC (ร่อง: ลึก, ตื้น, เว้าโค้ง, ตื้น 3 รอน, รอนโค้งครึ่งวงกลม, ตื้นรอนใหญ่, ตื้นหน้ากว้าง, แผ่นเรียบ, เก็บเสียง)
 - แผ่น SPC Marble Board (กันน้ำ 100% ทนทาน)
 - ผนังตกแต่ง Wall Panel
 - ไม้สั่งตัด
 - อุปกรณ์ติดตั้ง
 
-ข้อมูลสินค้าปัจจุบัน (ดึงจากระบบ real-time):
+ข้อมูลสินค้าปัจจุบัน:
 ${productContext || 'ไม่มีข้อมูลสินค้าในขณะนี้'}
 
 กฎการตอบ:
-- ถ้าถามราคา ให้บอกราคาจากข้อมูลสินค้าด้านบน ถ้าไม่มีให้แนะนำโทรถามร้าน
-- ถ้าถามนอกเหนือสินค้าร้าน ให้บอกว่าไม่มีข้อมูล และแนะนำให้ติดต่อร้านโดยตรง
-- ห้ามแต่งข้อมูลหรือเดาราคา
-- ถ้าถามทั่วไปเรื่องวัสดุแต่งบ้าน ตอบได้ตามความรู้ทั่วไป`;
+- ถ้าถามราคา ให้บอกจากข้อมูลด้านบน ถ้าไม่มีให้แนะนำโทรถามร้าน
+- ถ้าถามนอกเหนือสินค้าร้าน ให้แนะนำติดต่อร้านโดยตรง
+- ห้ามแต่งข้อมูลหรือเดาราคา`;
 
   try {
-    const response = await fetch(
+    const geminiRes = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: 'POST',
@@ -51,11 +60,20 @@ ${productContext || 'ไม่มีข้อมูลสินค้าใน�
         })
       }
     );
-    const data = await response.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'ขออภัยครับ ไม่สามารถตอบได้ในขณะนี้';
-    res.json({ reply });
+
+    const data = await geminiRes.json();
+
+    if (data.error) {
+      console.error('Gemini error:', data.error);
+      return res.status(200).json({ reply: 'ขออภัยครับ ระบบ AI มีปัญหาชั่วคราว กรุณาติดต่อร้านโดยตรงที่ 091-7036286 ครับ' });
+    }
+
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text
+      || 'ขออภัยครับ ไม่สามารถตอบได้ในขณะนี้';
+    return res.status(200).json({ reply });
+
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ reply: 'ขออภัยครับ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง' });
+    console.error('Handler error:', err);
+    return res.status(200).json({ reply: 'ขออภัยครับ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งครับ 🙏' });
   }
 }
