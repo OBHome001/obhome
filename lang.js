@@ -336,7 +336,7 @@
       btn.classList.toggle('lang-active', btn.dataset.langTarget === lang);
     });
 
-    /* 7. remove anti-flash style */
+    /* 7. remove anti-flash style (always — body visibility is controlled by cms-ready class) */
     const antiFlash = document.getElementById('lang-anti-flash');
     if (antiFlash) antiFlash.remove();
 
@@ -416,11 +416,13 @@
       }`;
     document.head.appendChild(s);
 
-    /* ── Anti-flash: ถ้า lang=en ให้ซ่อน body ก่อน จนกว่าจะ apply เสร็จ ── */
-    if (currentLang !== 'th') {
+    /* ── Anti-flash: ซ่อน body จนกว่า CMS + lang จะพร้อม ── */
+    /* (เฉพาะหน้าที่ไม่มี body{opacity:0} จาก CMS CSS — เป็น fallback) */
+    if (!document.getElementById('lang-anti-flash')) {
       const antiFlash = document.createElement('style');
       antiFlash.id = 'lang-anti-flash';
-      antiFlash.textContent = '[data-lang],[data-cms-text]{visibility:hidden!important}';
+      // ซ่อน elements ที่จะถูกแปลภาษา ป้องกัน flash ก่อน CMS reveal
+      antiFlash.textContent = 'body:not(.cms-ready) [data-lang]{visibility:hidden}body:not(.cms-ready) [data-cms-text]{visibility:hidden}';
       document.head.appendChild(antiFlash);
     }
   }
@@ -431,11 +433,12 @@
     applyLang(currentLang);
 
     // ── re-apply หลัง CMS โหลดข้อมูลจาก Firebase เสร็จ ──
-    // cms.js dispatch 'cms-data-applied' หลัง applyData() เสร็จ
-    // กรณีที่ lang.js โหลดก่อน Firebase เสร็จ จะยังได้ apply ถูกต้อง
     window.addEventListener('cms-data-applied', function () {
       applyLang(currentLang);
     });
+
+    // ── แจ้ง cms.js ว่า lang พร้อมแล้ว (ใช้กรณี cms โหลดก่อน lang) ──
+    window.dispatchEvent(new CustomEvent('ob-lang-ready'));
   }
 
   if (document.readyState === 'loading') {

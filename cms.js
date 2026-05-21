@@ -70,6 +70,7 @@
 
     const style = document.createElement('style');
     style.textContent = `
+      body { transition: opacity 0.2s ease; }
       #cms-bar {
         position: fixed; bottom: 0; left: 0; right: 0; z-index: 999999;
         background: #1a1a16; color: #faf9f6;
@@ -356,6 +357,8 @@
   }
 
   function revealPage() {
+    // Apply lang before reveal — prevent TH flash for EN users
+    if (window._obLang) window._obLang.apply(window._obLang.current());
     document.body.classList.add('cms-ready');
   }
 
@@ -487,7 +490,10 @@
     const grid = document.querySelector('.product-grid[data-cms-products]');
 
     // fallback: ถ้า Firebase ช้ากว่า 3 วิ → reveal ไปก่อนเพื่อไม่ค้างขาว
-    const _revealTimer = setTimeout(revealPage, 3000);
+    const _revealTimer = setTimeout(function() {
+      if (window._obLang) window._obLang.apply(window._obLang.current());
+      revealPage();
+    }, 3000);
 
     /* ── 1. แสดงจาก cache ทันที (ไม่รอ network) ── */
     const cached = readCache();
@@ -519,10 +525,19 @@
       const data = snap.val();
       writeCache(data);
       // ถ้ากำลัง edit อยู่ — บันทึก cache ไว้ แต่ไม่ applyData ทับ DOM
-      if (!editMode) applyData(data); // applyData เรียก revealPage() + _obLang.apply() เอง
+      if (!editMode) {
+        if (silent) {
+          // Silent refresh: อัปเดตแค่ cache ไม่แตะ DOM
+          // ป้องกัน flash ขณะ user กำลังดูหน้าอยู่ — ข้อมูลใหม่จะโหลดครั้งถัดไป
+        } else {
+          applyData(data); // includes revealPage() + _obLang.apply()
+        }
+      } else if (!silent) {
+        revealPage();
+      }
     } catch (e) {
       console.warn('CMS load error:', e);
-      revealPage(); // error ก็ต้อง reveal ไม่งั้นหน้าขาวค้าง
+      if (!silent) revealPage();
     } finally {
       if (grid && !editMode) grid.style.visibility = '';
     }
@@ -1034,6 +1049,10 @@
     try {
       const db = window._cmsDB;
       const { ref: dbRef, set } = window._firebaseDB;
+
+      // ── Smooth transition: fade out ก่อน sync ──
+      document.body.classList.remove('cms-ready');
+      await new Promise(r => setTimeout(r, 180));
 
       // ── ใช้ค่าต้นฉบับที่ snapshot ไว้ก่อน applyData จะเขียนทับ ──
       const texts = { ..._htmlOriginal.texts };
