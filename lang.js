@@ -58,7 +58,7 @@
     prod_btn:         { th:'ดูสินค้าเพิ่มเติม',  en:'View Products' },
     projects_tag:     { th:'OUR PROJECTS',        en:'OUR PROJECTS' },
     projects_title:   { th:'บริการ <b>ติดตั้ง</b>', en:'Installation <b>Projects</b>' },
-    projects_desc:    { th:'รีโนเวทผนังและพื้นด้วยวัสดุคุณภาพสูง ติดตั้งจบภายในวันเดียว', en:'Wall and floor renovation with premium materials. Completed in one day.' },
+    projects_desc:    { th:'บริการทุกอย่าง จากทีมช่างมืออาชีพของเรา<br> ติดตั้งด้วยความใส่ใจในทุกรายละเอียด เพื่อผลลัพธ์ที่สวยงามและคงทนยาวนาน', en:'All-around installation services from our professional team. Installed with care for every detail, ensuring beautiful and durable results.' },
     projects_btn:     { th:'ดูผลงาน',     en:'View All Projects' },
     proj1_title:      { th:'งานไม้ระแนงห้องนั่งเล่น', en:'Living Room Lath Wood' },
     proj1_desc:       { th:'ตกแต่งผนังสไตล์ Modern Luxury', en:'Modern Luxury wall decoration' },
