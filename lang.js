@@ -80,7 +80,7 @@
     footer_text:      { th:'© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.', en:'© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.' },
     footer_privacy:   { th:'นโยบายความเป็นส่วนตัว', en:'Privacy Policy' },
     promo_badge:      { th:'🔥 โปรโมชั่นพิเศษ ❗️❗️',        en:'🔥 Promotion ❗️❗️' },
-    promo_cta:        { th:'สอบถามราคา',          en:'Inquire Now' },
+    promo_cta:        { th:'ดูโปรโมชั่นทั้งหมด',          en:'View All Promotions' },
 
     /* ── PRODUCT PAGES (lath/spc/wooden/furniture/accessories) ── */
     filter_sort_label:{ th:'เรียงตาม',            en:'Sort by' },
