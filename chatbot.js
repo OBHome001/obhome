@@ -5,6 +5,7 @@
  */
 (function () {
   'use strict';
+  
 
   /* ═══════════════════════════════════════════════════
      1.  KNOWLEDGE BASE — แก้ตรงนี้เพื่ออัปเดตข้อมูล
@@ -187,6 +188,7 @@
         return item.answer;
       }
     }
+  
     return FALLBACK;
   }
 
@@ -571,6 +573,7 @@
       });
     }
     window.addEventListener('ob-lang-changed', rebuildOnLangChange);
+  }
 
   /* ═══════════════════════════════════════════════════
      5.  INIT — รอ DOM พร้อม
@@ -580,6 +583,5 @@
   } else {
     injectBot();
   }
-}
 
 })();
