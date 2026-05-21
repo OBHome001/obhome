@@ -1,39 +1,656 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="th">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ไม่พบหน้าเว็บนี้ - OB HOME</title>
-  
+  <title>ไม่พบหน้านี้ - OB HOME</title>
+  <meta name="robots" content="noindex">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
-      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+  <style>
+    :root {
+      --warm: #bca58e;
+      --warm-light: #d4c4b0;
+      --warm-dark: #8a7560;
+      --black: #0f0f0d;
+      --off-black: #1a1a16;
+      --charcoal: #2d2d28;
+      --white: #faf9f6;
+      --off-white: #f3f1ec;
+      --cream: #ede8df;
+      --transition: all .4s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    @font-face {
+      font-family: 'Opun';
+      src: url('fonts/Opun%20Semi%20Bold.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Opun', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 72px;
+      padding: 0 4%;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: height .35s ease, box-shadow .35s ease, background .35s ease;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+
+    nav.scrolled {
+      height: 62px;
+      background: rgba(188,165,142,.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0,0,0,.13);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      z-index: 1001;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      height: 40px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    .nav-links > li > a,
+    .dropdown-btn {
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: .875rem;
+      font-weight: 500;
+      font-family: 'Opun', sans-serif;
+      transition: background .2s ease, color .2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .nav-links > li > a:hover,
+    .dropdown-btn:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+
+    .nav-links > li > a.active {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    .dropdown { position: relative; }
+
+    .dropdown-arrow {
+      font-size: .55rem;
+      opacity: .75;
+      margin-top: 1px;
+      transition: transform .25s ease;
+    }
+
+    .dropdown.active .dropdown-arrow { transform: rotate(180deg); }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 200px;
+      background: #c9b49e;
+      border-radius: 12px;
+      padding: 6px;
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px) scale(.98);
+      transform-origin: top left;
+      transition: opacity .22s ease, transform .22s ease, visibility .22s;
+      box-shadow: 0 12px 32px rgba(0,0,0,.15);
+    }
+
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .dropdown-menu li { width: 100%; }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      color: rgba(255,255,255,.92);
+      font-size: .9rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background .18s ease;
+      gap: 8px;
+      font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+    }
+
+    /* ─── HAMBURGER ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: rgba(255,255,255,.12);
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1002;
+      flex-shrink: 0;
+      transition: background .2s ease;
+    }
+
+    .nav-toggle:hover { background: rgba(255,255,255,.22); }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 4px;
+      transition: transform .28s cubic-bezier(.16,1,.3,1), opacity .2s ease, width .25s ease;
+    }
+
+    .nav-toggle span:nth-child(1) { margin-bottom: 5px; }
+    .nav-toggle span:nth-child(2) { margin-bottom: 5px; }
+
+    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── 404 CONTENT ─── */
+    .page-404 {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-404-inner {
+      text-align: center;
+      max-width: 520px;
+    }
+
+    /* ประตูไม้ SVG */
+    .door-icon {
+      margin: 0 auto 32px;
+      width: 80px;
+      height: 106px;
+      position: relative;
+    }
+
+    .big-num {
+      font-family: 'Opun', sans-serif;
+      font-size: clamp(5.5rem, 18vw, 9rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--off-black);
+      letter-spacing: -.04em;
+      margin-bottom: 4px;
+    }
+
+    .big-num span {
+      color: var(--warm);
+    }
+
+    .divider-line {
+      width: 52px;
+      height: 3px;
+      background: var(--warm);
+      border-radius: 999px;
+      margin: 16px auto 20px;
+    }
+
+    .err-title {
+      font-family: 'Opun', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 600;
+      color: var(--off-black);
+      margin-bottom: 12px;
+    }
+
+    .err-sub {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: .95rem;
+      color: rgba(15,15,13,.5);
+      line-height: 1.8;
+      max-width: 360px;
+      margin: 0 auto 36px;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--warm);
+      color: #fff;
+      text-decoration: none;
+      padding: .72rem 2rem;
+      border-radius: 999px;
+      font-family: 'Opun', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      transition: background .22s ease, transform .22s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-home:hover {
+      background: var(--warm-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-home svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .quick-links {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .quick-link {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: .82rem;
+      color: var(--warm-dark);
+      text-decoration: none;
+      padding: .45rem 1.1rem;
+      border: 1.5px solid rgba(188,165,142,.4);
+      border-radius: 999px;
+      transition: var(--transition);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .quick-link:hover {
+      background: rgba(188,165,142,.12);
+      border-color: var(--warm);
+      color: var(--off-black);
+    }
+
+    /* ─── BG DECO ─── */
+    .deco-num {
+      position: fixed;
+      bottom: -40px;
+      right: -20px;
+      font-family: 'Opun', sans-serif;
+      font-size: 28vw;
+      font-weight: 700;
+      color: rgba(188,165,142,.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--warm);
+      color: #fff;
+      padding: 36px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      text-align: center;
+      font-size: clamp(.75rem, 2vw, .85rem);
+      letter-spacing: .04em;
+    }
+
+    .footer-divider {
+      color: rgba(255,255,255,.5);
+    }
+
+    footer a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: clamp(.75rem, 2vw, .85rem);
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    footer a:hover { color: #fff; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { height: 64px; padding: 0 16px; }
+      nav.scrolled { height: 60px; }
+      .nav-logo-icon { height: 34px; }
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        position: fixed;
+        top: 64px; right: 0; left: 0;
+        width: 100%;
+        background: var(--warm);
+        border-top: 1px solid rgba(255,255,255,.15);
+        box-shadow: 0 12px 32px rgba(0,0,0,.18);
+        padding: 12px 16px 20px;
+        flex-direction: column;
+        gap: 3px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
       }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>404 !!!</h2>
-      <h1>ไม่พบหน้าเว็บนี้</h1>
-      <p>ขออภัย ไม่สามารถหาหน้าเว็บที่คุณต้องการได้</p>
-      <h3>ต้องการความช่วยเหลือ?</h3>
-      <p>รอรีหน้า WebSite หรือ ถ้าไม่หายลอง แก้ไขลิงก์ใหม่ให้อยู่ในหน้า home <a href="home">กลับไปที่หน้าหลัก</a></p>
+
+      .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .nav-links > li { width: 100%; list-style: none; }
+
+      .nav-links > li > a {
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        padding: 11px 14px;
+        border-radius: 10px;
+      }
+
+      .dropdown { width: 100%; }
+
+      .dropdown-btn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 11px 14px;
+        border-radius: 10px;
+        font-size: 1rem;
+      }
+
+      .dropdown-menu {
+        position: static;
+        min-width: 100%;
+        margin-top: 4px;
+        background: rgba(0,0,0,.1);
+        border-radius: 10px;
+        box-shadow: none;
+        border: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+
+      .dropdown.active .dropdown-menu { display: block; }
+
+      .page-404 { padding: 100px 20px 60px; }
+    }
+
+    @media (max-width: 600px) {
+      .footer-wrapper { flex-direction: column; gap: 8px; }
+      .footer-divider { display: none; }
+    }
+
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="home" class="nav-logo">
+      <div class="nav-logo-icon">
+        <img src="assets/logo1.png" alt="OB HOME">
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home" data-lang="nav_home">หน้าแรก</a></li>
+
+      <li class="dropdown">
+        <button class="dropdown-btn">
+          <span data-lang="nav_products">สินค้า</span>
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="spc" data-lang="nav_spc">แผ่นผนัง SPC</a></li>
+          <li><a href="lath" data-lang="nav_lath">ไม้ระแนง WPC</a></li>
+          <li><a href="wooden" data-lang="nav_wooden">ไม้สั่งตัด</a></li>
+          <li><a href="#" data-lang="nav_stainless">สแตนเลส</a></li>
+          <li><a href="furniture" data-lang="nav_furniture">เฟอร์นิเจอร์ฟิตติ้ง</a></li>
+          <li><a href="accessories" data-lang="nav_accessories">ฮาร์ดแวร์ &amp; อุปกรณ์ติดตั้ง</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <button class="dropdown-btn">
+          <span data-lang="nav_services">บริการ</span>
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="installations" data-lang="nav_installations">บริการติดตั้ง</a></li>
+          <li><a href="aftersale" data-lang="nav_aftersale">บริการหลังการขาย</a></li>
+          <li><a href="manual" data-lang="nav_manual">คู่มือติดตั้ง</a></li>
+        </ul>
+      </li>
+
+      <li><a href="#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
+      <li><a href="promotions" data-lang="nav_promotions">โปรโมชั่น</a></li>
+      <li><a href="#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
+    </ul>
+  </nav>
+
+  <!-- DECO BG NUMBER -->
+  <span class="deco-num" aria-hidden="true">404</span>
+
+  <!-- 404 CONTENT -->
+  <main class="page-404">
+    <div class="page-404-inner">
+
+      <!-- ไอคอนประตู -->
+      <div class="door-icon reveal" style="transition-delay:.05s">
+        <svg viewBox="0 0 80 106" fill="none" xmlns="http://www.w3.org/2000/svg" width="80" height="106">
+          <!-- กรอบประตู -->
+          <rect x="2" y="2" width="76" height="102" rx="6" fill="var(--cream)" stroke="var(--warm)" stroke-width="3"/>
+          <!-- บานประตู -->
+          <rect x="10" y="10" width="60" height="88" rx="4" fill="var(--off-white)" stroke="var(--warm-light)" stroke-width="1.5"/>
+          <!-- แผง 1 -->
+          <rect x="17" y="18" width="46" height="32" rx="3" fill="var(--cream)" stroke="var(--warm-light)" stroke-width="1"/>
+          <!-- แผง 2 -->
+          <rect x="17" y="58" width="46" height="32" rx="3" fill="var(--cream)" stroke="var(--warm-light)" stroke-width="1"/>
+          <!-- ลูกบิด -->
+          <circle cx="56" cy="54" r="5" fill="var(--warm)" opacity=".7"/>
+          <circle cx="56" cy="54" r="2.5" fill="var(--warm-dark)"/>
+          <!-- เครื่องหมาย ? -->
+          <text x="40" y="47" text-anchor="middle" font-family="'Opun', sans-serif" font-size="22" font-weight="700" fill="var(--warm)" opacity=".5">?</text>
+        </svg>
+      </div>
+
+      <div class="big-num reveal" style="transition-delay:.1s">4<span>0</span>4</div>
+      <div class="divider-line reveal" style="transition-delay:.15s"></div>
+      <p class="err-title reveal" style="transition-delay:.2s">ไม่พบหน้าที่คุณต้องการ</p>
+      <p class="err-sub reveal" style="transition-delay:.25s">
+        ลิงก์นี้อาจถูกย้าย ลบ หรือพิมพ์ผิดไปนิดนึง<br>ไม่เป็นไรเลยครับ — กลับไปหน้าหลักได้เลย
+      </p>
+
+      <a href="home" class="btn-home reveal" style="transition-delay:.3s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/>
+        </svg>
+        กลับหน้าหลัก
+      </a>
+
+      <div class="quick-links reveal" style="transition-delay:.35s">
+        <a href="spc" class="quick-link">แผ่นผนัง SPC</a>
+        <a href="lath" class="quick-link">ไม้ระแนง WPC</a>
+        <a href="installations" class="quick-link">บริการติดตั้ง</a>
+        <a href="promotions" class="quick-link">โปรโมชั่น</a>
+      </div>
+
     </div>
-  </body>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-wrapper">
+      <span data-cms-text="footer_text">© 2026 OB HOME Materials Co., Ltd. All Rights Reserved.</span>
+      <span class="footer-divider">|</span>
+      <a href="privacy-policy" data-lang="footer_privacy">นโยบายความเป็นส่วนตัว</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── NAV scroll ──
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── Hamburger ──
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks   = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active', open);
+    });
+
+    // ── Dropdown ──
+    document.querySelectorAll('.dropdown-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const cur = btn.parentElement;
+        document.querySelectorAll('.dropdown').forEach(d => { if (d !== cur) d.classList.remove('active'); });
+        cur.classList.toggle('active');
+      });
+    });
+
+    // ── Close on outside click ──
+    document.addEventListener('click', e => {
+      if (!nav.contains(e.target)) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+      }
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+      });
+    });
+
+    // ── Reveal animation ──
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target); } });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+
+  <script src="lang.js"></script>
+</body>
 </html>
