@@ -10,7 +10,7 @@
     nav_products:     { th:'สินค้า',              en:'Products' },
     nav_reviews:      { th:'รีวิวลูกค้า',        en:'Reviews' },
     nav_contact:      { th:'ติดต่อเรา',           en:'Contact' },
-    nav_spc:          { th:'แผ่นผนัง SPC',            en:'SPC Flooring' },
+    nav_spc:          { th:'แผ่นผนัง SPC',            en:'SPC Marble Board' },
     nav_lath:         { th:'ไม้ระแนง WPC',            en:'WPC Lath Wood' },
     nav_wooden:       { th:'ไม้สั่งตัด',          en:'Custom Wood' },
     nav_stainless:    { th:'สแตนเลส',          en:'Stainless' },
@@ -25,7 +25,7 @@
 
     /* ── HOME ── */
     hero_tag:         { th:'OB HOME MATERIALS',   en:'OB HOME MATERIALS' },
-    hero_title:       { th:'ศูนย์รวมสินค้า<br><strong><i>ไม้ระแนง</i> & <i>แผ่น SPC</i></strong>', en:'Your One-Stop Shop<br><strong><i>Lath Wood</i> & <i>SPC Flooring</i></strong>' },
+    hero_title:       { th:'ศูนย์รวมสินค้า<br><strong><i>ไม้ระแนง</i> & <i>แผ่น SPC</i></strong>', en:'Your One-Stop Shop<br><strong><i>Lath Wood</i> & <i>SPC Marble Board</i></strong>' },
     hero_desc:        { th:'วัสดุตกแต่งคุณภาพสูง พร้อมทีมติดตั้งมืออาชีพ', en:'Premium decor materials with professional installation team' },
     hero_btn:         { th:'ดูหมวดสินค้า 🛒',    en:'Browse Products 🛒' },
     highlights_tag:   { th:'WHY CHOOSE US',       en:'WHY CHOOSE US' },
@@ -51,7 +51,7 @@
     products_tag:     { th:'PRODUCTS',            en:'PRODUCTS' },
     products_title:   { th:'หมวดหมู่ <b>สินค้า</b>', en:'Product <b>Categories</b>' },
     prod1_name:       { th:'ไม้ระแนง',            en:'Lath Wood' },
-    prod2_name:       { th:'แผ่น SPC',            en:'SPC Flooring' },
+    prod2_name:       { th:'แผ่น SPC',            en:'SPC Marble Board' },
     prod3_name:       { th:'เฟอร์นิเจอร์ฟิตติ้ง',          en:'Furniture Fitting' },
     prod4_name:       { th:'อุปกรณ์ติดตั้ง',     en:'Accessories' },
     prod5_name:       { th:'ไม้สั่งตัด',          en:'Custom Wood' },
@@ -62,7 +62,7 @@
     projects_btn:     { th:'ดูผลงาน',     en:'View All Projects' },
     proj1_title:      { th:'งานไม้ระแนงห้องนั่งเล่น', en:'Living Room Lath Wood' },
     proj1_desc:       { th:'ตกแต่งผนังสไตล์ Modern Luxury', en:'Modern Luxury wall decoration' },
-    proj2_title:      { th:'งานแผ่น SPC',         en:'SPC Flooring Installation' },
+    proj2_title:      { th:'งานแผ่น SPC',         en:'SPC Marble Board Installation' },
     proj2_desc:       { th:'แผ่นสวย ลวดลายดี ดูแลรักษาง่าย', en:'Beautiful patterns, easy to maintain' },
     proj3_title:      { th:'งานผนังตกแต่ง',       en:'Decorative Wall Panel' },
     proj3_desc:       { th:'เพิ่มมิติให้พื้นที่ภายในบ้าน', en:'Add dimension to your living space' },
@@ -111,26 +111,27 @@
     btn_line_inquiry: { th:'สอบถามทาง LINE',     en:'Inquire via LINE' },
     btn_tel_inquiry:  { th:'โทรสอบถาม',          en:'Call to Inquire' },
     modal_hint:       { th:'คลิกที่รูปหรือกด ESC เพื่อปิด', en:'Click image or press ESC to close' },
-    section_lath:     { th:'Premium ไม้ระแนง',   en:'Premium Lath Wood' },
-    section_spc:      { th:'Premium แผ่น SPC',   en:'Premium SPC Flooring' },
-    section_wooden:   { th:'Premium ไม้สั่งตัด', en:'Premium Custom Wood' },
-    section_furniture:{ th:'Premium เฟอร์นิเจอร์ฟิตติ้ง', en:'Premium Furniture' },
-    section_acc:      { th:'Premium อุปกรณ์',    en:'Premium Accessories' },
+    section_lath:     { th:'พรีเมียม ไม้ระแนง',   en:'Premium Lath Wood' },
+    section_spc:      { th:'พรีเมียม แผ่น SPC',   en:'Premium SPC Marble Board' },
+    section_wooden:   { th:'พรีเมียม ไม้สั่งตัด', en:'Premium Custom Wood' },
+    section_stainless: { th:'พรีเมียม สแตนเลส', en:'Premium Stainless' },
+    section_furniture:{ th:'พรีเมียม เฟอร์นิเจอร์ฟิตติ้ง', en:'Premium Furniture' },
+    section_accessories: { th:'พรีเมียม ฮาร์ดแวร์ & อุปกรณ์ติดตั้ง', en:'Premium Hardware & Installation Accessories' },
     btn_view:         { th:'ดูรายละเอียด',    en:'View Details' },
     pattern_label:      { th:'ลาย',                en:'Pattern' },
 
     /* ── REVIEWS PAGE ── */
-    rev_label:        { th:'CUSTOMER REVIEW',     en:'CUSTOMER REVIEW' },
-    rev_title:        { th:'รีวิวลูกค้า',         en:'Customer Reviews' },
+    sec_reviews:        { th:'รีวิวลูกค้า',     en:'CUSTOMER REVIEW' },
+    ti_reviews:        { th:'รีวิวลูกค้า',         en:'Customer Reviews' },
     rev_subtitle:     { th:'รวมรีวิวจากลูกค้าจริง ทั้งรูปภาพและวิดีโอ', en:'Real customer reviews — photos and videos' },
 
     /* ── INSTALLATIONS PAGE ── */
-    inst_label:       { th:'OUR WORK',            en:'OUR WORK' },
+    inst_label:       { th:'งานของเรา',            en:'OUR WORK' },
     inst_title:       { th:'บริการติดตั้ง',    en:'Installation Services' },
     inst_subtitle:    { th:'รวมบริการติดตั้งจริงของเรา ทั้งรูปภาพและวิดีโอ', en:'Real projects from our customers — photos and videos' },
 
     /* ── BEFORE & AFTER PAGE ── */
-    be_title:         { th:'BEFORE & AFTER',      en:'BEFORE & AFTER' },
+    be_title:         { th:'ก่อน & หลัง',      en:'BEFORE & AFTER' },
     be_for:    { th:'ก่อน & หลัง',         en:'Before & After' },
     be_for_sub:      { th:'เห็นความแตกต่างได้ชัดเจน ก่อนและหลังการติดตั้ง', en:'See the clear difference before and after installation' },
 
