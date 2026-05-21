@@ -404,17 +404,87 @@
       },
     };
 
-    function buildOptions() {
+    /* ── Bot state (ประกาศก่อน ใช้ได้ทุกฟังก์ชัน) ── */
+    let initialized = false;
+
+    /* ── Helper: หา messagesEl จาก DOM เสมอ (ไม่ cache เพราะ rebuild ได้) ── */
+    function getMsgsEl()  { return document.getElementById('cbMessages'); }
+    function getInputEl() { return document.getElementById('cbInput'); }
+
+    /* ── addMsg / showTyping / hideTyping ── */
+    function addMsg(text, role) {
+      const msgsEl = getMsgsEl();
+      if (!msgsEl) return;
+      const el = document.createElement('div');
+      el.className = 'cb-msg ' + role;
+      el.innerHTML = renderMd(text);
+      msgsEl.appendChild(el);
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+      return el;
+    }
+
+    function showTyping() {
+      const msgsEl = getMsgsEl();
+      if (!msgsEl) return;
+      const el = document.createElement('div');
+      el.className = 'cb-typing'; el.id = 'cbTyping';
+      el.innerHTML = '<span></span><span></span><span></span>';
+      msgsEl.appendChild(el);
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    }
+    function hideTyping() {
+      const el = document.getElementById('cbTyping');
+      if (el) el.remove();
+    }
+
+    /* ── sendMessage ── */
+    function sendMessage(text) {
+      text = text.trim();
+      if (!text) return;
+
+      const inputEl = getInputEl();
+      const history = getHistory();
+      addMsg(text, 'user');
+      history.push({ role: 'user', text });
+      if (inputEl) inputEl.value = '';
+
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        const ans = findAnswer(text);
+        addMsg(ans, 'bot');
+        history.push({ role: 'bot', text: ans });
+        saveHistory(history);
+      }, 400 + Math.random() * 300);
+    }
+
+    /* ── initBotSession ── */
+    function initBotSession() {
+      if (initialized) return;
+      initialized = true;
+
+      const history = getHistory();
+      if (history.length > 0) {
+        history.forEach(m => addMsg(m.text, m.role));
+      } else {
+        addMsg('สวัสดีครับ! 👋 ผมคือ OB Bot ช่วยตอบคำถามเกี่ยวกับสินค้าและบริการของ OB HOME\n\nถามอะไรได้เลยครับ หรือกดปุ่มด้านล่าง 👇', 'bot');
+      }
+    }
+
+    /* ── buildOptions: สร้าง HTML + ผูก events ทุกครั้งที่เรียก ── */
+    function buildOptions(restoreTab) {
       const lang = getLang();
       const i18n = CHAT_I18N[lang] || CHAT_I18N.th;
+      const activeTab = restoreTab || 'contact';
+
       options.innerHTML = `
       <div class="chat-tabs">
-        <button class="chat-tab active" data-tab="contact">${i18n.tab_contact}</button>
-        <button class="chat-tab" data-tab="bot">${i18n.tab_bot}</button>
+        <button class="chat-tab${activeTab === 'contact' ? ' active' : ''}" data-tab="contact">${i18n.tab_contact}</button>
+        <button class="chat-tab${activeTab === 'bot'     ? ' active' : ''}" data-tab="bot">${i18n.tab_bot}</button>
       </div>
 
       <!-- Tab: ติดต่อเรา (เดิม) -->
-      <div class="chat-panel active" id="chatContactPanel">
+      <div class="chat-panel${activeTab === 'contact' ? ' active' : ''}" id="chatContactPanel">
         <div class="chat-options-header" style=" padding:12px 16px 6px;font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase;">${i18n.header_contact}</div>
         <a href="https://www.facebook.com/obhomestore" target="_blank" rel="noopener noreferrer" class="chat-option chat-option--fb">
           <span class="chat-option-icon">
@@ -446,7 +516,7 @@
       </div>
 
       <!-- Tab: แชทบอท -->
-      <div class="chat-panel" id="chatBotPanel">
+      <div class="chat-panel${activeTab === 'bot' ? ' active' : ''}" id="chatBotPanel">
         <div class="chatbot-messages" id="cbMessages"></div>
         <div class="cb-quick-replies" id="cbQuickReplies">
           ${i18n.quick.map(q => `<button class="cb-quick-btn">${q}</button>`).join('\n          ')}
@@ -461,116 +531,46 @@
         </div>
       </div>
     `;
-    }
 
-    buildOptions();
+      /* ── ผูก events ทันทีหลัง innerHTML พร้อม ── */
 
-    /* ── Tab switching ── */
-    options.querySelectorAll('.chat-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        options.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
-        options.querySelectorAll('.chat-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab === 'bot' ? 'chatBotPanel' : 'chatContactPanel').classList.add('active');
-        if (tab.dataset.tab === 'bot') initBotSession();
-      });
-    });
-
-    /* ── Bot logic ── */
-    const messagesEl = document.getElementById('cbMessages');
-    const inputEl    = document.getElementById('cbInput');
-    const sendBtn    = document.getElementById('cbSend');
-    let   initialized = false;
-
-    function addMsg(text, role) {
-      const el = document.createElement('div');
-      el.className = 'cb-msg ' + role;
-      el.innerHTML = renderMd(text);
-      messagesEl.appendChild(el);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-      return el;
-    }
-
-    function showTyping() {
-      const el = document.createElement('div');
-      el.className = 'cb-typing'; el.id = 'cbTyping';
-      el.innerHTML = '<span></span><span></span><span></span>';
-      messagesEl.appendChild(el);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-    function hideTyping() {
-      const el = document.getElementById('cbTyping');
-      if (el) el.remove();
-    }
-
-    function sendMessage(text) {
-      text = text.trim();
-      if (!text) return;
-
-      const history = getHistory();
-      addMsg(text, 'user');
-      history.push({ role: 'user', text });
-      inputEl.value = '';
-
-      showTyping();
-      setTimeout(() => {
-        hideTyping();
-        const ans = findAnswer(text);
-        addMsg(ans, 'bot');
-        history.push({ role: 'bot', text: ans });
-        saveHistory(history);
-      }, 400 + Math.random() * 300); // delay เล็กน้อยให้ดูเป็นธรรมชาติ
-    }
-
-    function initBotSession() {
-      if (initialized) return;
-      initialized = true;
-
-      // โหลด history จาก session
-      const history = getHistory();
-      if (history.length > 0) {
-        history.forEach(m => addMsg(m.text, m.role));
-      } else {
-        // welcome message
-        addMsg('สวัสดีครับ! 👋 ผมคือ OB Bot ช่วยตอบคำถามเกี่ยวกับสินค้าและบริการของ OB HOME\n\nถามอะไรได้เลยครับ หรือกดปุ่มด้านล่าง 👇', 'bot');
-      }
-    }
-
-    sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
-    inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(inputEl.value); });
-
-    // quick reply buttons
-    document.getElementById('cbQuickReplies').querySelectorAll('.cb-quick-btn').forEach(btn => {
-      btn.addEventListener('click', () => sendMessage(btn.textContent));
-    });
-
-    // ── re-build เมื่อเปลี่ยนภาษา ──
-    function rebuildOnLangChange() {
-      const activeTab = options.querySelector('.chat-tab.active')?.dataset?.tab || 'contact';
-      buildOptions();
-      // re-attach tab events
+      // Tab switching
       options.querySelectorAll('.chat-tab').forEach(tab => {
         tab.addEventListener('click', () => {
           options.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
           options.querySelectorAll('.chat-panel').forEach(p => p.classList.remove('active'));
           tab.classList.add('active');
-          document.getElementById(tab.dataset.tab === 'bot' ? 'chatBotPanel' : 'chatContactPanel').classList.add('active');
+          const panelId = tab.dataset.tab === 'bot' ? 'chatBotPanel' : 'chatContactPanel';
+          const panel = document.getElementById(panelId);
+          if (panel) panel.classList.add('active');
           if (tab.dataset.tab === 'bot') initBotSession();
         });
       });
-      // restore active tab
-      const tabEl = options.querySelector(`[data-tab="${activeTab}"]`);
-      if (tabEl) {
-        options.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
-        options.querySelectorAll('.chat-panel').forEach(p => p.classList.remove('active'));
-        tabEl.classList.add('active');
-        document.getElementById(activeTab === 'bot' ? 'chatBotPanel' : 'chatContactPanel')?.classList.add('active');
-      }
-      // re-attach quick reply buttons
+
+      // Send button
+      const sendBtn = document.getElementById('cbSend');
+      const inputEl = document.getElementById('cbInput');
+      if (sendBtn) sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
+      if (inputEl) inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(inputEl.value); });
+
+      // Quick reply buttons
       const qr = document.getElementById('cbQuickReplies');
       if (qr) qr.querySelectorAll('.cb-quick-btn').forEach(btn => {
         btn.addEventListener('click', () => sendMessage(btn.textContent));
       });
+
+      // ถ้า restore กลับมาที่แท็บบอท ให้ init session ด้วย
+      if (activeTab === 'bot') initBotSession();
+    }
+
+    buildOptions();
+
+    // ── re-build เมื่อเปลี่ยนภาษา ── คืนค่า tab เดิม และ reset initialized
+    function rebuildOnLangChange() {
+      const activeTab = options.querySelector('.chat-tab.active')?.dataset?.tab || 'contact';
+      // ถ้าอยู่ที่แท็บบอท ต้อง reset initialized เพื่อให้ history re-render หลัง rebuild
+      if (activeTab === 'bot') initialized = false;
+      buildOptions(activeTab);
     }
     window.addEventListener('ob-lang-changed', rebuildOnLangChange);
   }
