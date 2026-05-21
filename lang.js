@@ -119,6 +119,9 @@
     section_accessories: { th:'พรีเมียม ฮาร์ดแวร์ & อุปกรณ์ติดตั้ง', en:'Premium Hardware & Installation Accessories' },
     btn_view:         { th:'ดูรายละเอียด',    en:'View Details' },
     pattern_label:      { th:'ลาย',                en:'Pattern' },
+    chat_header:      { th:'ช่องทางติดต่อ',      en:'Contact Us' },
+    chat_call:        { th:'โทรหาเรา',           en:'Call Us' },
+    cms_add_product:  { th:'+ เพิ่มสินค้าใหม่', en:'+ Add New Product' },
 
     /* ── REVIEWS PAGE ── */
     sec_reviews:        { th:'รีวิวลูกค้า',     en:'CUSTOMER REVIEW' },
@@ -347,6 +350,7 @@
     });
 
     /* 9. re-render product price tags (innerHTML ถูก hardcode ไว้ — ต้อง rebuild ใหม่) */
+    function fmtPrice(v){var s=(v||'').trim();return/บาท|baht/i.test(s)?s:s+' ฿';}
     const priceLbl  = (T['lbl_price']  && T['lbl_price'][lang])  || 'ราคา';
     const grooveLbl = (T['lbl_groove'] && T['lbl_groove'][lang]) || 'ร่อง';
     document.querySelectorAll('.product-card').forEach(card => {
@@ -356,10 +360,10 @@
         const price    = (card.dataset.pdmPrice    || '').trim();
         const discount = (card.dataset.pdmDiscount || '').trim();
         if (price && discount) {
-          tag.innerHTML = '<span class="price-original">' + priceLbl + ': ' + price + ' ฿</span>'
-            + '<span class="price-discount">' + discount + ' ฿</span>';
+          tag.innerHTML = '<span class="price-original">' + priceLbl + ': ' + fmtPrice(price) + '</span>'
+            + '<span class="price-discount">' + fmtPrice(discount) + '</span>';
         } else if (price) {
-          tag.innerHTML = priceLbl + ': ' + price + ' ฿';
+          tag.innerHTML = priceLbl + ': ' + fmtPrice(price);
           tag.style.display = '';
         }
       }

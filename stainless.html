@@ -1803,8 +1803,8 @@
         var priceRow = document.getElementById('pdmPriceRow');
         if (data.price && data.price.trim() !== '') {
           priceEl.innerHTML = hasDiscount
-            ? '<span style="text-decoration:line-through;color:#aaa;font-weight:400">' + data.price + ' ฿</span>'
-            : data.price + ' ฿';
+            ? '<span style="text-decoration:line-through;color:#aaa;font-weight:400">' + fmtPrice(data.price)+'</span>'
+            : fmtPrice(data.price);
           priceRow.classList.remove('pdm-hidden');
         } else {
           priceEl.innerHTML = '';
@@ -1812,7 +1812,7 @@
         }
 
         /* ราคาพิเศษ */
-        setSpec('pdmDiscount', 'pdmDiscountRow', hasDiscount ? data.discount + ' ฿' : '');
+        setSpec('pdmDiscount', 'pdmDiscountRow', hasDiscount ? fmtPrice(data.discount) : '');
 
         setSpec('pdmSize', 'pdmSizeRow', data.size);
         setSpec('pdmThick', 'pdmThickRow', data.thick);
@@ -1950,16 +1950,17 @@
         updateCardPriceTag(card);
       }
 
-      function updateCardPriceTag(card) {
+      function fmtPrice(v){var s=(v||'').trim();return/บาท|baht/i.test(s)?s:s+' ฿';}
+function updateCardPriceTag(card) {
         var price = (card.dataset.pdmPrice || '').trim();
         var discount = (card.dataset.pdmDiscount || '').trim();
         var tag = card.querySelector('.product-price-tag');
         if (!tag) return;
         if (price && discount) {
-          tag.innerHTML = '<span class="price-original">' + (window._obLang ? window._obLang.t('lbl_price') || 'ราคา' : 'ราคา') + ': ' + price + ' ฿</span>'
-            + '<span class="price-discount">' + discount + ' ฿</span>';
+          tag.innerHTML = '<span class="price-original">' + (window._obLang ? window._obLang.t('lbl_price') || 'ราคา' : 'ราคา') + ': ' + fmtPrice(price)+'</span>'
+            + '<span class="price-discount">' + fmtPrice(discount)+'</span>';
         } else if (price) {
-          tag.innerHTML = (window._obLang ? window._obLang.t('lbl_price') || 'ราคา' : 'ราคา') + ': ' + price + ' ฿';
+          tag.innerHTML = (window._obLang ? window._obLang.t('lbl_price') || 'ราคา' : 'ราคา') + ': ' + fmtPrice(price);
           tag.style.display = '';
         } else {
           tag.innerHTML = '';

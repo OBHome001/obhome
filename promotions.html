@@ -289,7 +289,7 @@
     }
     .page-tag {
       font-size:.72rem; letter-spacing:.35em; text-transform:uppercase;
-      color:var(--warm); font-weight:600; margin-bottom:14px; display:block;
+      color:var(--warm); font-weight:600; margin-bottom:28px; display:block;
     }
     .page-header h1 {
       font-family:'Opun',sans-serif;
@@ -817,7 +817,7 @@
                 <div class="cms-file-area" id="cmsFileArea">
                     <input type="file" id="cmsFileInput"
                         accept="image/*,video/*" multiple>
-                    <div class="cms-file-area-text">
+                    <div class="cms-file-area-text" id="cmsFileAreaText">
                         📁 คลิกหรือลากไฟล์มาวางที่นี่<br>
                         <small>รองรับ JPG, PNG, GIF, MP4, MOV — สูงสุด
                             50MB/ไฟล์</small>
@@ -957,11 +957,11 @@
               <div class="month-num">${m}</div>
               <div>
                 <div class="month-name">${monthName(m)}</div>
-                <div class="month-count">${hasItems ? items.length + ' รายการ' : 'ยังไม่มีโปรโมชั่น'}</div>
+                <div class="month-count">${hasItems ? items.length + (getLang() === 'en' ? ' items' : ' รายการ') : (getLang() === 'en' ? 'No promotions yet' : 'ยังไม่มีโปรโมชั่น')}</div>
               </div>
             </div>
             <div class="month-right">
-              <button class="cms-month-add" data-month="${m}">+ เพิ่ม</button>
+              <button class="cms-month-add" data-month="${m}">${getLang() === 'en' ? '+ Add' : '+ เพิ่ม'}</button>
               <div class="month-arrow">▾</div>
             </div>
           </button>
@@ -1005,7 +1005,7 @@
       grid.innerHTML = '';
 
       if (items.length === 0) {
-        grid.innerHTML = '<div class="month-empty">ยังไม่มีสื่อโปรโมชั่นในเดือนนี้</div>';
+        grid.innerHTML = `<div class="month-empty">${getLang() === 'en' ? 'No promotional media this month' : 'ยังไม่มีสื่อโปรโมชั่นในเดือนนี้'}</div>`;
         return;
       }
 
@@ -1028,7 +1028,7 @@
 
         card.innerHTML += `
           <div class="promo-card-overlay"></div>
-          <button class="promo-del-btn" data-month="${month}" data-idx="${i}">✕ ลบ</button>
+          <button class="promo-del-btn" data-month="${month}" data-idx="${i}">${getLang() === 'en' ? '✕ Delete' : '✕ ลบ'}</button>
         `;
 
         // open lightbox
@@ -1041,7 +1041,7 @@
         // delete
         card.querySelector('.promo-del-btn').addEventListener('click', async e => {
           e.stopPropagation();
-          if (!confirm('ลบรายการนี้?')) return;
+          if (!confirm(getLang() === 'en' ? 'Delete this item?' : 'ลบรายการนี้?')) return;
           if (!promoData[activeYear]) promoData[activeYear] = {};
           if (!promoData[activeYear][month]) promoData[activeYear][month] = [];
           promoData[activeYear][month].splice(i, 1);
@@ -1063,7 +1063,7 @@
       const numEl    = block.querySelector('.month-num');
       if (numEl) { numEl.style.background = items.length > 0 ? 'var(--warm)' : ''; numEl.style.color = items.length > 0 ? '#fff' : ''; }
       const countEl  = block.querySelector('.month-count');
-      if (countEl) countEl.textContent = items.length > 0 ? items.length + ' รายการ' : 'ยังไม่มีโปรโมชั่น';
+      if (countEl) countEl.textContent = items.length > 0 ? items.length + (getLang() === 'en' ? ' items' : ' รายการ') : (getLang() === 'en' ? 'No promotions yet' : 'ยังไม่มีโปรโมชั่น');
     }
 
     /* ─── Lightbox ─── */
@@ -1116,7 +1116,12 @@
       pendingFiles = [];
       document.getElementById('cmsFilePreview').innerHTML = '';
       document.getElementById('cmsFileInput').value = '';
-      document.getElementById('cmsModalTitle').textContent = 'เพิ่มสื่อ — ' + monthName(month);
+      document.getElementById('cmsModalTitle').textContent = (getLang() === 'en' ? 'Add media — ' : 'เพิ่มสื่อ — ') + monthName(month);
+      const isEN = getLang() === 'en';
+      document.getElementById('cmsFileAreaText').innerHTML = isEN
+        ? '📁 Click or drag files here<br><small>Supports JPG, PNG, GIF, MP4, MOV — max 50MB/file</small>'
+        : '📁 คลิกหรือลากไฟล์มาวางที่นี่<br><small>รองรับ JPG, PNG, GIF, MP4, MOV — สูงสุด 50MB/ไฟล์</small>';
+      document.getElementById('cmsSaveBtn').textContent = isEN ? '💾 Upload & Save' : '💾 อัปโหลดและบันทึก';
       document.getElementById('cmsUploadModal').classList.add('open');
     }
     document.getElementById('cmsModalClose').addEventListener('click', () => {
@@ -1173,9 +1178,9 @@
     document.getElementById('cmsSaveBtn').addEventListener('click', async function () {
       const btn = this;
       const files = pendingFiles.filter(Boolean);
-      if (!files.length) { alert('กรุณาเลือกไฟล์'); return; }
+      if (!files.length) { alert(getLang() === 'en' ? 'Please select a file' : 'กรุณาเลือกไฟล์'); return; }
 
-      btn.disabled = true; btn.textContent = '⏳ กำลังอัปโหลด...';
+      btn.disabled = true; btn.textContent = getLang() === 'en' ? '⏳ Uploading...' : '⏳ กำลังอัปโหลด...';
       try {
         const uploaded = [];
         for (const file of files) {
@@ -1202,11 +1207,11 @@
         await saveToFirebase();
 
         document.getElementById('cmsUploadModal').classList.remove('open');
-        if (window._cmsToast) window._cmsToast('✓ อัปโหลดสำเร็จ!');
+        if (window._cmsToast) window._cmsToast(getLang() === 'en' ? '✓ Upload successful!' : '✓ อัปโหลดสำเร็จ!');
       } catch (err) {
         alert('เกิดข้อผิดพลาด: ' + err.message);
       } finally {
-        btn.disabled = false; btn.textContent = '💾 อัปโหลดและบันทึก';
+        btn.disabled = false; btn.textContent = getLang() === 'en' ? '💾 Upload & Save' : '💾 อัปโหลดและบันทึก';
       }
     });
 

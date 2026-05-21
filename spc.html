@@ -791,7 +791,7 @@
     </div>
 
     <div class="product-grid" data-cms-products>
-      <button class="cms-add-product-btn" style="display:none">+ เพิ่มสินค้าใหม่</button>
+      <button class="cms-add-product-btn" style="display:none" data-lang="cms_add_product">+ เพิ่มสินค้าใหม่</button>
     </div>
   </div>
 
@@ -893,7 +893,7 @@
 
     <!-- Options panel -->
     <div class="chat-options" id="chatOptions">
-      <div class="chat-options-header">ช่องทางติดต่อ</div>
+      <div class="chat-options-header" data-lang="chat_header">ช่องทางติดต่อ</div>
 
       <a href="https://www.facebook.com/obhomestore" target="_blank" rel="noopener noreferrer"
         class="chat-option chat-option--fb">
@@ -932,7 +932,7 @@
           </svg>
         </span>
         <span class="chat-option-text">
-          <span class="chat-option-name">โทรหาเรา</span>
+          <span class="chat-option-name" data-lang="chat_call">โทรหาเรา</span>
           <span class="chat-option-sub">091-7036286</span>
         </span>
       </a>
@@ -1235,7 +1235,7 @@
                 <path
                   d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
               </svg>
-              สอบถามทาง LINE
+              <span data-lang="btn_line_inquiry">สอบถามทาง LINE</span>
             </a>
             <a href="tel:0917036286" class="pdm-btn pdm-btn--phone">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1243,7 +1243,7 @@
                 <path
                   d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l1.62-1.62a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15z" />
               </svg>
-              โทรสอบถาม
+              <span data-lang="btn_tel_inquiry">โทรสอบถาม</span>
             </a>
           </div>
         </div>
@@ -1891,8 +1891,8 @@
         var priceRow = document.getElementById('pdmPriceRow');
         if (data.price && data.price.trim() !== '') {
           priceEl.innerHTML = hasDiscount
-            ? '<span style="text-decoration:line-through;color:#aaa;font-weight:400">' + data.price + ' ฿</span>'
-            : data.price + ' ฿';
+            ? '<span style="text-decoration:line-through;color:#aaa;font-weight:400">' + fmtPrice(data.price)+'</span>'
+            : fmtPrice(data.price);
           priceRow.classList.remove('pdm-hidden');
         } else {
           priceEl.innerHTML = '';
@@ -1900,7 +1900,7 @@
         }
 
         /* ราคาพิเศษ */
-        setSpec('pdmDiscount', 'pdmDiscountRow', hasDiscount ? data.discount + ' ฿' : '');
+        setSpec('pdmDiscount', 'pdmDiscountRow', hasDiscount ? fmtPrice(data.discount) : '');
 
         setSpec('pdmSize', 'pdmSizeRow', data.size);
         setSpec('pdmThick', 'pdmThickRow', data.thick);
@@ -2037,16 +2037,17 @@
         updateCardPriceTag(card);
       }
 
-      function updateCardPriceTag(card) {
+      function fmtPrice(v){var s=(v||'').trim();return/บาท|baht/i.test(s)?s:s+' ฿';}
+function updateCardPriceTag(card) {
         var price = (card.dataset.pdmPrice || '').trim();
         var discount = (card.dataset.pdmDiscount || '').trim();
         var tag = card.querySelector('.product-price-tag');
         if (!tag) return;
         if (price && discount) {
-          tag.innerHTML = '<span class="price-original">' + (window._obLang ? window._obLang.t('lbl_price') || 'ราคา' : 'ราคา') + ': ' + price + ' ฿</span>'
-            + '<span class="price-discount">' + discount + ' ฿</span>';
+          tag.innerHTML = '<span class="price-original">' + (window._obLang ? window._obLang.t('lbl_price') || 'Price' : 'Price') + ': ' + fmtPrice(price)+'</span>'
+            + '<span class="price-discount">' + fmtPrice(discount)+'</span>';
         } else if (price) {
-          tag.innerHTML = (window._obLang ? window._obLang.t('lbl_price') || 'ราคา' : 'ราคา') + ': ' + price + ' ฿';
+          tag.innerHTML = (window._obLang ? window._obLang.t('lbl_price') || 'Price' : 'Price') + ': ' + fmtPrice(price);
           tag.style.display = '';
         } else {
           tag.innerHTML = '';
@@ -2107,7 +2108,7 @@
         var countEl = document.getElementById('filterCount');
         var clearBtn = document.getElementById('filterClearAll');
         if (emptyEl) emptyEl.style.display = visible.length === 0 ? 'block' : 'none';
-        if (countEl) countEl.innerHTML = (q || sortKey) ? ((window._obLang ? window._obLang.t('filter_showing') || 'แสดง' : 'แสดง') + ' <b>' + visible.length + '</b> ' + (window._obLang ? window._obLang.t('filter_items') || 'รายการ' : 'รายการ')) : '';
+        if (countEl) countEl.innerHTML = (q || sortKey) ? ((window._obLang ? window._obLang.t('filter_showing') || 'Showing' : 'Showing') + ' <b>' + visible.length + '</b> ' + (window._obLang ? window._obLang.t('filter_items') || 'items' : 'items')) : '';
         if (clearBtn) clearBtn.classList.toggle('visible', !!(q || sortKey));
 
         _busy = false;
@@ -2166,7 +2167,7 @@
         if (!document.getElementById('filterEmpty')) {
           var empty = document.createElement('div');
           empty.id = 'filterEmpty'; empty.className = 'filter-empty';
-          empty.innerHTML = '<span class="filter-empty-icon">&#128269;</span>' + (window._obLang ? window._obLang.t('filter_noresult') || 'ไม่พบสินค้าที่ตรงกัน' : 'ไม่พบสินค้าที่ตรงกัน');
+          empty.innerHTML = '<span class="filter-empty-icon">&#128269;</span>' + (window._obLang ? window._obLang.t('filter_noresult') || 'No products found' : 'No products found');
           grid.appendChild(empty);
         }
 
