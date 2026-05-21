@@ -8,7 +8,6 @@
     /* ── NAVBAR ── */
     nav_home:         { th:'หน้าแรก',            en:'Home' },
     nav_products:     { th:'สินค้า',              en:'Products' },
-    nav_projects:     { th:'ผลงานติดตั้ง',       en:'Projects' },
     nav_reviews:      { th:'รีวิวลูกค้า',        en:'Reviews' },
     nav_contact:      { th:'ติดต่อเรา',           en:'Contact' },
     nav_spc:          { th:'แผ่นผนัง SPC',            en:'SPC Flooring' },
@@ -38,7 +37,7 @@
     high3_title:      { th:'ราคาคุ้มค่า',         en:'Great Value' },
     high3_desc:       { th:'ราคาโรงงาน คุ้มค่าทุกบาท คุณภาพระดับพรีเมียม', en:'Factory pricing, premium quality, best value for money' },
     high4_title:      { th:'บริการหลังการขาย',   en:'After-Sales Service' },
-    high4_desc:       { th:'ดูแลลูกค้าต่อเนื่อง ไม่ทิ้งหลังขาย พร้อมให้คำปรึกษา', en:'Ongoing support after every sale, always ready to advise' },
+    high4_desc:       { th:'รวมบริการหลังการขายของเรา ทั้งรูปภาพและวิดีโอ', en:'Comprehensive after-sales services including images and videos' },
     reviews_tag:      { th:'CUSTOMER REVIEW',     en:'CUSTOMER REVIEW' },
     reviews_title:    { th:'เสียงตอบรับจาก <b>ลูกค้าจริง</b>', en:'What Our <b>Customers Say</b>' },
     reviews_desc:     { th:'ลูกค้าหลายร้อยครัวเรือนไว้วางใจเลือกใช้วัสดุและบริการจาก OB HOME<br>มาดูประสบการณ์จริงจากลูกค้าของเราได้เลย', en:'Hundreds of households trust OB HOME.<br>See real experiences from our customers.' },
@@ -58,9 +57,9 @@
     prod5_name:       { th:'ไม้สั่งตัด',          en:'Custom Wood' },
     prod_btn:         { th:'ดูสินค้าเพิ่มเติม',  en:'View Products' },
     projects_tag:     { th:'OUR PROJECTS',        en:'OUR PROJECTS' },
-    projects_title:   { th:'ผลงาน <b>ติดตั้ง</b>', en:'Installation <b>Projects</b>' },
+    projects_title:   { th:'บริการ <b>ติดตั้ง</b>', en:'Installation <b>Projects</b>' },
     projects_desc:    { th:'รีโนเวทผนังและพื้นด้วยวัสดุคุณภาพสูง ติดตั้งจบภายในวันเดียว', en:'Wall and floor renovation with premium materials. Completed in one day.' },
-    projects_btn:     { th:'ดูผลงานติดตั้ง',     en:'View All Projects' },
+    projects_btn:     { th:'ดูผลงาน',     en:'View All Projects' },
     proj1_title:      { th:'งานไม้ระแนงห้องนั่งเล่น', en:'Living Room Lath Wood' },
     proj1_desc:       { th:'ตกแต่งผนังสไตล์ Modern Luxury', en:'Modern Luxury wall decoration' },
     proj2_title:      { th:'งานแผ่น SPC',         en:'SPC Flooring Installation' },
@@ -127,8 +126,8 @@
 
     /* ── INSTALLATIONS PAGE ── */
     inst_label:       { th:'OUR WORK',            en:'OUR WORK' },
-    inst_title:       { th:'ผลงานการติดตั้ง',    en:'Installation Projects' },
-    inst_subtitle:    { th:'รวมผลงานจริงจากลูกค้าของเรา ทั้งรูปภาพและวิดีโอ', en:'Real projects from our customers — photos and videos' },
+    inst_title:       { th:'บริการติดตั้ง',    en:'Installation Projects' },
+    inst_subtitle:    { th:'รวมบริการติดตั้งจริงของเรา ทั้งรูปภาพและวิดีโอ', en:'Real projects from our customers — photos and videos' },
 
     /* ── BEFORE & AFTER PAGE ── */
     ba_label:         { th:'BEFORE & AFTER',      en:'BEFORE & AFTER' },
@@ -148,7 +147,7 @@
     title_furniture:  { th:'เฟอร์นิเจอร์ฟิตติ้ง - OB HOME', en:'Furniture - OB HOME' },
     title_accessories:{ th:'อุปกรณ์ติดตั้ง - OB HOME', en:'Accessories - OB HOME' },
     title_reviews:    { th:'รีวิวลูกค้า - OB HOME', en:'Customer Reviews - OB HOME' },
-    title_installations:{ th:'ผลงานติดตั้ง - OB HOME', en:'Installation Projects - OB HOME' },
+    title_installations:{ th:'บริการติดตั้ง - OB HOME', en:'Installation Projects - OB HOME' },
     title_ba:         { th:'Before & After - OB HOME', en:'Before & After - OB HOME' },
     title_promotions: { th:'โปรโมชั่น — OB HOME',         en:'Promotions — OB HOME' },
 
