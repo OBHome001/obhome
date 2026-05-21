@@ -72,7 +72,7 @@
     contact_line:     { th:'@203fmurc',            en:'@203fmurc' },
     contact_fb:       { th:'OB HOME ไม้ระแนงพัทยา ราคาถูก', en:'OB HOME Pattaya' },
     contact_hours:    { th:'จันทร์ - เสาร์ / 07:30 - 17:00 น.', en:'Mon - Sat / 07:30 - 17:00' },
-    contact_addr:     { th:'54/13 หมู่ 1 3240 ตำบล หนองปรือ,<br> อำเภอ บางละมุง,<br> จังหวัด ชลบุรี 20150', en:'54/13 Moo 1 Tambon Nong Prue,<br>Amphoe Bang Lamung,<br> Chang Wat Chon Buri 20150' },
+    contact_addr:     { th:'54/13 หมู่ 1 3240 ตำบล หนองปรือ,<br> อำเภอ บางละมุง,<br> จังหวัด ชลบุรี 20150', en:'54/13 Moo 1 3240 Tambon Nong Prue,<br>Amphoe Bang Lamung,<br> Chang Wat Chon Buri 20150' },
     lbl_tel:          { th:'โทร',                 en:'Tel' },
     lbl_hours:        { th:'เวลาทำการ',           en:'Opening Hours' },
     lbl_address:      { th:'ที่อยู่',              en:'Address' },
@@ -134,6 +134,34 @@
     ba_page_title:    { th:'ก่อน & หลัง',         en:'Before & After' },
     ba_subtitle:      { th:'เห็นความแตกต่างได้ชัดเจน ก่อนและหลังการติดตั้ง', en:'See the clear difference before and after installation' },
 
+    /* ── AFTER-SALE PAGE ── */
+    aftersale_label:  { th:'AFTER SALE',          en:'AFTER SALE' },
+
+    /* ── MANUAL PAGE ── */
+    manual_label:     { th:'HOW TO',              en:'HOW TO' },
+    manual_title:     { th:'คู่มือติดตั้ง',       en:'Installation Manual' },
+    manual_subtitle:  { th:'คู่มือและขั้นตอนการติดตั้งสินค้า OB HOME ทีละขั้นตอน', en:'Step-by-step installation guides for OB HOME products' },
+
+    /* ── PRIVACY POLICY PAGE ── */
+    privacy_intro:         { th:'เราที่ <strong>OB HOME Materials</strong> ให้ความสำคัญกับความเป็นส่วนตัวของคุณ เอกสารนี้อธิบายว่าเรารวบรวม ใช้ และปกป้องข้อมูลส่วนบุคคลของคุณอย่างไร หากคุณมีคำถาม โปรดติดต่อเราได้ตามที่ระบุในหน้านี้', en:'At <strong>OB HOME Materials</strong>, we value your privacy. This document explains how we collect, use, and protect your personal information. If you have questions, please contact us as listed on this page.' },
+    privacy_firebase_auth: { th:'เมื่อคุณล็อกอินเป็น admin ข้อมูลล็อกอิน (อีเมล/รหัสผ่าน) จะถูกจัดเก็บใน <strong>Firebase Authentication</strong> ของ Google เรามี access ทางสถาบันเท่านั้น Google ไม่ได้ใช้ข้อมูลนี้เพื่อโฆษณา', en:'When you log in as admin, your credentials (email/password) are stored in Google\'s <strong>Firebase Authentication</strong>. We have institutional access only. Google does not use this data for advertising.' },
+    privacy_firebase_db:   { th:'ข้อมูลสินค้า ลายผ้า และเนื้อหาหน้าเว็บจัดเก็บใน <strong>Firebase Realtime Database</strong> ปลายทาง: <code>obhome-ceac3-default-rtdb.asia-southeast1.firebasedatabase.app</code> สำหรับการแก้ไขจาก admin เท่านั้น', en:'Product data, patterns, and page content are stored in <strong>Firebase Realtime Database</strong> at: <code>obhome-ceac3-default-rtdb.asia-southeast1.firebasedatabase.app</code> — for admin edits only.' },
+    privacy_cloudinary:    { th:'เมื่อคุณอัปโหลดรูปภาพ พวกมันจะส่งไปยัง <strong>Cloudinary CDN</strong> สำหรับการจัดเก็บและการเสิร์ฟอย่างเร็ว Cloud ID: <code>daiipuvsb</code> Cloudinary มีแนวทางความเป็นส่วนตัวของตัวเอง - ดู <a href="https://cloudinary.com/privacy" target="_blank">cloudinary.com/privacy</a>', en:'When you upload images, they are sent to <strong>Cloudinary CDN</strong> for fast storage and delivery. Cloud ID: <code>daiipuvsb</code>. Cloudinary has its own privacy policy — see <a href="https://cloudinary.com/privacy" target="_blank">cloudinary.com/privacy</a>.' },
+    privacy_sharing:       { th:'เราไม่เคยขายหรือให้เช่าข้อมูลส่วนบุคคลของคุณแก่บุคคลที่สาม ยกเว้น:', en:'We never sell or rent your personal data to third parties, except:' },
+    privacy_rights:        { th:'ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 คุณมีสิทธิ:', en:'Under the Personal Data Protection Act B.E. 2562 (PDPA), you have the right to:' },
+    privacy_contact:       { th:'หากคุณมีข้อห่วงเกี่ยวกับความเป็นส่วนตัว หรือต้องการ ขอเข้าถึง แก้ไข ลบ หรือโอนย้ายข้อมูล โปรดติดต่อเรา:', en:'If you have privacy concerns, or wish to access, correct, delete, or transfer your data, please contact us:' },
+    privacy_changes:       { th:'เราอาจอัปเดตนโยบายความเป็นส่วนตัวนี้เป็นครั้งคราวเพื่อสะท้อนการเปลี่ยนแปลงทางด้านเทคโนโลยี หรือข้อกำหนดทางกฎหมาย เราจะแจ้งให้คุณทราบล่วงหน้าหากมีการเปลี่ยนแปลงที่มีนัยสำคัญ', en:'We may update this privacy policy from time to time to reflect changes in technology or legal requirements. We will notify you in advance of any significant changes.' },
+
+    /* ── PROMOTIONS CMS UPLOAD MODAL ── */
+    cms_upload_promo:  { th:'เพิ่มสื่อโปรโมชั่น',            en:'Add Promotion Media' },
+    cms_upload_label:  { th:'เลือกไฟล์ (รูปภาพ / วิดีโอ)',  en:'Select File (Image / Video)' },
+    cms_upload_btn:    { th:'💾 อัปโหลดและบันทึก',           en:'💾 Upload & Save' },
+
+    /* ── PAGE TITLES (additional) ── */
+    title_aftersale:  { th:'บริการหลังการขาย - OB HOME', en:'After-Sales Service - OB HOME' },
+    title_manual:     { th:'คู่มือการติดตั้ง - OB HOME', en:'Installation Manual - OB HOME' },
+    title_privacy:    { th:'นโยบายความเป็นส่วนตัว - OB HOME', en:'Privacy Policy - OB HOME' },
+
     /* ── CHATBOT ── */
     chat_header:      { th:'ช่องทางติดต่อ',       en:'Contact Us' },
     chat_line_sub:    { th:'OB HOME ไม้ระแนงพัทยา', en:'OB HOME Pattaya' },
@@ -179,9 +207,10 @@
     currentLang = lang;
     localStorage.setItem(STORAGE_KEY, lang);
 
-    /* 1. data-cms-text */
+    /* 1. data-cms-text — ใช้ T dictionary ถ้ามี key; ถ้าไม่มีใน T ให้ CMS จัดการเอง */
     document.querySelectorAll('[data-cms-text]').forEach(el => {
-      const v = T[el.dataset.cmsText];
+      const key = el.dataset.cmsText;
+      const v = T[key];
       if (v && v[lang] !== undefined) el.innerHTML = v[lang];
     });
 
@@ -264,6 +293,9 @@
 
     /* 11. เรียก callbacks ที่ register ไว้ (เช่น promotions page re-render) */
     _callbacks.forEach(fn => { try { fn(lang); } catch(e){} });
+
+    /* 12. dispatch event สำหรับ module ที่ฟังอยู่ (เช่น chatbot) */
+    window.dispatchEvent(new CustomEvent('ob-lang-changed', { detail: { lang } }));
   }
 
   function createSwitcher() {
@@ -300,7 +332,7 @@
       }`;
     document.head.appendChild(s);
 
-    /* ── Anti-flash: ถ้า lang=en ให้ซ่อน [data-lang] ก่อน จนกว่าจะ apply เสร็จ ── */
+    /* ── Anti-flash: ถ้า lang=en ให้ซ่อน body ก่อน จนกว่าจะ apply เสร็จ ── */
     if (currentLang !== 'th') {
       const antiFlash = document.createElement('style');
       antiFlash.id = 'lang-anti-flash';
@@ -318,7 +350,7 @@
     // cms.js dispatch 'cms-data-applied' หลัง applyData() เสร็จ
     // กรณีที่ lang.js โหลดก่อน Firebase เสร็จ จะยังได้ apply ถูกต้อง
     window.addEventListener('cms-data-applied', function () {
-      if (currentLang !== 'th') applyLang(currentLang);
+      applyLang(currentLang);
     });
   }
 

@@ -376,22 +376,51 @@
     document.head.appendChild(style);
 
     // ── ปรับ options panel: เพิ่ม tabs ──
-    options.innerHTML = `
+    function getLang() {
+      return (window._obLang && window._obLang.current()) || 'th';
+    }
+    const CHAT_I18N = {
+      th: {
+        tab_contact: 'ติดต่อเรา',
+        tab_bot: '🤖 แชทบอท',
+        header_contact: 'ช่องทางติดต่อ',
+        fb_sub: 'OB HOME ไม้ระแนงพัทยา',
+        call_label: 'โทรหาเรา',
+        quick: ['ราคาสินค้า','ไม้ระแนง','แผ่น SPC','ที่อยู่ร้าน','วิธีสั่งซื้อ','ติดต่อเรา'],
+        placeholder: 'พิมพ์คำถาม…',
+        send_label: 'ส่ง',
+      },
+      en: {
+        tab_contact: 'Contact Us',
+        tab_bot: '🤖 Chatbot',
+        header_contact: 'Contact Channels',
+        fb_sub: 'OB HOME Pattaya',
+        call_label: 'Call Us',
+        quick: ['Pricing','Lath Wood','SPC Flooring','Store Location','How to Order','Contact Us'],
+        placeholder: 'Type your question…',
+        send_label: 'Send',
+      },
+    };
+
+    function buildOptions() {
+      const lang = getLang();
+      const i18n = CHAT_I18N[lang] || CHAT_I18N.th;
+      options.innerHTML = `
       <div class="chat-tabs">
-        <button class="chat-tab active" data-tab="contact">ติดต่อเรา</button>
-        <button class="chat-tab" data-tab="bot">🤖 แชทบอท</button>
+        <button class="chat-tab active" data-tab="contact">${i18n.tab_contact}</button>
+        <button class="chat-tab" data-tab="bot">${i18n.tab_bot}</button>
       </div>
 
       <!-- Tab: ติดต่อเรา (เดิม) -->
       <div class="chat-panel active" id="chatContactPanel">
-        <div class="chat-options-header" style=" padding:12px 16px 6px;font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase;">ช่องทางติดต่อ</div>
+        <div class="chat-options-header" style=" padding:12px 16px 6px;font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase;">${i18n.header_contact}</div>
         <a href="https://www.facebook.com/obhomestore" target="_blank" rel="noopener noreferrer" class="chat-option chat-option--fb">
           <span class="chat-option-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </span>
           <span class="chat-option-text">
             <span class="chat-option-name">Facebook</span>
-            <span class="chat-option-sub">OB HOME ไม้ระแนงพัทยา</span>
+            <span class="chat-option-sub">${i18n.fb_sub}</span>
           </span>
         </a>
         <a href="https://page.line.me/203fmurc?openQrModal=true" target="_blank" rel="noopener noreferrer" class="chat-option chat-option--line">
@@ -408,7 +437,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6 6l1.62-1.62a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15z"/></svg>
           </span>
           <span class="chat-option-text">
-            <span class="chat-option-name">โทรหาเรา</span>
+            <span class="chat-option-name">${i18n.call_label}</span>
             <span class="chat-option-sub">091-7036286</span>
           </span>
         </a>
@@ -418,16 +447,11 @@
       <div class="chat-panel" id="chatBotPanel">
         <div class="chatbot-messages" id="cbMessages"></div>
         <div class="cb-quick-replies" id="cbQuickReplies">
-          <button class="cb-quick-btn">ราคาสินค้า</button>
-          <button class="cb-quick-btn">ไม้ระแนง</button>
-          <button class="cb-quick-btn">แผ่น SPC</button>
-          <button class="cb-quick-btn">ที่อยู่ร้าน</button>
-          <button class="cb-quick-btn">วิธีสั่งซื้อ</button>
-          <button class="cb-quick-btn">ติดต่อเรา</button>
+          ${i18n.quick.map(q => `<button class="cb-quick-btn">${q}</button>`).join('\n          ')}
         </div>
         <div class="chatbot-input-row">
-          <input class="chatbot-input" id="cbInput" type="text" placeholder="พิมพ์คำถาม…" autocomplete="off" maxlength="200">
-          <button class="chatbot-send" id="cbSend" aria-label="ส่ง">
+          <input class="chatbot-input" id="cbInput" type="text" placeholder="${i18n.placeholder}" autocomplete="off" maxlength="200">
+          <button class="chatbot-send" id="cbSend" aria-label="${i18n.send_label}">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
             </svg>
@@ -435,6 +459,9 @@
         </div>
       </div>
     `;
+    }
+
+    buildOptions();
 
     /* ── Tab switching ── */
     options.querySelectorAll('.chat-tab').forEach(tab => {
@@ -514,7 +541,36 @@
     document.getElementById('cbQuickReplies').querySelectorAll('.cb-quick-btn').forEach(btn => {
       btn.addEventListener('click', () => sendMessage(btn.textContent));
     });
-  }
+
+    // ── re-build เมื่อเปลี่ยนภาษา ──
+    function rebuildOnLangChange() {
+      const activeTab = options.querySelector('.chat-tab.active')?.dataset?.tab || 'contact';
+      buildOptions();
+      // re-attach tab events
+      options.querySelectorAll('.chat-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          options.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
+          options.querySelectorAll('.chat-panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.tab === 'bot' ? 'chatBotPanel' : 'chatContactPanel').classList.add('active');
+          if (tab.dataset.tab === 'bot') initBotSession();
+        });
+      });
+      // restore active tab
+      const tabEl = options.querySelector(`[data-tab="${activeTab}"]`);
+      if (tabEl) {
+        options.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
+        options.querySelectorAll('.chat-panel').forEach(p => p.classList.remove('active'));
+        tabEl.classList.add('active');
+        document.getElementById(activeTab === 'bot' ? 'chatBotPanel' : 'chatContactPanel')?.classList.add('active');
+      }
+      // re-attach quick reply buttons
+      const qr = document.getElementById('cbQuickReplies');
+      if (qr) qr.querySelectorAll('.cb-quick-btn').forEach(btn => {
+        btn.addEventListener('click', () => sendMessage(btn.textContent));
+      });
+    }
+    window.addEventListener('ob-lang-changed', rebuildOnLangChange);
 
   /* ═══════════════════════════════════════════════════
      5.  INIT — รอ DOM พร้อม
@@ -524,5 +580,6 @@
   } else {
     injectBot();
   }
+}
 
 })();

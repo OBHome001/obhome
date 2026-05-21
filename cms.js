@@ -460,15 +460,13 @@
       }
     }
 
-    // ── แสดงหน้าหลัง apply เสร็จ (ป้องกันกระพริบ) ──
-    revealPage();
-
-    // ── re-apply ภาษาปัจจุบัน ทันทีหลัง CMS เขียน DOM เสร็จ ──
-    // แก้ bug: applyData เขียนทับด้วยค่า Firebase (ภาษาไทย) ทุกครั้ง
-    // ต้อง re-apply lang เพื่อให้ตรงกับที่ user เลือกไว้
-    if (window._obLang && window._obLang.current() !== 'th') {
+    // ── re-apply ภาษาปัจจุบัน ก่อน reveal หน้า เพื่อไม่ให้กระพริบเป็น TH ──
+    if (window._obLang) {
       window._obLang.apply(window._obLang.current());
     }
+
+    // ── แสดงหน้าหลัง apply เสร็จ (ป้องกันกระพริบ) ──
+    revealPage();
     // dispatch event ให้ lang.js รู้ว่า CMS เสร็จแล้ว
     window.dispatchEvent(new CustomEvent('cms-data-applied'));
   }
@@ -615,6 +613,9 @@
     document.getElementById('cms-btn-toggle').style.display = 'none';
     document.getElementById('cms-btn-save').style.display   = '';
     document.getElementById('cms-btn-cancel').style.display = '';
+
+    // ── แสดงภาษาปัจจุบันก่อนเปิด edit ──
+    if (window._obLang) window._obLang.apply(window._obLang.current());
 
     document.querySelectorAll('[data-cms-text]').forEach(el => {
       el.contentEditable = 'true';
@@ -972,6 +973,8 @@
       if (window._cmsGallery && window._cmsGallery.length) cachePayload.gallery = window._cmsGallery;
       if (payload.before_after) cachePayload.before_after = payload.before_after;
       writeCache(cachePayload); // อัปเดต cache ทันทีหลัง save
+      // ── re-apply ภาษาปัจจุบันทันทีหลัง save ──
+      if (window._obLang) window._obLang.apply(window._obLang.current());
       toast('✓ บันทึกสำเร็จ!');
     } catch (err) {
       console.error(err);
@@ -1067,6 +1070,8 @@
       // ── อัปเดต cache และ DOM ให้ตรงกับ HTML ต้นฉบับ ──
       writeCache(payload);
       applyData(payload);
+      // ── re-apply ภาษาปัจจุบันทันทีหลัง sync เพื่อให้ UI อัปเดต ──
+      if (window._obLang) window._obLang.apply(window._obLang.current());
       toast('✓ ซิงค์จากโค้ดสำเร็จ!');
     } catch (err) {
       console.error(err);
