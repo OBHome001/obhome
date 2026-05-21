@@ -1690,6 +1690,8 @@
     var overlay = document.getElementById('pdmOverlay');
     var closeBtn = document.getElementById('pdmClose');
 
+    function fmtPrice(v){var s=(v||'').trim();return/บาท|baht/i.test(s)?s:s+' ฿';}
+
     function openModal(data) {
       document.getElementById('pdmImg').src    = data.img   || '';
       document.getElementById('pdmImg').alt    = data.name  || '';
