@@ -70,7 +70,7 @@
     contact_title:    { th:'ติดต่อ <b>OB HOME</b>', en:'Contact <b>OB HOME</b>' },
     contact_phone:    { th:'091-7036286',          en:'091-7036286' },
     contact_line:     { th:'@203fmurc',            en:'@203fmurc' },
-    contact_fb:       { th:'OB HOME ไม้ระแนงพัทยา ราคาถูก', en:'OB HOME Pattaya' },
+    contact_fb:       { th:'OB HOME ไม้ระแนงพัทยา ราคาถูก', en:'OB HOME ไม้ระแนงพัทยา ราคาถูก' },
     contact_hours:    { th:'จันทร์ - เสาร์ / 07:30 - 17:00 น.', en:'Mon - Sat / 07:30 - 17:00' },
     contact_addr:     { th:'54/13 หมู่ 1 3240 ตำบล หนองปรือ,<br> อำเภอ บางละมุง,<br> จังหวัด ชลบุรี 20150', en:'54/13 Moo 1 3240 Tambon Nong Prue,<br>Amphoe Bang Lamung,<br> Chang Wat Chon Buri 20150' },
     lbl_tel:          { th:'โทร',                 en:'Tel' },
