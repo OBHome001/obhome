@@ -52,12 +52,12 @@
     products_title:   { th:'หมวดหมู่ <b>สินค้า</b>', en:'Product <b>Categories</b>' },
     prod1_name:       { th:'ไม้ระแนง',            en:'Lath Wood' },
     prod2_name:       { th:'แผ่น SPC',            en:'SPC Flooring' },
-    prod3_name:       { th:'เฟอร์นิเจอร์ฟิตติ้ง',          en:'Furniture' },
+    prod3_name:       { th:'เฟอร์นิเจอร์ฟิตติ้ง',          en:'Furniture Fitting' },
     prod4_name:       { th:'อุปกรณ์ติดตั้ง',     en:'Accessories' },
     prod5_name:       { th:'ไม้สั่งตัด',          en:'Custom Wood' },
     prod_btn:         { th:'ดูสินค้าเพิ่มเติม',  en:'View Products' },
     projects_tag:     { th:'OUR PROJECTS',        en:'OUR PROJECTS' },
-    projects_title:   { th:'บริการ <b>ติดตั้ง</b>', en:'Installation <b>Projects</b>' },
+    projects_title:   { th:'บริการ <b>ติดตั้ง</b>', en:'Installation <b>Services</b>' },
     projects_desc:    { th:'บริการทุกอย่าง จากทีมช่างมืออาชีพของเรา<br> ติดตั้งด้วยความใส่ใจในทุกรายละเอียด เพื่อผลลัพธ์ที่สวยงามและคงทนยาวนาน', en:'All-around installation services from our professional team. Installed with care for every detail, ensuring beautiful and durable results.' },
     projects_btn:     { th:'ดูผลงาน',     en:'View All Projects' },
     proj1_title:      { th:'งานไม้ระแนงห้องนั่งเล่น', en:'Living Room Lath Wood' },
@@ -126,13 +126,13 @@
 
     /* ── INSTALLATIONS PAGE ── */
     inst_label:       { th:'OUR WORK',            en:'OUR WORK' },
-    inst_title:       { th:'บริการติดตั้ง',    en:'Installation Projects' },
+    inst_title:       { th:'บริการติดตั้ง',    en:'Installation Services' },
     inst_subtitle:    { th:'รวมบริการติดตั้งจริงของเรา ทั้งรูปภาพและวิดีโอ', en:'Real projects from our customers — photos and videos' },
 
     /* ── BEFORE & AFTER PAGE ── */
-    ba_label:         { th:'BEFORE & AFTER',      en:'BEFORE & AFTER' },
-    ba_page_title:    { th:'ก่อน & หลัง',         en:'Before & After' },
-    ba_subtitle:      { th:'เห็นความแตกต่างได้ชัดเจน ก่อนและหลังการติดตั้ง', en:'See the clear difference before and after installation' },
+    be_title:         { th:'BEFORE & AFTER',      en:'BEFORE & AFTER' },
+    be_for:    { th:'ก่อน & หลัง',         en:'Before & After' },
+    be_for_sub:      { th:'เห็นความแตกต่างได้ชัดเจน ก่อนและหลังการติดตั้ง', en:'See the clear difference before and after installation' },
 
     /* ── AFTER-SALE PAGE ── */
     aftersale_label:  { th:'AFTER SALE',          en:'AFTER SALE' },
@@ -143,6 +143,88 @@
     manual_subtitle:  { th:'คู่มือและขั้นตอนการติดตั้งสินค้า OB HOME ทีละขั้นตอน', en:'Step-by-step installation guides for OB HOME products' },
 
     /* ── PRIVACY POLICY PAGE ── */
+    privacy_page_title:    { th:'นโยบายความเป็นส่วนตัว',                                       en:'Privacy Policy' },
+    privacy_page_date:     { th:'มีผลบังคับใช้ตั้งแต่วันที่ 18 พฤษภาคม 2569',                  en:'Effective from 18 May 2026' },
+
+    privacy_h2_1:          { th:'1. บทนำ',                                                       en:'1. Introduction' },
+    privacy_h2_2:          { th:'2. ข้อมูลที่เรารวบรวม',                                         en:'2. Information We Collect' },
+    privacy_h2_3:          { th:'3. วิธีที่เรารวบรวมข้อมูล',                                     en:'3. How We Collect Information' },
+    privacy_h2_4:          { th:'4. วิธีใช้ข้อมูลของคุณ',                                        en:'4. How We Use Your Information' },
+    privacy_h2_5:          { th:'5. การเก็บข้อมูล',                                              en:'5. Data Retention' },
+    privacy_h2_6:          { th:'6. การแบ่งปันข้อมูล',                                           en:'6. Data Sharing' },
+    privacy_h2_7:          { th:'7. สิทธิของคุณ',                                                en:'7. Your Rights' },
+    privacy_h2_8:          { th:'8. ช่องทางติดต่อเราสำหรับความเป็นส่วนตัว',                      en:'8. Privacy Contact Channels' },
+    privacy_h2_9:          { th:'9. สิทธิของเจ้าหน้าที่ บุคคลที่สาม และหน่วยงาน',               en:'9. Rights of Officers, Third Parties, and Agencies' },
+    privacy_h2_10:         { th:'10. การเปลี่ยนแปลงนโยบาย',                                     en:'10. Policy Changes' },
+
+    privacy_h3_direct:     { th:'ข้อมูลที่คุณให้ไว้โดยตรง',                                     en:'Information You Provide Directly' },
+    privacy_h3_auto:       { th:'ข้อมูลที่รวบรวมโดยอัตโนมัติ',                                   en:'Automatically Collected Information' },
+    privacy_h3_retention:  { th:'ระยะเวลาการเก็บรักษา',                                          en:'Retention Periods' },
+
+    privacy_li_support_label:  { th:'ข้อมูลการสนับสนุนและการติดต่อ:',                           en:'Support & Contact Information:' },
+    privacy_li_support_val:    { th:'ชื่อ, หมายเลขโทรศัพท์, ที่อยู่อีเมล, บันทึกการแชท (ผ่าน LINE, Facebook, หรือโทรศัพท์)', en:'Name, phone number, email address, chat records (via LINE, Facebook, or phone)' },
+    privacy_li_admin_label:    { th:'ข้อมูลบัญชี Admin:',                                        en:'Admin Account Information:' },
+    privacy_li_admin_val:      { th:'อีเมล, รหัสผ่าน, ประวัติการสนับสนุนระบบ (ถ้าเข้าสู่ระบบ admin)', en:'Email, password, system support history (if logged in as admin)' },
+    privacy_li_feedback_label: { th:'ความเห็นและข้อเสนอแนะ:',                                   en:'Comments and Feedback:' },
+    privacy_li_feedback_val:   { th:'ข้อมูลใด ๆ ที่คุณส่งมาในเนื้อหาการติดต่อ',                 en:'Any information you submit through contact messages' },
+
+    privacy_li_device_label:   { th:'ข้อมูลอุปกรณ์:',                                           en:'Device Information:' },
+    privacy_li_device_val:     { th:'ประเภทเบราว์เซอร์, ระบบปฏิบัติการ, ที่อยู่ IP',            en:'Browser type, operating system, IP address' },
+    privacy_li_usage_label:    { th:'ข้อมูลการทำงาน:',                                          en:'Usage Data:' },
+    privacy_li_usage_val:      { th:'หน้าที่คุณเยี่ยมชม, เวลาที่อยู่บนเว็บไซต์, ลิงก์ที่คลิก', en:'Pages visited, time spent on site, links clicked' },
+    privacy_li_third_label:    { th:'ข้อมูลจาก Third-party:',                                   en:'Third-Party Data:' },
+    privacy_li_third_val:      { th:'บันทึก Analytics จาก Google Fonts, Firebase, Cloudinary',  en:'Analytics logs from Google Fonts, Firebase, and Cloudinary' },
+
+    privacy_note_label:    { th:'💡 หมายเหตุ:',                                                  en:'💡 Note:' },
+    privacy_note_val:      { th:'เราไม่ใช้ cookies สำหรับติดตามทั่วไป แต่ Firebase อาจใช้ session storage สำหรับการยืนยันตัวตน', en:'We do not use cookies for general tracking. However, Firebase may use session storage for authentication purposes.' },
+
+    privacy_use1_label:    { th:'ให้บริการเว็บไซต์:',                                            en:'Website Operations:' },
+    privacy_use1_val:      { th:'แสดงข้อมูลสินค้า อัปเดตเนื้อหา',                               en:'Display product information and update content' },
+    privacy_use2_label:    { th:'การเข้าถึง Admin:',                                             en:'Admin Access:' },
+    privacy_use2_val:      { th:'ยืนยันตัวตน เข้าถึงแดชบอร์ด CMS',                             en:'Authentication and CMS dashboard access' },
+    privacy_use3_label:    { th:'การสนับสนุนลูกค้า:',                                           en:'Customer Support:' },
+    privacy_use3_val:      { th:'ตอบสนองต่อคำถาม สัญญา LINE, Facebook, โทรศัพท์',              en:'Responding to inquiries via LINE, Facebook, and phone' },
+    privacy_use4_label:    { th:'การปรับปรุง:',                                                  en:'Improvements:' },
+    privacy_use4_val:      { th:'วิเคราะห์การใช้งาน ปรับปรุงเว็บไซต์',                          en:'Analyzing usage patterns to improve the website' },
+    privacy_use5_label:    { th:'การปฏิบัติตามกฎหมาย:',                                         en:'Legal Compliance:' },
+    privacy_use5_val:      { th:'ปฏิบัติตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)', en:'Compliance with the Personal Data Protection Act B.E. 2562 (PDPA)' },
+
+    privacy_ret1_label:    { th:'ข้อมูลการสนับสนุน:',                                           en:'Support Data:' },
+    privacy_ret1_val:      { th:'2 ปี (เลิกบริการ หรือตามคำขอ)',                               en:'2 years (upon service termination or upon request)' },
+    privacy_ret2_label:    { th:'บัญชี Admin:',                                                  en:'Admin Account:' },
+    privacy_ret2_val:      { th:'ตราบเท่าที่บัญชีเปิดใช้งาน หรือตามคำขอ',                     en:'For as long as the account is active, or upon request' },
+    privacy_ret3_label:    { th:'ข้อมูลในฐานข้อมูล Firebase:',                                  en:'Firebase Database Data:' },
+    privacy_ret3_val:      { th:'ตราบเท่าที่ต้องการ หรือจนกว่าคุณร้องขอลบ',                    en:'For as long as required, or until you request deletion' },
+    privacy_ret4_label:    { th:'รูปภาพใน Cloudinary:',                                         en:'Cloudinary Images:' },
+    privacy_ret4_val:      { th:'ตราบเท่าที่ใช้งานจริง หรือตามนโยบาย Cloudinary',              en:'For as long as in active use, or per Cloudinary\'s policy' },
+
+    privacy_sec_label:     { th:'🔒 ความปลอดภัย:',                                              en:'🔒 Security:' },
+    privacy_sec_val:       { th:'ข้อมูลทั้งหมดเข้ารหัสในระหว่างการส่ง (HTTPS/SSL) และจัดเก็บใน Google Cloud ของสิงคโปร์', en:'All data is encrypted in transit (HTTPS/SSL) and stored on Google Cloud in Singapore.' },
+
+    privacy_share1_val:    { th:'ใช้งาน Authentication, Database, Cloud Storage',               en:'Authentication, Database, and Cloud Storage services' },
+    privacy_share2_val:    { th:'บริการภาพและ CDN',                                             en:'Image hosting and CDN services' },
+    privacy_share3_label:  { th:'ผู้ให้บริการสนับสนุนทางกฎหมาย:',                              en:'Legal Service Providers:' },
+    privacy_share3_val:    { th:'หากจำเป็นตามกฎหมาย (เช่น การตรวจสอบทางกฎหมาย)',              en:'When required by law (e.g. legal investigations)' },
+    privacy_no_disclose:   { th:'เราจะไม่เปิดเผยข้อมูลส่วนบุคคลโดยไม่ได้รับอนุญาต ยกเว้นตามที่กฎหมายกำหนด', en:'We will not disclose personal data without authorization, except as required by law.' },
+
+    privacy_right1_label:  { th:'ขอเข้าถึง:',                                                   en:'Right to Access:' },
+    privacy_right1_val:    { th:'ร้องขอสำเนาข้อมูลส่วนบุคคลของคุณ',                            en:'Request a copy of your personal data' },
+    privacy_right2_label:  { th:'ขอแก้ไข:',                                                     en:'Right to Rectification:' },
+    privacy_right2_val:    { th:'ขอให้แก้ไขข้อมูลที่ไม่ถูกต้องหรือไม่สมบูรณ์',                en:'Request correction of inaccurate or incomplete data' },
+    privacy_right3_label:  { th:'ขอลบ:',                                                        en:'Right to Erasure:' },
+    privacy_right3_val:    { th:'ร้องขอการลบข้อมูล (ถ้าไม่จำเป็นทางกฎหมายอีกต่อไป)',          en:'Request deletion of data (if no longer legally required)' },
+    privacy_right4_label:  { th:'ขอจำกัด:',                                                     en:'Right to Restriction:' },
+    privacy_right4_val:    { th:'ร้องขอหยุดการประมวลผล',                                        en:'Request restriction of processing' },
+    privacy_right5_label:  { th:'ขอย้าย:',                                                      en:'Right to Portability:' },
+    privacy_right5_val:    { th:'ขอข้อมูลในรูปแบบที่เป็นไปได้',                                en:'Request data in a portable format' },
+
+    privacy_reply_note:    { th:'เราจะตอบกลับในเร็วๆ นี้ ภายใน 15-30 วัน ตามกฎหมาย',          en:'We will respond within 15–30 days as required by law.' },
+    privacy_pdpc_note:     { th:'ถ้าข้อมูลส่วนบุคคลของคุณไม่ตรงกับการใช้งาน หรือคุณมีข้อคัดค้าน สามารถยื่นเรื่องต่อ', en:'If your personal data is misused or you have an objection, you may file a complaint with the' },
+    privacy_pdpc_name:     { th:'สำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคล (PDPC)',           en:'Office of the Personal Data Protection Committee (PDPC)' },
+
+    privacy_accept_label:  { th:'✓ ยอมรับ:',                                                    en:'✓ Acceptance:' },
+    privacy_accept_val:    { th:'โดยการใช้เว็บไซต์นี้ต่อไป คุณยอมรับนโยบายความเป็นส่วนตัวนี้', en:'By continuing to use this website, you accept this Privacy Policy.' },
+
     privacy_intro:         { th:'เราที่ <strong>OB HOME Materials</strong> ให้ความสำคัญกับความเป็นส่วนตัวของคุณ เอกสารนี้อธิบายว่าเรารวบรวม ใช้ และปกป้องข้อมูลส่วนบุคคลของคุณอย่างไร หากคุณมีคำถาม โปรดติดต่อเราได้ตามที่ระบุในหน้านี้', en:'At <strong>OB HOME Materials</strong>, we value your privacy. This document explains how we collect, use, and protect your personal information. If you have questions, please contact us as listed on this page.' },
     privacy_firebase_auth: { th:'เมื่อคุณล็อกอินเป็น admin ข้อมูลล็อกอิน (อีเมล/รหัสผ่าน) จะถูกจัดเก็บใน <strong>Firebase Authentication</strong> ของ Google เรามี access ทางสถาบันเท่านั้น Google ไม่ได้ใช้ข้อมูลนี้เพื่อโฆษณา', en:'When you log in as admin, your credentials (email/password) are stored in Google\'s <strong>Firebase Authentication</strong>. We have institutional access only. Google does not use this data for advertising.' },
     privacy_firebase_db:   { th:'ข้อมูลสินค้า ลายผ้า และเนื้อหาหน้าเว็บจัดเก็บใน <strong>Firebase Realtime Database</strong> ปลายทาง: <code>obhome-ceac3-default-rtdb.asia-southeast1.firebasedatabase.app</code> สำหรับการแก้ไขจาก admin เท่านั้น', en:'Product data, patterns, and page content are stored in <strong>Firebase Realtime Database</strong> at: <code>obhome-ceac3-default-rtdb.asia-southeast1.firebasedatabase.app</code> — for admin edits only.' },
@@ -175,7 +257,7 @@
     title_furniture:  { th:'เฟอร์นิเจอร์ฟิตติ้ง - OB HOME', en:'Furniture - OB HOME' },
     title_accessories:{ th:'อุปกรณ์ติดตั้ง - OB HOME', en:'Accessories - OB HOME' },
     title_reviews:    { th:'รีวิวลูกค้า - OB HOME', en:'Customer Reviews - OB HOME' },
-    title_installations:{ th:'บริการติดตั้ง - OB HOME', en:'Installation Projects - OB HOME' },
+    title_installations:{ th:'บริการติดตั้ง - OB HOME', en:'Installation Services - OB HOME' },
     title_ba:         { th:'Before & After - OB HOME', en:'Before & After - OB HOME' },
     title_promotions: { th:'โปรโมชั่น — OB HOME',         en:'Promotions — OB HOME' },
 
