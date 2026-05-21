@@ -255,6 +255,7 @@
     title_spc:        { th:'แผ่น SPC Marble Board - OB HOME', en:'SPC Marble Board - OB HOME' },
     title_wooden:     { th:'ไม้สั่งตัด - OB HOME', en:'Custom Wood - OB HOME' },
     title_furniture:  { th:'เฟอร์นิเจอร์ฟิตติ้ง - OB HOME', en:'Furniture - OB HOME' },
+    title_stainless:  { th:'สแตนเลส - OB HOME',              en:'Stainless - OB HOME' },
     title_accessories:{ th:'อุปกรณ์ติดตั้ง - OB HOME', en:'Accessories - OB HOME' },
     title_reviews:    { th:'รีวิวลูกค้า - OB HOME', en:'Customer Reviews - OB HOME' },
     title_installations:{ th:'บริการติดตั้ง - OB HOME', en:'Installation Services - OB HOME' },

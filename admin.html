@@ -77,9 +77,23 @@
       width: 100%; padding: 14px;
       background: var(--warm); color: var(--off-black);
       border: none; border-radius: 10px;
-      font-family: inherit; font-size: 15px; font-weight: 700;
+      font-family: inherit; font-size: 24px; font-weight: 700;
       cursor: pointer; transition: all .2s; margin-top: 8px;
     }
+
+    .home-btn {
+      display: flex;
+      justify-content: center; align-items: center;
+      margin-top: 12px;
+      color: rgba(255,255,255,.5); font-size: 16px;
+      text-decoration: none; transition: color .2s;
+    }
+
+    .home-btn:hover {
+      color: var(--warm-light);
+      transform: translateY(-1px);
+    }
+
     .login-btn:hover { background: var(--warm-light); transform: translateY(-2px); }
     .login-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
     #login-error {
@@ -290,7 +304,7 @@
   <div id="login-screen">
     <div class="login-box">
       <div class="login-logo">
-        <span>✦ OB HOME</span>
+        <span>OB HOME</span>
         <p>ระบบจัดการเว็บไซต์</p>
       </div>
       <div class="form-group">
@@ -302,6 +316,7 @@
         <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
       </div>
       <button class="login-btn" id="login-btn">เข้าสู่ระบบ</button>
+      <a href="home" class="home-btn">กลับหน้าหลัก</a>
       <div id="login-error">อีเมลหรือรหัสผ่านไม่ถูกต้อง</div>
     </div>
   </div>
@@ -309,7 +324,7 @@
   <!-- ════ DASHBOARD ════ -->
   <div id="dashboard">
     <div class="dash-header">
-      <div class="dash-logo">✦ OB HOME CMS</div>
+      <div class="dash-logo">OB HOME ADMIN</div>
       <div style="display:flex; align-items:center; gap:16px;">
         <div class="dash-user">เข้าสู่ระบบในฐานะ <strong id="dash-email">-</strong></div>
         <button class="logout-btn" id="dash-logout-btn">ออกจากระบบ</button>
