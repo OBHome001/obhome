@@ -150,6 +150,16 @@
     title_reviews:    { th:'รีวิวลูกค้า - OB HOME', en:'Customer Reviews - OB HOME' },
     title_installations:{ th:'ผลงานติดตั้ง - OB HOME', en:'Installation Projects - OB HOME' },
     title_ba:         { th:'Before & After - OB HOME', en:'Before & After - OB HOME' },
+    title_promotions: { th:'โปรโมชั่น — OB HOME',         en:'Promotions — OB HOME' },
+
+    /* ─── PROMOTIONS PAGE ─── */
+    nav_promotions:   { th:'โปรโมชั่น',          en:'Promotions' },
+    promo_tag:        { th:'MONTHLY PROMOTIONS',  en:'MONTHLY PROMOTIONS' },
+    promo_h1:         { th:'โปรโมชั่น<b>รายเดือน</b>', en:'Monthly <b>Promotions</b>' },
+    promo_empty:      { th:'ยังไม่มีโปรโมชั่นในช่วงนี้', en:'No promotions available yet' },
+    promo_add_btn:    { th:'+ เพิ่มโปรโมชั่น',   en:'+ Add Promotion' },
+    promo_del_btn:    { th:'ลบ',                  en:'Delete' },
+    promo_save_btn:   { th:'💾 บันทึก',           en:'💾 Save' },
   };
 
   const STORAGE_KEY = 'ob_lang';
@@ -157,6 +167,13 @@
 
   function t(key) {
     return (T[key] && T[key][currentLang]) || null;
+  }
+
+  /* ── callbacks ที่จะถูกเรียกหลังเปลี่ยนภาษา ── */
+  const _callbacks = [];
+
+  function onLangChange(fn) {
+    _callbacks.push(fn);
   }
 
   function applyLang(lang) {
@@ -245,6 +262,9 @@
       const noResultTxt = (T['filter_noresult'] && T['filter_noresult'][lang]) || 'ไม่พบสินค้าที่ตรงกัน';
       filterEmpty.innerHTML = '<span class="filter-empty-icon">&#128269;</span>' + noResultTxt;
     }
+
+    /* 11. เรียก callbacks ที่ register ไว้ (เช่น promotions page re-render) */
+    _callbacks.forEach(fn => { try { fn(lang); } catch(e){} });
   }
 
   function createSwitcher() {
@@ -309,5 +329,5 @@
     init();
   }
 
-  window._obLang = { apply: applyLang, current: () => currentLang, t };
+  window._obLang = { apply: applyLang, current: () => currentLang, t, onLangChange };
 })();

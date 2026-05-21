@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="th">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Permissions-Policy" content="unload=*">
+        <meta name="description"
+            content="โปรโมชั่นรายเดือน OB HOME Materials — ส่วนลดพิเศษ ไม้ระแนง แผ่น SPC ผนังตกแต่ง">
+        <meta property="og:title" content="โปรโมชั่น — OB HOME">
+        <meta property="og:url" content="https://obhomestore.com/promotions">
+        <meta property="og:image"
+            content="https://obhomestore.com/assets/logo.png">
+        <link rel="canonical" href="https://obhomestore.com/promotions">
+        <title>โปรโมชั่น — OB HOME</title>
+        <link rel="shortcut icon" href="assets/logo.ico" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600;700&display=swap"
+            rel="stylesheet">
+
+        <style>
+    :root {
+      --warm:       #bca58e;
+      --warm-light: #d4c4b0;
+      --warm-dark:  #8a7560;
+      --black:      #0f0f0d;
+      --off-black:  #1a1a16;
+      --charcoal:   #2d2d28;
+      --white:      #faf9f6;
+      --off-white:  #f3f1ec;
+      --cream:      #ede8df;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+ 
+    @font-face {
+      font-family:'Opun';
+      src:url('fonts/Opun%20Semi%20Bold.ttf') format('truetype');
+    }
+ 
+    body {
+      font-family:'IBM Plex Sans Thai','Opun',sans-serif;
+      background:var(--white); color:var(--black);
+      overflow-x:hidden; line-height:1.7;
+    }
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:.3;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+ 
+    /* ─── NAV BASE ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 72px;
+      padding: 0 4%;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: height .35s ease, box-shadow .35s ease, background .35s ease;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, .08);
+    }
+ 
+    nav.scrolled {
+      height: 62px;
+      background: rgba(188, 165, 142, .97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .13);
+    }
+ 
+    /* ─── LOGO ─── */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      z-index: 1001;
+      flex-shrink: 0;
+    }
+ 
+    .nav-logo-icon {
+      height: 40px;
+      width: auto;
+      flex-shrink: 0;
+    }
+ 
+    .nav-logo-icon img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+ 
+    .nav-logo-main {
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      white-space: nowrap;
+    }
+ 
+    .nav-logo-main span {
+      color: var(--warm-dark);
+      font-weight: 400;
+    }
+ 
+    /* ─── LINKS (desktop) ─── */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+ 
+    .nav-links>li>a,
+    .dropdown-btn {
+      color: rgba(255, 255, 255, .92);
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: .875rem;
+      font-weight: 500;
+      font-family: 'Opun', sans-serif;
+      transition: background .2s ease, color .2s ease;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+ 
+    .nav-links>li>a:hover,
+    .dropdown-btn:hover {
+      background: rgba(255, 255, 255, .15);
+      color: #fff;
+    }
+ 
+
+ 
+    /* ─── DROPDOWN ─── */
+    .dropdown {
+      position: relative;
+    }
+ 
+    .dropdown-arrow {
+      font-size: .55rem;
+      opacity: .75;
+      margin-top: 1px;
+      transition: transform .25s ease;
+    }
+ 
+    .dropdown.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+ 
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 200px;
+      background: #c9b49e;
+      border-radius: 12px;
+      padding: 6px;
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px) scale(.98);
+      transform-origin: top left;
+      transition: opacity .22s ease, transform .22s ease, visibility .22s;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .15);
+    }
+ 
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+ 
+    .dropdown-menu li {
+      width: 100%;
+    }
+ 
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, .92);
+      font-size: .9rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background .18s ease;
+      gap: 8px;
+      font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
+    }
+ 
+    .dropdown-menu a::before {
+      content: '';
+      opacity: .5;
+      font-size: 1rem;
+    }
+ 
+    .dropdown-menu a:hover {
+      background: rgba(255, 255, 255, .18);
+      color: #fff;
+    }
+ 
+    /* ─── HAMBURGER BUTTON ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: rgba(255, 255, 255, .12);
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1002;
+      flex-shrink: 0;
+      transition: background .2s ease;
+    }
+ 
+    .nav-toggle:hover {
+      background: rgba(255, 255, 255, .22);
+    }
+ 
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 4px;
+      transition: transform .28s cubic-bezier(.16, 1, .3, 1), opacity .2s ease, width .25s ease;
+    }
+ 
+    .nav-toggle span:nth-child(1) {
+      margin-bottom: 5px;
+    }
+ 
+    .nav-toggle span:nth-child(2) {
+      margin-bottom: 5px;
+    }
+ 
+    /* X state */
+    .nav-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+ 
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+ 
+    .nav-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+ 
+ 
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background:var(--off-black); padding:130px 6% 64px;
+      position:relative; overflow:hidden;
+    }
+    .page-header::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(188,165,142,.12) 0%,transparent 60%);
+    }
+    .page-header::after {
+      content:'PROMOTIONS'; position:absolute; right:4%; top:50%; transform:translateY(-50%);
+      font-family:'Opun',sans-serif; font-size:clamp(4rem,10vw,9rem); font-weight:700;
+      color:rgba(255,255,255,.03); letter-spacing:.08em; pointer-events:none; white-space:nowrap;
+    }
+    .page-tag {
+      font-size:.72rem; letter-spacing:.35em; text-transform:uppercase;
+      color:var(--warm); font-weight:600; margin-bottom:14px; display:block;
+    }
+    .page-header h1 {
+      font-family:'Opun',sans-serif;
+      font-size:clamp(1.8rem,4vw,2.8rem); font-weight:400;
+      color:var(--white); letter-spacing:.02em; line-height:1.3;
+    }
+    .page-header h1 b { color:var(--warm-light); }
+ 
+    /* ── MAIN CONTENT ── */
+    .promo-page-wrap {
+      max-width:1200px; margin:0 auto; padding:60px 5% 100px;
+    }
+ 
+    /* ── YEAR TABS ── */
+    .year-tabs {
+      display:flex; gap:8px; margin-bottom:48px; flex-wrap:wrap;
+    }
+    .year-tab {
+      padding:8px 22px; border-radius:30px;
+      border:1.5px solid rgba(188,165,142,.35);
+      background:transparent; color:var(--charcoal);
+      font-family:'Opun',sans-serif; font-size:.88rem;
+      cursor:pointer; transition:all .2s;
+    }
+    .year-tab.active, .year-tab:hover {
+      background:var(--warm); border-color:var(--warm); color:#fff;
+    }
+ 
+    /* ── MONTH ACCORDION ── */
+    .month-list { display:flex; flex-direction:column; gap:16px; }
+ 
+    .month-block {
+      border:1px solid rgba(188,165,142,.2); border-radius:16px;
+      overflow:hidden; background:var(--white);
+      box-shadow:0 2px 12px rgba(0,0,0,.04);
+      transition:box-shadow .25s;
+    }
+    .month-block:hover { box-shadow:0 6px 24px rgba(0,0,0,.08); }
+    .month-block.has-items { border-color:rgba(188,165,142,.35); }
+ 
+    .month-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 24px; cursor:pointer;
+      background:var(--white); border:none; width:100%; text-align:left;
+      font-family:'Opun',sans-serif;
+      transition:background .2s;
+    }
+    .month-header:hover { background:var(--off-white); }
+    .month-block.open .month-header { background:var(--off-white); }
+ 
+    .month-left { display:flex; align-items:center; gap:14px; }
+    .month-num {
+      width:44px; height:44px; border-radius:12px;
+      background:var(--cream); display:flex; align-items:center; justify-content:center;
+      font-size:1rem; font-weight:700; color:var(--warm-dark); font-family:'Opun',sans-serif;
+      flex-shrink:0;
+    }
+    .month-block.has-items .month-num { background:var(--warm); color:#fff; }
+    .month-name { font-size:1rem; font-weight:600; color:var(--off-black); }
+    .month-count { font-size:.78rem; color:rgba(15,15,13,.45); margin-top:2px; }
+ 
+    .month-right { display:flex; align-items:center; gap:10px; }
+    .month-arrow {
+      width:28px; height:28px; border-radius:50%;
+      background:rgba(188,165,142,.12);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.75rem; color:var(--warm-dark);
+      transition:transform .3s, background .2s;
+    }
+    .month-block.open .month-arrow { transform:rotate(180deg); background:var(--warm); color:#fff; }
+ 
+    /* CMS: add button per month */
+    .cms-month-add {
+      display:none; padding:5px 14px; border-radius:20px;
+      border:1.5px dashed rgba(188,165,142,.5);
+      background:transparent; color:var(--warm-dark);
+      font-family:'Opun',sans-serif; font-size:.78rem; cursor:pointer;
+      transition:background .2s;
+    }
+    .cms-month-add:hover { background:rgba(188,165,142,.1); }
+    body.cms-editing .cms-month-add { display:inline-flex; align-items:center; gap:4px; }
+ 
+    /* ── MEDIA GRID ── */
+    .month-body {
+      max-height:0; overflow:hidden;
+      transition:max-height .4s cubic-bezier(.16,1,.3,1);
+      padding:0 24px;
+    }
+    .month-block.open .month-body { max-height:2000px; padding:0 24px 24px; }
+ 
+    .promo-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+      gap:14px; margin-top:16px;
+    }
+ 
+    .promo-card {
+      position:relative; border-radius:12px; overflow:hidden;
+      background:var(--cream); cursor:pointer;
+      transition:transform .3s, box-shadow .3s;
+      aspect-ratio:4/3;
+    }
+    .promo-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.12); }
+    .promo-card img, .promo-card video {
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .promo-card-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 50%);
+      opacity:0; transition:opacity .25s;
+      display:flex; align-items:flex-end; justify-content:flex-end;
+      padding:10px;
+    }
+    .promo-card:hover .promo-card-overlay { opacity:1; }
+ 
+    /* video badge */
+    .promo-vid-badge {
+      position:absolute; top:8px; left:8px;
+      background:rgba(0,0,0,.6); color:#fff;
+      font-size:.65rem; letter-spacing:.08em; padding:3px 8px;
+      border-radius:20px; text-transform:uppercase;
+    }
+ 
+    /* CMS delete button */
+    .promo-del-btn {
+      display:none; position:absolute; top:6px; right:6px;
+      background:#dc3232; color:#fff; border:none;
+      border-radius:6px; padding:4px 10px; font-size:.72rem;
+      cursor:pointer; font-family:'Opun',sans-serif; z-index:5;
+    }
+    body.cms-editing .promo-del-btn { display:block; }
+ 
+    /* empty month */
+    .month-empty {
+      padding:32px 0; text-align:center;
+      color:rgba(15,15,13,.35); font-size:.88rem;
+    }
+ 
+    /* ── LIGHTBOX ── */
+    #promoLightbox {
+      position:fixed; inset:0; z-index:9000;
+      background:rgba(0,0,0,.92);
+      display:none; align-items:center; justify-content:center;
+      flex-direction:column;
+    }
+    #promoLightbox.open { display:flex; }
+    .lb-close-btn {
+      position:absolute; top:18px; right:22px;
+      background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; z-index:10;
+    }
+    .lb-nav-btn {
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(255,255,255,.12); border:none; color:#fff;
+      font-size:2rem; width:48px; height:48px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:background .2s; z-index:10;
+    }
+    .lb-nav-btn:hover { background:rgba(255,255,255,.25); }
+    #lbPrevBtn { left:14px; }
+    #lbNextBtn { right:14px; }
+    #lbMediaWrap {
+      max-width:min(900px,92vw); max-height:80vh;
+      display:flex; align-items:center; justify-content:center;
+    }
+    #lbMediaWrap img { max-width:100%; max-height:80vh; border-radius:10px; object-fit:contain; }
+    #lbMediaWrap video { max-width:100%; max-height:80vh; border-radius:10px; outline:none; }
+    #lbCaption { color:rgba(255,255,255,.65); font-size:.82rem; margin-top:12px; text-align:center; }
+    #lbCounter { color:rgba(255,255,255,.4); font-size:.72rem; margin-top:4px; }
+ 
+    /* ── CMS MODAL ── */
+    .cms-upload-modal {
+      display:none; position:fixed; inset:0; z-index:8000;
+      background:rgba(0,0,0,.6); backdrop-filter:blur(4px);
+      align-items:center; justify-content:center;
+    }
+    .cms-upload-modal.open { display:flex; }
+    .cms-modal-inner {
+      background:var(--white); border-radius:20px; padding:32px;
+      width:min(520px,92vw); max-height:90vh; overflow-y:auto; position:relative;
+    }
+    .cms-modal-close {
+      position:absolute; top:14px; right:16px;
+      background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--charcoal);
+    }
+    .cms-modal-title {
+      font-family:'Opun',sans-serif; font-size:1.05rem;
+      font-weight:600; color:var(--off-black); margin-bottom:22px;
+    }
+    .cms-field-label {
+      display:block; font-size:.78rem; color:var(--warm-dark);
+      letter-spacing:.04em; margin-bottom:6px; font-weight:600;
+    }
+    .cms-file-area {
+      border:2px dashed rgba(188,165,142,.4); border-radius:12px;
+      padding:28px; text-align:center; cursor:pointer;
+      background:var(--off-white); transition:border-color .2s, background .2s;
+      margin-bottom:8px;
+    }
+    .cms-file-area:hover { border-color:var(--warm); background:var(--cream); }
+    .cms-file-area input { display:none; }
+    .cms-file-area-text { font-size:.82rem; color:rgba(15,15,13,.5); line-height:1.7; }
+    .cms-file-preview { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+    .cms-file-preview-item {
+      width:80px; height:60px; border-radius:8px; overflow:hidden;
+      position:relative; background:var(--cream);
+    }
+    .cms-file-preview-item img, .cms-file-preview-item video { width:100%; height:100%; object-fit:cover; }
+    .cms-preview-del {
+      position:absolute; top:2px; right:2px;
+      background:rgba(0,0,0,.6); color:#fff; border:none;
+      border-radius:4px; width:16px; height:16px; font-size:.6rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .cms-save-btn {
+      width:100%; padding:14px; border-radius:12px; border:none;
+      background:var(--warm); color:var(--off-black);
+      font-family:'Opun',sans-serif; font-size:.95rem; font-weight:700;
+      cursor:pointer; margin-top:6px; transition:background .2s;
+    }
+    .cms-save-btn:hover { background:var(--warm-dark); color:#fff; }
+    .cms-save-btn:disabled { opacity:.5; cursor:not-allowed; }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--warm);
+      color: rgb(255, 255, 255);
+      padding: 40px 20px;
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* จัดให้อยู่ตรงกลาง */
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-weight: 400;
+    }
+ 
+    .footer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      text-align: center;
+    }
+ 
+    footer [data-cms-text="footer_text"] {
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      letter-spacing: 0.04em;
+    }
+ 
+    .footer-divider {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+ 
+    footer a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+ 
+    footer a:hover {
+      color: #fff;
+    }
+ 
+    @media (max-width: 600px) {
+      footer {
+        padding: 30px 16px;
+      }
+ 
+      .footer-wrapper {
+        flex-direction: column;
+        /* เรียงซ้อนกันแนวตั้งเมื่อจอมือถือเล็ก */
+        gap: 8px;
+      }
+ 
+      .footer-divider {
+        display: none;
+        /* ซ่อนเส้นคั่น | ออก เพื่อความสะอาดตาบนมือถือ */
+      }
+ 
+      footer [data-cms-text="footer_text"] {
+        white-space: normal;
+        line-height: 1.5;
+      }
+    }
+ 
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+    .reveal.visible { opacity:1; transform:none; }
+ 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      /* ─── MOBILE NAV ─── */
+      nav {
+        height: 64px;
+        padding: 0 16px;
+      }
+ 
+      nav.scrolled {
+        height: 60px;
+      }
+ 
+      .nav-logo {
+        gap: 10px;
+      }
+ 
+      .nav-logo-icon {
+        height: 34px;
+        width: auto;
+      }
+ 
+      .nav-logo-main {
+        font-size: 1.05rem;
+      }
+ 
+      /* show hamburger */
+      .nav-toggle {
+        display: flex;
+      }
+ 
+      /* ─── MOBILE MENU PANEL ─── */
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        right: 0;
+        left: 0;
+        width: 100%;
+ 
+        background: var(--warm);
+        border-top: 1px solid rgba(255, 255, 255, .15);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+ 
+        padding: 12px 16px 20px;
+ 
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+ 
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
+      }
+ 
+      .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+ 
+      .nav-links>li {
+        width: 100%;
+        list-style: none;
+      }
+ 
+      .nav-links>li>a {
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        padding: 11px 14px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, .92);
+      }
+ 
+      .nav-links>li>a:hover {
+        background: rgba(255, 255, 255, .15);
+        color: #fff;
+      }
+ 
+      /* ─── MOBILE DROPDOWN ─── */
+      .dropdown {
+        width: 100%;
+      }
+ 
+      .dropdown-btn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 11px 14px;
+        border-radius: 10px;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, .92);
+      }
+ 
+      .dropdown-btn:hover {
+        background: rgba(255, 255, 255, .15);
+        color: #fff;
+      }
+ 
+      .dropdown-menu {
+        position: static;
+        min-width: 100%;
+        margin-top: 4px;
+        background: rgba(0, 0, 0, .1);
+        border-radius: 10px;
+        padding: 6px;
+        box-shadow: none;
+        border: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+ 
+      .dropdown-menu a {
+        font-size: .95rem;
+        padding: 10px 14px;
+        border-radius: 8px;
+      }
+ 
+      .dropdown.active .dropdown-menu {
+        display: block;
+      }
+    }
+</style>
+        <!-- ป้องกันกระพริบ -->
+        <style>
+    body { opacity: 0; }
+    body.cms-ready { opacity: 1; transition: opacity .35s ease; }
+  </style>
+    </head>
+
+    <body data-lang-page="title_promotions">
+
+        <!-- ════ NAV ════ -->
+        <nav>
+            <a href="home" class="nav-logo">
+                <div class="nav-logo-icon">
+                    <img src="assets/logo1.png" alt="logo"
+                        data-cms-img="nav_logo_img">
+                </div>
+            </a>
+
+            <button class="nav-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home" data-lang="nav_home">หน้าแรก</a></li>
+
+                <li class="dropdown">
+                    <button class="dropdown-btn" id="dropdownBtn">
+                        <span data-lang="nav_products">สินค้า</span>
+                        <span class="dropdown-arrow">▾</span>
+                    </button>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li><a href="spc" data-lang="nav_spc">แผ่นผนัง
+                                SPC</a></li>
+                        <li><a href="lath" data-lang="nav_lath">ไม้ระแนง
+                                WPC</a></li>
+                        <li><a href="wooden"
+                                data-lang="nav_wooden">ไม้สั่งตัด</a></li>
+                        <li><a href="#"
+                                data-lang="nav_stainless">สแตนเลส</a></li>
+                        <li><a href="furniture"
+                                data-lang="nav_furniture">เฟอร์นิเจอร์ฟิตติ้ง</a></li>
+                        <li><a href="accessories"
+                                data-lang="nav_accessories">ฮาร์ดแวร์ &amp;
+                                อุปกรณ์ติดตั้ง</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <button class="dropdown-btn">
+                        <span data-lang="nav_services">บริการ</span>
+                        <span class="dropdown-arrow">▾</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="installations"
+                                data-lang="nav_installations">บริการติดตั้ง</a></li>
+                        <li><a href="aftersale"
+                                data-lang="nav_aftersale">บริการหลังการขาย</a></li>
+                        <li><a href="manual"
+                                data-lang="nav_manual">คู่มือติดตั้ง</a></li>
+                    </ul>
+                </li>
+                <li><a href="reviews"
+                        data-lang="nav_reviews">รีวิวลูกค้า</a></li>
+                <li><a href="promotions" data-lang="nav_promotions">โปรโมชั่น</a></li>
+                <li><a href="home#contact"
+                        data-lang="nav_contact">ติดต่อเรา</a></li>
+            </ul>
+        </nav>
+
+        <!-- ════ PAGE HEADER ════ -->
+        <div class="page-header">
+            <span class="page-tag" data-lang="promo_tag">MONTHLY
+                PROMOTIONS</span>
+            <h1 data-lang="promo_h1">โปรโมชั่น<b>รายเดือน</b></h1>
+        </div>
+
+        <!-- ════ MAIN ════ -->
+        <div class="promo-page-wrap">
+
+            <!-- Year selector -->
+            <div class="year-tabs" id="yearTabs"></div>
+
+            <!-- Month accordion -->
+            <div class="month-list" id="monthList"></div>
+
+        </div>
+
+        <!-- ════ FOOTER ════ -->
+        <footer>
+            <div class="footer-wrapper">
+                <span data-cms-text="footer_text">© 2026 OB HOME Materials Co.,
+                    Ltd. All Rights Reserved.</span>
+                <span class="footer-divider">|</span>
+                <a href="privacy-policy" data-lang="footer_privacy"
+                    data-lang="footer_privacy">นโยบายความเป็นส่วนตัว</a>
+            </div>
+        </footer>
+
+        <!-- ════ LIGHTBOX ════ -->
+        <div id="promoLightbox">
+            <button class="lb-close-btn" id="lbCloseBtn">&#10005;</button>
+            <button class="lb-nav-btn" id="lbPrevBtn">&#8249;</button>
+            <button class="lb-nav-btn" id="lbNextBtn">&#8250;</button>
+            <div id="lbMediaWrap"></div>
+            <div id="lbCaption"></div>
+            <div id="lbCounter"></div>
+        </div>
+
+        <!-- ════ CMS UPLOAD MODAL ════ -->
+        <div class="cms-upload-modal" id="cmsUploadModal">
+            <div class="cms-modal-inner">
+                <button class="cms-modal-close"
+                    id="cmsModalClose">&#10005;</button>
+                <div class="cms-modal-title"
+                    id="cmsModalTitle" data-lang="cms_upload_promo">เพิ่มสื่อโปรโมชั่น</div>
+
+                <label class="cms-field-label" data-lang="cms_upload_label">เลือกไฟล์ (รูปภาพ / วิดีโอ)</label>
+                <div class="cms-file-area" id="cmsFileArea">
+                    <input type="file" id="cmsFileInput"
+                        accept="image/*,video/*" multiple>
+                    <div class="cms-file-area-text">
+                        📁 คลิกหรือลากไฟล์มาวางที่นี่<br>
+                        <small>รองรับ JPG, PNG, GIF, MP4, MOV — สูงสุด
+                            50MB/ไฟล์</small>
+                    </div>
+                </div>
+                <div class="cms-file-preview" id="cmsFilePreview"></div>
+                <button class="cms-save-btn" id="cmsSaveBtn" data-lang="cms_upload_btn">💾 อัปโหลดและบันทึก</button>
+            </div>
+        </div>
+
+        <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks   = document.getElementById('navLinks');
+    const nav        = document.querySelector('nav');
+ 
+    /* ── dropdown — รองรับหลายเมนู ── */
+    const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+    dropdownBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const cur = btn.parentElement;
+        document.querySelectorAll('.dropdown').forEach(d => {
+          if (d !== cur) d.classList.remove('active');
+        });
+        cur.classList.toggle('active');
+      });
+    });
+ 
+    /* ── close when link clicked ── */
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+      });
+    });
+ 
+    /* ── close on outside click ── */
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target)) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+      }
+    });
+ 
+    /* ── hamburger ── */
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active', open);
+      if (!open) document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+    });
+ 
+    /* ── scroll: shrink nav ── */
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+ 
+    /* ── reveal on scroll ── */
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+        <!-- ════ PROMOTIONS LOGIC ════ -->
+        <script>
+  (function () {
+    /* ─── Constants ─── */
+    const CLOUDINARY_CLOUD  = 'daiipuvsb';
+    const CLOUDINARY_PRESET = 'f3zirric';
+    /* ── DB_PATH ต้องอยู่นอก 'pages/' เสมอ ──
+       cms.js ใช้ set(pages/promotions, payload) ซึ่ง overwrite ทั้ง node
+       → promo media ต้องเก็บ path แยก ไม่ให้ถูก CMS saveAll ลบทิ้ง */
+    const DB_PATH           = 'promo_media';
+    const CURRENT_YEAR      = new Date().getFullYear();
+
+    const MONTH_NAMES_TH = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+    const MONTH_NAMES_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    /* promoData = { "2025": { "1": [{url,type,name},...], "2": [...], ... }, "2026": {...} } */
+    let promoData  = {};
+    let activeYear = String(CURRENT_YEAR);
+
+    /* ─── Lightbox state ─── */
+    let lbItems = [], lbIdx = 0;
+
+    /* ─── Helpers ─── */
+    function getLang() {
+      return (window._obLang && window._obLang.current()) || 'th';
+    }
+    function monthName(m) {
+      return getLang() === 'en' ? MONTH_NAMES_EN[m - 1] : MONTH_NAMES_TH[m - 1];
+    }
+    function isVideo(url) {
+      return /\.(mp4|mov|webm|ogg)(\?|$)/i.test(url);
+    }
+
+    /* ─── Render year tabs ─── */
+    function renderYearTabs() {
+      const el = document.getElementById('yearTabs');
+      const years = Object.keys(promoData).sort((a, b) => b - a);
+      if (!years.includes(String(CURRENT_YEAR))) years.unshift(String(CURRENT_YEAR));
+
+      el.innerHTML = '';
+      years.forEach(y => {
+        const btn = document.createElement('button');
+        btn.className = 'year-tab' + (y === activeYear ? ' active' : '');
+        btn.textContent = getLang() === 'en' ? y : 'พ.ศ. ' + (parseInt(y) + 543);
+        btn.addEventListener('click', () => {
+          activeYear = y;
+          renderYearTabs();
+          renderMonths();
+        });
+        el.appendChild(btn);
+      });
+    }
+
+    /* ─── Render month accordion ─── */
+    function renderMonths() {
+      const el     = document.getElementById('monthList');
+      const months = (promoData[activeYear] || {});
+      el.innerHTML = '';
+
+      for (let m = 1; m <= 12; m++) {
+        const items  = months[m] || [];
+        const hasItems = items.length > 0;
+
+        const block = document.createElement('div');
+        block.className = 'month-block reveal' + (hasItems ? ' has-items' : '');
+        block.dataset.month = m;
+
+        block.innerHTML = `
+          <button class="month-header">
+            <div class="month-left">
+              <div class="month-num">${m}</div>
+              <div>
+                <div class="month-name">${monthName(m)}</div>
+                <div class="month-count">${hasItems ? items.length + ' รายการ' : 'ยังไม่มีโปรโมชั่น'}</div>
+              </div>
+            </div>
+            <div class="month-right">
+              <button class="cms-month-add" data-month="${m}">+ เพิ่ม</button>
+              <div class="month-arrow">▾</div>
+            </div>
+          </button>
+          <div class="month-body">
+            <div class="promo-grid" id="grid-${m}"></div>
+          </div>
+        `;
+
+        // toggle accordion
+        block.querySelector('.month-header').addEventListener('click', e => {
+          if (e.target.closest('.cms-month-add')) return;
+          block.classList.toggle('open');
+        });
+
+        // CMS add
+        block.querySelector('.cms-month-add').addEventListener('click', e => {
+          e.stopPropagation();
+          openUploadModal(m);
+        });
+
+        el.appendChild(block);
+        renderGrid(m, items);
+
+        // auto-open current month
+        if (m === new Date().getMonth() + 1 && hasItems) block.classList.add('open');
+
+        // reveal
+        setTimeout(() => {
+          const obs = new IntersectionObserver(en => {
+            en.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+          }, { threshold: .08 });
+          obs.observe(block);
+        }, 0);
+      }
+    }
+
+    /* ─── Render grid inside month ─── */
+    function renderGrid(month, items) {
+      const grid = document.getElementById('grid-' + month);
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      if (items.length === 0) {
+        grid.innerHTML = '<div class="month-empty">ยังไม่มีสื่อโปรโมชั่นในเดือนนี้</div>';
+        return;
+      }
+
+      items.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'promo-card';
+
+        if (isVideo(item.url)) {
+          card.innerHTML = `
+            <video src="${item.url}" muted preload="metadata" loop></video>
+            <div class="promo-vid-badge">▶ VDO</div>
+          `;
+          // play on hover
+          const vid = card.querySelector('video');
+          card.addEventListener('mouseenter', () => vid.play());
+          card.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+        } else {
+          card.innerHTML = `<img src="${item.url}" alt="${item.name || 'โปรโมชั่น'}" loading="lazy">`;
+        }
+
+        card.innerHTML += `
+          <div class="promo-card-overlay"></div>
+          <button class="promo-del-btn" data-month="${month}" data-idx="${i}">✕ ลบ</button>
+        `;
+
+        // open lightbox
+        card.addEventListener('click', e => {
+          if (e.target.closest('.promo-del-btn')) return;
+          if (document.body.classList.contains('cms-editing') && isVideo(item.url)) return;
+          openLightbox(month, i);
+        });
+
+        // delete
+        card.querySelector('.promo-del-btn').addEventListener('click', async e => {
+          e.stopPropagation();
+          if (!confirm('ลบรายการนี้?')) return;
+          if (!promoData[activeYear]) promoData[activeYear] = {};
+          if (!promoData[activeYear][month]) promoData[activeYear][month] = [];
+          promoData[activeYear][month].splice(i, 1);
+          renderGrid(month, promoData[activeYear][month]);
+          updateMonthBlock(month);
+          await saveToFirebase();
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    /* ─── Update month block UI after change ─── */
+    function updateMonthBlock(month) {
+      const items    = (promoData[activeYear] || {})[month] || [];
+      const block    = document.querySelector(`.month-block[data-month="${month}"]`);
+      if (!block) return;
+      block.classList.toggle('has-items', items.length > 0);
+      const numEl    = block.querySelector('.month-num');
+      if (numEl) { numEl.style.background = items.length > 0 ? 'var(--warm)' : ''; numEl.style.color = items.length > 0 ? '#fff' : ''; }
+      const countEl  = block.querySelector('.month-count');
+      if (countEl) countEl.textContent = items.length > 0 ? items.length + ' รายการ' : 'ยังไม่มีโปรโมชั่น';
+    }
+
+    /* ─── Lightbox ─── */
+    function buildLbItems(month) {
+      const items = (promoData[activeYear] || {})[month] || [];
+      return items;
+    }
+
+    function openLightbox(month, startIdx) {
+      lbItems = buildLbItems(month);
+      lbIdx   = startIdx;
+      showLbItem();
+      document.getElementById('promoLightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('promoLightbox').classList.remove('open');
+      document.body.style.overflow = '';
+      document.getElementById('lbMediaWrap').innerHTML = '';
+    }
+    function showLbItem() {
+      if (!lbItems.length) return;
+      lbIdx = (lbIdx + lbItems.length) % lbItems.length;
+      const item = lbItems[lbIdx];
+      const wrap = document.getElementById('lbMediaWrap');
+      wrap.innerHTML = isVideo(item.url)
+        ? `<video src="${item.url}" controls autoplay style="max-width:100%;max-height:80vh;border-radius:10px;"></video>`
+        : `<img src="${item.url}" alt="${item.name || ''}">`;
+      document.getElementById('lbCaption').textContent  = item.name || '';
+      document.getElementById('lbCounter').textContent  = `${lbIdx + 1} / ${lbItems.length}`;
+    }
+
+    document.getElementById('lbCloseBtn').addEventListener('click', closeLightbox);
+    document.getElementById('promoLightbox').addEventListener('click', e => { if (e.target === document.getElementById('promoLightbox')) closeLightbox(); });
+    document.getElementById('lbPrevBtn').addEventListener('click', () => { lbIdx--; showLbItem(); });
+    document.getElementById('lbNextBtn').addEventListener('click', () => { lbIdx++; showLbItem(); });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('promoLightbox').classList.contains('open')) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft')   { lbIdx--; showLbItem(); }
+      if (e.key === 'ArrowRight')  { lbIdx++; showLbItem(); }
+    });
+
+    /* ─── CMS Upload Modal ─── */
+    let targetMonth = null;
+    let pendingFiles = [];
+
+    function openUploadModal(month) {
+      targetMonth  = month;
+      pendingFiles = [];
+      document.getElementById('cmsFilePreview').innerHTML = '';
+      document.getElementById('cmsFileInput').value = '';
+      document.getElementById('cmsModalTitle').textContent = 'เพิ่มสื่อ — ' + monthName(month);
+      document.getElementById('cmsUploadModal').classList.add('open');
+    }
+    document.getElementById('cmsModalClose').addEventListener('click', () => {
+      document.getElementById('cmsUploadModal').classList.remove('open');
+    });
+    document.getElementById('cmsUploadModal').addEventListener('click', e => {
+      if (e.target === document.getElementById('cmsUploadModal'))
+        document.getElementById('cmsUploadModal').classList.remove('open');
+    });
+
+    // file area click
+    document.getElementById('cmsFileArea').addEventListener('click', () => {
+      document.getElementById('cmsFileInput').click();
+    });
+    // drag & drop
+    const fa = document.getElementById('cmsFileArea');
+    fa.addEventListener('dragover', e => { e.preventDefault(); fa.style.borderColor = 'var(--warm)'; });
+    fa.addEventListener('dragleave', () => { fa.style.borderColor = ''; });
+    fa.addEventListener('drop', e => {
+      e.preventDefault(); fa.style.borderColor = '';
+      handleFiles(Array.from(e.dataTransfer.files));
+    });
+
+    document.getElementById('cmsFileInput').addEventListener('change', function () {
+      handleFiles(Array.from(this.files));
+    });
+
+    function handleFiles(files) {
+      files.forEach(f => {
+        pendingFiles.push(f);
+        const reader = new FileReader();
+        reader.onload = ev => addPreviewItem(ev.target.result, f.name, f.type.startsWith('video'), pendingFiles.length - 1);
+        reader.readAsDataURL(f);
+      });
+    }
+
+    function addPreviewItem(src, name, isVid, idx) {
+      const preview = document.getElementById('cmsFilePreview');
+      const item    = document.createElement('div');
+      item.className = 'cms-file-preview-item';
+      item.dataset.idx = idx;
+      item.innerHTML = isVid
+        ? `<video src="${src}" muted></video>`
+        : `<img src="${src}" alt="${name}">`;
+      item.innerHTML += `<button class="cms-preview-del">✕</button>`;
+      item.querySelector('.cms-preview-del').addEventListener('click', () => {
+        pendingFiles[idx] = null;
+        item.remove();
+      });
+      preview.appendChild(item);
+    }
+
+    // Upload & save
+    document.getElementById('cmsSaveBtn').addEventListener('click', async function () {
+      const btn = this;
+      const files = pendingFiles.filter(Boolean);
+      if (!files.length) { alert('กรุณาเลือกไฟล์'); return; }
+
+      btn.disabled = true; btn.textContent = '⏳ กำลังอัปโหลด...';
+      try {
+        const uploaded = [];
+        for (const file of files) {
+          const fd = new FormData();
+          fd.append('file', file);
+          fd.append('upload_preset', CLOUDINARY_PRESET);
+          const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/upload`, { method:'POST', body:fd });
+          const data = await res.json();
+          if (!data.secure_url) throw new Error('Upload failed: ' + file.name);
+          uploaded.push({
+            url:  data.secure_url,
+            type: file.type.startsWith('video') ? 'video' : 'image',
+            name: file.name,
+          });
+        }
+
+        // merge into promoData
+        if (!promoData[activeYear]) promoData[activeYear] = {};
+        if (!promoData[activeYear][targetMonth]) promoData[activeYear][targetMonth] = [];
+        promoData[activeYear][targetMonth].push(...uploaded);
+
+        renderGrid(targetMonth, promoData[activeYear][targetMonth]);
+        updateMonthBlock(targetMonth);
+        await saveToFirebase();
+
+        document.getElementById('cmsUploadModal').classList.remove('open');
+        if (window._cmsToast) window._cmsToast('✓ อัปโหลดสำเร็จ!');
+      } catch (err) {
+        alert('เกิดข้อผิดพลาด: ' + err.message);
+      } finally {
+        btn.disabled = false; btn.textContent = '💾 อัปโหลดและบันทึก';
+      }
+    });
+
+    /* ─── Firebase ─── */
+    async function saveToFirebase() {
+      if (!window._cmsDB || !window._firebaseDB) {
+        console.warn('Firebase ยังไม่พร้อม — ข้ามการบันทึก');
+        return;
+      }
+      try {
+        const { ref, set } = window._firebaseDB;
+        await set(ref(window._cmsDB, DB_PATH), promoData);
+      } catch (e) {
+        console.error('Promo save error:', e);
+        throw e; /* re-throw เพื่อให้ cmsSaveBtn handler แสดง alert */
+      }
+    }
+
+    async function loadFromFirebase() {
+      if (!window._cmsDB || !window._firebaseDB) return;
+      try {
+        const { ref, get } = window._firebaseDB;
+        const snap = await get(ref(window._cmsDB, DB_PATH));
+        promoData = (snap.exists() ? snap.val() : {}) || {};
+      } catch(e) {
+        console.error('Promotions load error:', e);
+        promoData = {};
+      }
+      /* auto-select ปีที่มีข้อมูล แทนที่จะ default เป็นปีปัจจุบัน (ซึ่งอาจว่าง) */
+      const _dataYears = Object.keys(promoData).sort((a, b) => b - a);
+      if (_dataYears.length > 0 && !promoData[activeYear]) {
+        activeYear = _dataYears[0];
+      }
+      renderYearTabs();
+      renderMonths();
+    }
+
+    if (window._cmsDB) {
+      loadFromFirebase();
+    } else {
+      renderYearTabs();
+      renderMonths();
+      window.addEventListener('firebase-ready', function(){
+        loadFromFirebase();
+        setTimeout(function(){ document.body.classList.add('cms-ready'); }, 200);
+      }, { once: true });
+    }
+
+    // re-render ทันทีเมื่อเปลี่ยนภาษา (ไม่ต้องรีเว็บ)
+    function reRenderAll() {
+      renderYearTabs();
+      renderMonths();
+    }
+
+    if (window._obLang && window._obLang.onLangChange) {
+      window._obLang.onLangChange(reRenderAll);
+    } else {
+      // lang.js โหลดทีหลัง — รอแล้วค่อย register
+      window.addEventListener('DOMContentLoaded', function() {
+        var _poll = setInterval(function() {
+          if (window._obLang && window._obLang.onLangChange) {
+            clearInterval(_poll);
+            window._obLang.onLangChange(reRenderAll);
+          }
+        }, 50);
+        setTimeout(function(){ clearInterval(_poll); }, 3000);
+      });
+    }
+
+  })();
+  </script>
+
+        <!-- ════ OB CMS ════ -->
+        <script src="firebase-config.js"></script>
+        <script src="cms.js"></script>
+        <script src="chatbot.js"></script>
+        <script src="lang.js"></script>
+    </body>
+</html>
