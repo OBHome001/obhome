@@ -813,7 +813,7 @@
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#home" data-lang="nav_home">หน้าแรก</a></li>
+      <li><a href="home#home" data-lang="nav_home">หน้าแรก</a></li>
 
       <li class="dropdown">
         <button class="dropdown-btn" id="dropdownBtn">
@@ -842,9 +842,9 @@
           <li><a href="manual" data-lang="nav_manual">คู่มือติดตั้ง</a></li>
         </ul>
       </li>
-      <li><a href="#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
+      <li><a href="home#reviews" data-lang="nav_reviews">รีวิวลูกค้า</a></li>
       <li><a href="promotions" data-lang="nav_promotions">โปรโมชั่น</a></li>
-      <li><a href="#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
+      <li><a href="home#contact" data-lang="nav_contact">ติดต่อเรา</a></li>
     </ul>
   </nav>
 
@@ -978,23 +978,26 @@
   <script>
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
-    const dropdownBtn = document.getElementById('dropdownBtn');
-    const dropdown = document.querySelector('.dropdown');
     const nav = document.querySelector('nav');
+    const dropdownBtns = document.querySelectorAll('.dropdown-btn');
 
-    /* ── hamburger ── */
-    menuToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = navLinks.classList.toggle('active');
-      menuToggle.classList.toggle('active', open);
-      // close dropdown when menu closes
-      if (!open) dropdown.classList.remove('active');
-    });
+    dropdownBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
 
-    /* ── dropdown ── */
-    dropdownBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdown.classList.toggle('active');
+        // หา li ตัวแม่ที่มีคลาส .dropdown
+        const currentDropdown = btn.parentElement;
+
+        // (ทางเลือก) ปิด dropdown ตัวอื่นที่ไม่ได้คลิก เพื่อไม่ให้มันเปิดซ้อนกัน
+        document.querySelectorAll('.dropdown').forEach(d => {
+          if (d !== currentDropdown) {
+            d.classList.remove('active');
+          }
+        });
+
+        // สลับคลาส active เปิด/ปิด เฉพาะเมนูที่ถูกคลิก
+        currentDropdown.classList.toggle('active');
+      });
     });
 
     /* ── close menu when a link is clicked ── */
@@ -1002,7 +1005,8 @@
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
         menuToggle.classList.remove('active');
-        dropdown.classList.remove('active');
+        // ปิด dropdown ทั้งหมด
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
       });
     });
 
@@ -1011,8 +1015,18 @@
       if (!nav.contains(e.target)) {
         navLinks.classList.remove('active');
         menuToggle.classList.remove('active');
-        dropdown.classList.remove('active');
+        // ปิด dropdown ทั้งหมด
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
       }
+    });
+
+    /* ── hamburger ── */
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active', open);
+      // close dropdown when menu closes
+      if (!open) dropdown.classList.remove('active');
     });
 
     /* ── scroll: shrink nav ── */
