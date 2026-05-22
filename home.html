@@ -2108,23 +2108,186 @@
   <!-- ════ END CHAT WIDGET ════ -->
 
   <!-- ════ PROMOTION POPUP ════ -->
-  <div class="promo-overlay" id="promoOverlay">
-    <div class="promo-modal" id="promoModal">
 
-      <!-- ── HEADER: badge + close ── -->
+  <style>
+    /* ── Overlay ── */
+    .promo-overlay {
+      position: fixed; inset: 0; z-index: 1000002;
+      background: rgba(8,8,6,.82);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(12px, 4vw, 28px);
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity .38s cubic-bezier(.16,1,.3,1), visibility .38s;
+    }
+    .promo-overlay.open {
+      opacity: 1; visibility: visible; pointer-events: auto;
+    }
+    body.cms-editing .promo-overlay.open { padding-bottom: 70px !important; }
+
+    /* ── Modal shell ── */
+    #promoModal {
+      position: relative; width: 100%;
+      max-width: min(680px, 94vw);
+      max-height: calc(100svh - 32px);
+      border-radius: clamp(12px, 2.5vw, 20px);
+      overflow: hidden;
+      box-shadow: 0 32px 96px rgba(0,0,0,.72), 0 0 0 1px rgba(255,255,255,.06);
+      transform: scale(.86) translateY(28px);
+      transition: transform .40s cubic-bezier(.16,1,.3,1);
+      background: #0f0f0d;
+      display: flex; flex-direction: column;
+    }
+    .promo-overlay.open #promoModal { transform: scale(1) translateY(0); }
+
+    /* ── Header bar ── */
+    .promo-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px 11px 16px;
+      background: #1a1a16;
+      border-bottom: 1px solid rgba(188,165,142,.12);
+      flex-shrink: 0; gap: 10px;
+    }
+    .promo-badge-label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: #bca58e;
+      font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
+    }
+    .promo-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #e84040;
+      box-shadow: 0 0 8px rgba(232,64,64,.6);
+      flex-shrink: 0;
+      animation: promo-dot-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes promo-dot-pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.45; transform:scale(1.6); }
+    }
+    .promo-close {
+      width: 30px; height: 30px; border-radius: 50%; border: none;
+      background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .18s, color .18s, transform .18s; flex-shrink: 0;
+    }
+    .promo-close:hover { background: rgba(232,64,64,.2); color: #fff; transform: scale(1.1) rotate(90deg); }
+
+    /* ── Slider ── */
+    .promo-slider {
+      position: relative; overflow: hidden;
+      flex: 1; min-height: 0;
+    }
+    .promo-track {
+      display: flex; height: 100%;
+      transition: transform .44s cubic-bezier(.16,1,.3,1);
+      will-change: transform;
+    }
+    .promo-slide {
+      flex: 0 0 100%; min-width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; background: #111; line-height: 0;
+    }
+    .promo-img-wrap {
+      width: 100%; display: flex;
+      align-items: center; justify-content: center;
+      max-height: calc(100svh - 120px); overflow: hidden;
+    }
+    .promo-img-wrap img {
+      display: block; width: 100%; height: auto;
+      max-height: calc(100svh - 120px);
+      object-fit: contain; pointer-events: none; user-select: none;
+    }
+
+    /* ── Arrows ── */
+    .promo-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: clamp(32px,7vw,44px); height: clamp(32px,7vw,44px);
+      border-radius: 50%; border: none;
+      background: rgba(0,0,0,.52); backdrop-filter: blur(4px);
+      color: rgba(255,255,255,.88); cursor: pointer; z-index: 20;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.3);
+      transition: background .18s, transform .2s;
+    }
+    .promo-arrow:hover { background: rgba(0,0,0,.85); color: #fff; }
+    .promo-arrow-prev { left: 10px; }
+    .promo-arrow-next { right: 10px; }
+    .promo-arrow-prev:hover { transform: translateY(-50%) scale(1.1) translateX(-1px); }
+    .promo-arrow-next:hover { transform: translateY(-50%) scale(1.1) translateX(1px); }
+
+    /* ── Dots ── */
+    .promo-dots {
+      position: absolute; bottom: 10px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 7px; z-index: 20;
+    }
+    .promo-dot {
+      width: clamp(6px,2vw,8px); height: clamp(6px,2vw,8px);
+      border-radius: 50%; border: none; padding: 0; cursor: pointer;
+      background: rgba(188,165,142,.35);
+      transition: background .22s, transform .22s;
+    }
+    .promo-dot.active { background: #bca58e; transform: scale(1.4); }
+
+    /* ── Footer ── */
+    .promo-footer {
+      padding: 12px 18px;
+      background: #1a1a16;
+      border-top: 1px solid rgba(188,165,142,.10);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .promo-cta-btn {
+      display: inline-block;
+      background: var(--warm-dark, #8a7560); color: #fff;
+      text-decoration: none; padding: 11px 38px;
+      border-radius: 50px; font-size: .9rem; font-weight: 600;
+      letter-spacing: .06em; font-family: 'Opun', sans-serif;
+      transition: background .2s, transform .2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    }
+    .promo-cta-btn:hover { background: var(--warm, #bca58e); transform: translateY(-2px); }
+
+    /* ── Admin: add btn ── */
+    #cms-promo-add-btn {
+      display: none;
+      background: rgba(188,165,142,.15); color: #bca58e;
+      border: 1px solid rgba(188,165,142,.3); border-radius: 6px;
+      font-size: 11px; padding: 4px 12px; cursor: pointer;
+      align-items: center; gap: 4px; transition: background .18s;
+    }
+    body.cms-editing #cms-promo-add-btn { display: flex !important; }
+    #cms-promo-add-btn:hover { background: rgba(188,165,142,.28); }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      #promoModal { border-radius: 14px; }
+      .promo-img-wrap, .promo-img-wrap img { max-height: calc(100svh - 108px); }
+      .promo-arrow-prev { left: 6px; }
+      .promo-arrow-next { right: 6px; }
+      .promo-cta-btn { width: 100%; text-align: center; padding: 13px; }
+    }
+  </style>
+
+  <div class="promo-overlay" id="promoOverlay">
+    <div id="promoModal">
+
+      <!-- Header -->
       <div class="promo-header">
-        <span class="promo-badge-label" data-cms-text="promo_badge">🔥
-          โปรโมชั่นพิเศษ ❗️❗️</span>
+        <div class="promo-badge-label">
+          <span class="promo-badge-dot"></span>
+          <span data-cms-text="promo_badge">🔥 โปรโมชั่นพิเศษ ❗️</span>
+        </div>
         <button class="promo-close" id="promoClose" aria-label="ปิด">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"
-            stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
 
-      <!-- ── IMAGE SLIDER ── -->
+      <!-- Slider -->
       <div class="promo-slider" id="promoSlider">
         <div class="promo-track" id="promoTrack">
           <div class="promo-slide">
@@ -2144,407 +2307,137 @@
           </div>
         </div>
 
-        <!-- Arrows — over image, vertically centred -->
         <button class="promo-arrow promo-arrow-prev" id="promoArrowPrev" aria-label="ก่อนหน้า">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <button class="promo-arrow promo-arrow-next" id="promoArrowNext" aria-label="ถัดไป">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
 
-        <!-- Dots — over image, bottom -->
         <div class="promo-dots" id="promoDots">
           <button class="promo-dot active" data-index="0"></button>
           <button class="promo-dot" data-index="1"></button>
           <button class="promo-dot" data-index="2"></button>
         </div>
-        <!-- Admin: add new promo slide (hidden, shown via CMS CSS in edit mode) -->
+
         <button id="cms-promo-add-btn" title="เพิ่มรูปโปรโมชั่น">+ เพิ่มรูป</button>
-
-      </div><!-- /slider -->
-
-      <!-- ── FOOTER: CTA button ── -->
-      <div class="promo-footer">
-        <a href="promotions" class="promo-cta-btn" id="promoCtaBtn" data-cms-text="promo_cta"
-          data-lang="promo_cta">ดูโปรโมชั่นทั้งหมด →</a>
       </div>
 
-    </div><!-- /modal -->
-  </div><!-- /overlay -->
+      <!-- Footer -->
+      <div class="promo-footer">
+        <a href="promotions" class="promo-cta-btn" id="promoCtaBtn"
+           data-cms-text="promo_cta" data-lang="promo_cta">ดูโปรโมชั่นทั้งหมด →</a>
+      </div>
 
-  <style>
-    /* ── overlay ── */
-    .promo-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 15, 13, .78);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      z-index: 1000002;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity .42s cubic-bezier(.16, 1, .3, 1), visibility .42s;
-    }
-
-    .promo-overlay.open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    /* ── modal shell — flex column ── */
-    .promo-modal {
-      position: relative;
-      width: 100%;
-      max-width: 620px;
-      background: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 28px 72px rgba(0, 0, 0, .48);
-      transform: scale(.88) translateY(20px);
-      transition: transform .42s cubic-bezier(.16, 1, .3, 1);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .promo-overlay.open .promo-modal {
-      transform: scale(1) translateY(0);
-    }
-
-    /* ── header row ── */
-    .promo-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px 12px 18px;
-      background: #fff;
-      flex-shrink: 0;
-    }
-
-    .promo-badge-label {
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #e84040;
-      font-family: 'IBM Plex Sans Thai', sans-serif;
-    }
-
-    .promo-close {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: none;
-      background: #f3f1ec;
-      color: #2d2d28;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .18s, transform .18s;
-      flex-shrink: 0;
-    }
-
-    .promo-close:hover {
-      background: #e5e0d8;
-      transform: scale(1.1);
-    }
-
-    /* ── slider ── */
-    .promo-slider {
-      position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
-      /* thin separator above */
-      border-top: 1px solid #ece8e2;
-      border-bottom: 1px solid #ece8e2;
-    }
-
-    .promo-track {
-      display: flex;
-      transition: transform .44s cubic-bezier(.16, 1, .3, 1);
-      will-change: transform;
-    }
-
-    .promo-slide {
-      min-width: 100%;
-      line-height: 0;
-    }
-
-    /* ── image wrapper — contain, show full image ── */
-    .promo-img-wrap {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* max height so very tall images don't overflow screen */
-      max-height: 60vh;
-      overflow: hidden;
-    }
-
-    .promo-img-wrap img {
-      display: block;
-      width: 100%;
-      height: auto;
-      /* natural height — no crop */
-      max-height: 60vh;
-      object-fit: contain;
-      /* show full image, no zoom, no crop */
-    }
-
-    /* ── arrows over image ── */
-    .promo-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 20;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255, 255, 255, .85);
-      backdrop-filter: blur(4px);
-      color: #2d2d28;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 3px 14px rgba(0, 0, 0, .25);
-      transition: background .18s, transform .18s;
-    }
-
-    .promo-arrow:hover {
-      background: #fff;
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .promo-arrow-prev {
-      left: 14px;
-    }
-
-    .promo-arrow-next {
-      right: 14px;
-    }
-
-    /* ── dots over image ── */
-    .promo-dots {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 7px;
-      z-index: 20;
-    }
-
-    .promo-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255, 255, 255, .5);
-      cursor: pointer;
-      padding: 0;
-      transition: background .2s, transform .2s;
-    }
-
-    .promo-dot.active {
-      background: #fff;
-      transform: scale(1.35);
-    }
-
-    /* ── footer row ── */
-    .promo-footer {
-      padding: 14px 18px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .promo-cta-btn {
-      display: inline-block;
-      background: var(--warm-dark, #8a7560);
-      color: #fff;
-      text-decoration: none;
-      padding: 12px 40px;
-      border-radius: 50px;
-      font-size: .92rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-      font-family: 'Opun', sans-serif;
-      transition: background .2s, transform .2s;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
-    }
-
-    .promo-cta-btn:hover {
-      background: var(--warm, #bca58e);
-      transform: translateY(-2px);
-    }
-
-    /* ── admin: เพิ่ม padding-bottom ป้องกัน cms-bar บัง modal ── */
-    body.cms-editing .promo-overlay {
-      padding-bottom: 70px !important;
-    }
-
-    /* ── mobile ── */
-    @media (max-width: 600px) {
-      .promo-overlay {
-        padding: 12px;
-      }
-
-      .promo-modal {
-        max-width: 100%;
-        border-radius: 16px;
-      }
-
-      .promo-img-wrap {
-        max-height: 55vh;
-      }
-
-      .promo-img-wrap img {
-        max-height: 55vh;
-      }
-
-      .promo-arrow {
-        width: 36px;
-        height: 36px;
-      }
-
-      .promo-arrow-prev {
-        left: 10px;
-      }
-
-      .promo-arrow-next {
-        right: 10px;
-      }
-
-      .promo-cta-btn {
-        width: 100%;
-        text-align: center;
-        padding: 13px;
-      }
-    }
-  </style>
+    </div>
+  </div>
 
   <script>
-    /* ── Promo Slider — Dynamic (รองรับ CMS เพิ่ม/ลบ slides) ── */
-    (function () {
-      var state = { current: 0, autoTimer: null };
-      var overlay  = document.getElementById('promoOverlay');
-      var track    = document.getElementById('promoTrack');
-      var btnPrev  = document.getElementById('promoArrowPrev');
-      var btnNext  = document.getElementById('promoArrowNext');
-      var btnClose = document.getElementById('promoClose');
-      var ctaBtn   = document.getElementById('promoCtaBtn');
+  /* ── Promo Slider (home) ── */
+  (function () {
+    var state    = { current: 0, autoTimer: null };
+    var overlay  = document.getElementById('promoOverlay');
+    var track    = document.getElementById('promoTrack');
+    var btnPrev  = document.getElementById('promoArrowPrev');
+    var btnNext  = document.getElementById('promoArrowNext');
+    var btnClose = document.getElementById('promoClose');
+    var ctaBtn   = document.getElementById('promoCtaBtn');
 
-      /* ── goTo: dynamic TOTAL จาก DOM ── */
-      function goTo(i) {
-        var slides = track.querySelectorAll('.promo-slide');
-        var TOTAL = slides.length || 1;
-        state.current = (i + TOTAL) % TOTAL;
-        track.style.transform = 'translateX(-' + (state.current * 100) + '%)';
-        document.querySelectorAll('#promoDots .promo-dot').forEach(function (d, idx) {
-          d.classList.toggle('active', idx === state.current);
-        });
-      }
-
-      function startAuto() { state.autoTimer = setInterval(function () { goTo(state.current + 1); }, 4000); }
-      function stopAuto()  { clearInterval(state.autoTimer); }
-      function resetAuto() { stopAuto(); startAuto(); }
-
-      function closePromo() {
-        overlay.classList.remove('open');
-        stopAuto();
-        // อัปเดตปุ่มโปรโมชั่นใน cms bar
-        var promoBtn = document.getElementById('cms-btn-promo');
-        if (promoBtn) promoBtn.classList.remove('active');
-      }
-      btnClose.addEventListener('click', closePromo);
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closePromo(); });
-      ctaBtn.addEventListener('click', function (e) {
-        if (document.body.classList.contains('cms-editing')) { e.preventDefault(); e.stopPropagation(); return; }
-        closePromo();
+    function goTo(i) {
+      var slides = track.querySelectorAll('.promo-slide');
+      var TOTAL  = slides.length || 1;
+      state.current = (i + TOTAL) % TOTAL;
+      track.style.transform = 'translateX(-' + (state.current * 100) + '%)';
+      document.querySelectorAll('#promoDots .promo-dot').forEach(function(d, idx) {
+        d.classList.toggle('active', idx === state.current);
       });
+    }
 
-      btnPrev.addEventListener('click', function () { resetAuto(); goTo(state.current - 1); });
-      btnNext.addEventListener('click', function () { resetAuto(); goTo(state.current + 1); });
-      /* Dots: ใช้ event delegation เพราะ dots สร้างใหม่ได้จาก CMS */
-      document.getElementById('promoDots').addEventListener('click', function (e) {
-        var dot = e.target.closest('.promo-dot');
-        if (!dot) return;
-        resetAuto(); goTo(+dot.dataset.index);
+    function startAuto() { state.autoTimer = setInterval(function(){ goTo(state.current + 1); }, 4500); }
+    function stopAuto()  { clearInterval(state.autoTimer); }
+    function resetAuto() { stopAuto(); startAuto(); }
+
+    function closePromo() {
+      overlay.classList.remove('open');
+      stopAuto();
+      var promoBtn = document.getElementById('cms-btn-promo');
+      if (promoBtn) promoBtn.classList.remove('active');
+    }
+
+    btnClose.addEventListener('click', closePromo);
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closePromo(); });
+    ctaBtn.addEventListener('click', function(e) {
+      if (document.body.classList.contains('cms-editing')) { e.preventDefault(); e.stopPropagation(); return; }
+      closePromo();
+    });
+
+    btnPrev.addEventListener('click', function() { resetAuto(); goTo(state.current - 1); });
+    btnNext.addEventListener('click', function() { resetAuto(); goTo(state.current + 1); });
+
+    document.getElementById('promoDots').addEventListener('click', function(e) {
+      var dot = e.target.closest('.promo-dot');
+      if (!dot) return;
+      resetAuto(); goTo(+dot.dataset.index);
+    });
+
+    /* keyboard */
+    document.addEventListener('keydown', function(e) {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape')      closePromo();
+      if (e.key === 'ArrowLeft')  { resetAuto(); goTo(state.current - 1); }
+      if (e.key === 'ArrowRight') { resetAuto(); goTo(state.current + 1); }
+    });
+
+    /* touch swipe */
+    var sx = 0;
+    track.addEventListener('touchstart', function(e) { sx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend',   function(e) {
+      var diff = sx - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) { resetAuto(); goTo(diff > 0 ? state.current + 1 : state.current - 1); }
+    }, { passive: true });
+
+    /* mouse drag */
+    var mx = 0, dragging = false;
+    track.addEventListener('mousedown', function(e) { mx = e.clientX; dragging = true; });
+    track.addEventListener('mouseup',   function(e) {
+      if (!dragging) return; dragging = false;
+      var diff = mx - e.clientX;
+      if (Math.abs(diff) > 40) { resetAuto(); goTo(diff > 0 ? state.current + 1 : state.current - 1); }
+    });
+    track.addEventListener('mouseleave', function() { dragging = false; });
+
+    /* CMS: reset after add/remove slides */
+    window._promoSliderInit = function() {
+      stopAuto();
+      state.current = 0;
+      track.style.transform = 'translateX(0)';
+      document.querySelectorAll('#promoDots .promo-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === 0);
       });
+      if (overlay.classList.contains('open')) startAuto();
+    };
 
-      /* touch swipe */
-      var sx = 0;
-      track.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
-      track.addEventListener('touchend', function (e) {
-        var diff = sx - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) { resetAuto(); goTo(diff > 0 ? state.current + 1 : state.current - 1); }
-      }, { passive: true });
-
-      /* mouse drag */
-      var mx = 0, dragging = false;
-      track.addEventListener('mousedown', function (e) { mx = e.clientX; dragging = true; });
-      track.addEventListener('mouseup', function (e) {
-        if (!dragging) return; dragging = false;
-        var diff = mx - e.clientX;
-        if (Math.abs(diff) > 40) { resetAuto(); goTo(diff > 0 ? state.current + 1 : state.current - 1); }
-      });
-      track.addEventListener('mouseleave', function () { dragging = false; });
-
-      /* ── _promoSliderInit: เรียกจาก CMS หลังเพิ่ม/ลบ slides ── */
-      window._promoSliderInit = function () {
-        stopAuto();
-        state.current = 0;
-        track.style.transform = 'translateX(0)';
-        document.querySelectorAll('#promoDots .promo-dot').forEach(function (d, i) {
-          d.classList.toggle('active', i === 0);
-        });
-        /* auto เริ่มใหม่เฉพาะตอน popup เปิดอยู่ */
-        if (overlay.classList.contains('open')) startAuto();
-      };
-
-      /* แสดง popup หลังจาก CMS โหลดข้อมูลเสร็จและ body แสดงแล้ว */
-      var _promoOpened = false;
-      function _openPromoOnce() {
-        if (_promoOpened) return;
-        _promoOpened = true;
-        setTimeout(function () {
-          // ไม่เปิดถ้าอยู่ใน edit mode (admin จะเปิดเองผ่าน CMS)
-          if (document.body.classList.contains('cms-editing')) return;
-          overlay.classList.add('open');
-          startAuto();
-        }, 400);
-      }
-      // เปิดหลัง cms-ready (body แสดงแล้ว)
-      document.body.addEventListener('transitionend', function _onReady(e) {
-        if (e.target !== document.body) return;
-        document.body.removeEventListener('transitionend', _onReady);
-        _openPromoOnce();
-      });
-      // fallback: ถ้า CMS ไม่มี transition หรือ transition หมดก่อน (เช่น cache hit เร็วมาก)
-      window.addEventListener('cms-data-applied', function _onCmsReady() {
-        window.removeEventListener('cms-data-applied', _onCmsReady);
-        _openPromoOnce();
-      }, { once: true });
-      // safety fallback: เปิดหลัง 4s ไม่ว่ากรณีใด
-      setTimeout(_openPromoOnce, 4000);
-    })();
+    /* Auto-open after CMS loads */
+    var _opened = false;
+    function openOnce() {
+      if (_opened) return;
+      _opened = true;
+      setTimeout(function() {
+        if (document.body.classList.contains('cms-editing')) return;
+        overlay.classList.add('open');
+        startAuto();
+      }, 400);
+    }
+    document.body.addEventListener('transitionend', function _t(e) {
+      if (e.target !== document.body) return;
+      document.body.removeEventListener('transitionend', _t);
+      openOnce();
+    });
+    window.addEventListener('cms-data-applied', function() { openOnce(); }, { once: true });
+    setTimeout(openOnce, 4000);
+  })();
   </script>
+
   <!-- ════ END PROMOTION POPUP ════ -->
 
   <!-- ════ OB CMS ════ -->
