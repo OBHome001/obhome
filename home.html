@@ -2144,7 +2144,7 @@
     .promo-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 11px 14px 11px 16px;
-      background: #1a1a16;
+      background: var(--white);
       border-bottom: 1px solid rgba(188,165,142,.12);
       flex-shrink: 0; gap: 10px;
     }
@@ -2152,7 +2152,7 @@
       display: flex; align-items: center; gap: 7px;
       font-size: .68rem; font-weight: 700;
       letter-spacing: .14em; text-transform: uppercase;
-      color: #bca58e;
+      color: #e84040;
       font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
     }
     .promo-badge-dot {
@@ -2168,11 +2168,11 @@
     }
     .promo-close {
       width: 30px; height: 30px; border-radius: 50%; border: none;
-      background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.08); color: rgb(0, 0, 0);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: background .18s, color .18s, transform .18s; flex-shrink: 0;
     }
-    .promo-close:hover { background: rgba(232,64,64,.2); color: #fff; transform: scale(1.1) rotate(90deg); }
+    .promo-close:hover { background: rgb(255, 0, 0); color: #fff; transform: scale(1.1) rotate(90deg); }
 
     /* ── Slider ── */
     .promo-slider {
@@ -2234,7 +2234,7 @@
     /* ── Footer ── */
     .promo-footer {
       padding: 12px 18px;
-      background: #1a1a16;
+      background: var(--white);
       border-top: 1px solid rgba(188,165,142,.10);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;

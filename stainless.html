@@ -2195,7 +2195,7 @@ function updateCardPriceTag(card) {
     #promoHeader {
       display: flex; align-items: center; justify-content: space-between;
       padding: 11px 14px 11px 16px;
-      background: #1a1a16;
+      background: var(--white);
       border-bottom: 1px solid rgba(188,165,142,.12);
       flex-shrink: 0;
       gap: 10px;
@@ -2204,7 +2204,7 @@ function updateCardPriceTag(card) {
       display: flex; align-items: center; gap: 7px;
       font-size: .68rem; font-weight: 700;
       letter-spacing: .14em; text-transform: uppercase;
-      color: #bca58e;
+      color: #e84040;
       font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
       white-space: nowrap;
     }
@@ -2221,12 +2221,12 @@ function updateCardPriceTag(card) {
     }
     #promoClose {
       width: 30px; height: 30px; border-radius: 50%; border: none;
-      background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.08); color: rgb(0, 0, 0);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: background .18s, color .18s, transform .18s;
       flex-shrink: 0;
     }
-    #promoClose:hover { background: rgba(232,64,64,.2); color: #fff; transform: scale(1.1) rotate(90deg); }
+    #promoClose:hover { background: rgb(255, 0, 0); color: #fff; transform: scale(1.1) rotate(90deg); }
 
     /* ── Viewport + Track ── */
     #promoViewport {
@@ -2269,7 +2269,7 @@ function updateCardPriceTag(card) {
     #promoFooter {
       display: flex; align-items: center; justify-content: center;
       gap: 8px; padding: 11px 16px;
-      background: #1a1a16;
+      background: var(--white);
       border-top: 1px solid rgba(188,165,142,.10);
       flex-wrap: wrap; min-height: 40px; flex-shrink: 0;
     }
