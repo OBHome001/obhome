@@ -383,8 +383,8 @@
     });
     const mapEl = document.querySelector('[data-cms-map]');
     if (mapEl && mapEl.src) _htmlOriginal.mapSrc = mapEl.src;
-    // ── snapshot promo slides (home page) ──
-    document.querySelectorAll('#promoTrack .promo-slide img').forEach(function(img) {
+    // ── snapshot promo slides (รองรับทั้ง home:#promoTrack และหน้าอื่น:#promoSlideTrack) ──
+    document.querySelectorAll('#promoTrack .promo-slide img, #promoSlideTrack .promo-slide img').forEach(function(img) {
       const s = img.src || '';
       if (!s || s.startsWith('blob:') || s.startsWith('data:')) return;
       try {
@@ -992,14 +992,13 @@
 
   function disablePromoEdit() {
     document.querySelectorAll('.cms-promo-slide-overlay').forEach(el => el.remove());
-    // ปิด popup ถ้าเปิดอยู่ — ลบ class ออกแล้วปล่อย CSS จัดการ
+    // ปิด popup ถ้าเปิดอยู่
     const overlay = document.getElementById('promoOverlay');
     if (overlay) {
       overlay.classList.remove('open');
       overlay.classList.remove('show');
-      // หน้าอื่น (spc/lath ฯลฯ) ใช้ display:none ซ่อน → ต้อง reset
-      // home ใช้ visibility/opacity ผ่าน CSS → ไม่ต้อง set display
-      if (overlay.style.display === 'flex') {
+      // ทุกหน้าที่ใช้ display:flex/none (ไม่ใช่ home ที่ใช้ visibility/opacity ผ่าน CSS class)
+      if (overlay.style.display === 'flex' || overlay.style.display === '') {
         overlay.style.display = 'none';
       }
     }
@@ -1525,24 +1524,32 @@
       const url = URL.createObjectURL(_currentImgFile);
 
       if (_addingNewPromoSlide) {
-        // ── สร้าง slide ใหม่ ──
+        // ── สร้าง slide ใหม่ (รองรับทั้ง home:#promoTrack และหน้าอื่น:#promoSlideTrack) ──
         _addingNewPromoSlide = false;
-        const track = document.getElementById('promoTrack');
+        const track = document.getElementById('promoTrack') || document.getElementById('promoSlideTrack');
         if (track) {
           const idx = track.querySelectorAll('.promo-slide').length;
           const slide = document.createElement('div');
           slide.className = 'promo-slide';
           slide.dataset.promoIdx = idx;
-          const wrap = document.createElement('div');
-          wrap.className = 'promo-img-wrap';
-          wrap.style.background = 'var(--warm, #bca58e)';
           const img = document.createElement('img');
           img.src = url;
           img.alt = 'โปรโมชั่น ' + (idx + 1);
           img._pendingFile = _currentImgFile;
           img._pendingObjectUrl = url;
-          wrap.appendChild(img);
-          slide.appendChild(wrap);
+          // home ใช้ promo-img-wrap wrapper, หน้าอื่นใส่ img ตรงๆ
+          if (document.getElementById('promoTrack')) {
+            const wrap = document.createElement('div');
+            wrap.className = 'promo-img-wrap';
+            wrap.style.background = 'var(--warm, #bca58e)';
+            wrap.appendChild(img);
+            slide.appendChild(wrap);
+          } else {
+            img.style.display = 'block';
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            slide.appendChild(img);
+          }
           track.appendChild(slide);
           updatePromoDots();
           if (window._promoSliderInit) window._promoSliderInit();
@@ -1575,19 +1582,6 @@
       btn.addEventListener('click', addProduct);
     });
 
-    // ── ปุ่มเพิ่มรูปโปรโมชั่น (ภายใน overlay) ──
-    document.addEventListener('click', function(e) {
-      if (e.target && e.target.id === 'cms-promo-add-btn') {
-        e.stopPropagation();
-        _addingNewPromoSlide = true;
-        _currentImgTarget = null;
-        _currentImgFile   = null;
-        document.getElementById('cms-file-input').value = '';
-        document.getElementById('cms-img-modal-preview').style.display = 'none';
-        document.getElementById('cms-img-modal').classList.add('open');
-      }
-    });
-
     // ── ปุ่ม "🖼 โปรโมชั่น" ใน CMS bar — toggle popup ──
     document.addEventListener('click', function(e) {
       if (e.target && e.target.id === 'cms-btn-promo') {
@@ -1598,19 +1592,38 @@
           // ปิด
           overlay.classList.remove('open');
           overlay.classList.remove('show');
+          overlay.style.display = 'none';
           e.target.classList.remove('active');
-          bindPromoEditControls();
         } else {
-          // เปิด — home ใช้ .open, หน้าอื่นใช้ display:flex + .show
-          if (window._openPromoPopup) {
-            window._openPromoPopup();
-          } else {
-            overlay.classList.add('open');
-          }
+          // เปิด — force bypass cms-editing guard เพื่อให้ admin เปิดได้เสมอ
+          overlay.style.display = 'flex';
+          overlay.style.pointerEvents = '';
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              overlay.classList.add('show');
+              overlay.classList.add('open');
+            });
+          });
           e.target.classList.add('active');
           if (window._promoSliderInit) window._promoSliderInit();
           bindPromoEditControls();
         }
+      }
+    });
+
+    // ── ปุ่มเพิ่มรูปโปรโมชั่น: รองรับ id="cms-promo-add-btn" (home) และ id="promoAddSlide" (หน้าอื่น) ──
+    document.addEventListener('click', function(e) {
+      const btn = e.target;
+      if (!btn) return;
+      const isAddBtn = btn.id === 'cms-promo-add-btn' || btn.id === 'promoAddSlide';
+      if (isAddBtn && document.body.classList.contains('cms-editing')) {
+        e.stopPropagation();
+        _addingNewPromoSlide = true;
+        _currentImgTarget = null;
+        _currentImgFile   = null;
+        document.getElementById('cms-file-input').value = '';
+        document.getElementById('cms-img-modal-preview').style.display = 'none';
+        document.getElementById('cms-img-modal').classList.add('open');
       }
     });
   }
