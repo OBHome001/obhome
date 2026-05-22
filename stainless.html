@@ -2162,13 +2162,15 @@ function updateCardPriceTag(card) {
   <!-- ══ PROMO SLIDESHOW CSS ══ -->
   <style>
     #promoOverlay {
-      position: fixed; inset: 0; z-index: 99998;
+      position: fixed; inset: 0; z-index: 1000002;
       background: rgba(10,10,8,.75);
       display: none; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity .35s ease;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s ease;
       padding: clamp(12px, 4vw, 32px);
     }
     #promoOverlay.show { opacity: 1; pointer-events: auto; }
+    body.cms-editing #promoOverlay.show { padding-bottom: 70px; }
     #promoBox {
       position: relative;
       width: 100%;
@@ -2347,13 +2349,15 @@ function updateCardPriceTag(card) {
 
     function closePromo() {
       overlay.classList.remove('show');
-      overlay.addEventListener('transitionend', function() {
-        overlay.style.display = 'none';
-      }, { once: true });
+      overlay.style.pointerEvents = 'none';
+      // รอ transition จบแล้วซ่อน
+      setTimeout(function() { overlay.style.display = 'none'; }, 380);
     }
 
     window._openPromoPopup = function() {
+      if (document.body.classList.contains('cms-editing')) return;
       overlay.style.display = 'flex';
+      overlay.style.pointerEvents = '';
       requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.classList.add('show'); }); });
     };
 

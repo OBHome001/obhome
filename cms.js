@@ -255,17 +255,19 @@
       #cms-img-modal p { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 16px; }
       #cms-img-modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
-      /* ════ Promo Slide Edit UI ════ */
-      /* ── ใน edit mode: overlay ต้องมองเห็นและคลิกได้เสมอ ── */
-      body.cms-editing .promo-overlay {
-        /* override visibility:hidden ให้แสดง popup เมื่อ admin เปิดแก้ไข */
-        visibility: visible !important;
-        pointer-events: auto !important;
+      /* ════ Promo Overlay ════ */
+      /* ยก z-index สูงกว่า CMS bar (999999) */
+      .promo-overlay,
+      #promoOverlay {
+        z-index: 1000002 !important;
       }
-      /* ── ป้องกัน backdrop ปิด popup ขณะ edit ── */
-      body.cms-editing .promo-overlay.open {
-        opacity: 1 !important;
+      /* padding-bottom ป้องกัน modal ถูก cms-bar บัง */
+      body.cms-editing .promo-overlay.open,
+      body.cms-editing #promoOverlay.show {
+        padding-bottom: 70px !important;
       }
+      /* prod-card ไม่ขึ้นมาบน overlay */
+      .prod-card { isolation: isolate; }
       .cms-promo-slide-overlay {
         position: absolute; inset: 0; z-index: 30;
         display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -517,17 +519,54 @@
         window.dispatchEvent(new CustomEvent('cms-ba-data', { detail: _baData }));
       }
     }
-    // ── promo popup slides (home page) ──
+    // ── promo popup slides (ทุกหน้า — โหลดจาก pages/home) ──
     // ถ้า admin มีรูป pending อยู่ → ห้าม renderPromoSlides ทับ (ป้องกันรูปที่เลือกไว้หาย)
-    const _hasPromoPending = document.querySelector('#promoTrack .promo-slide img[src^="blob:"]') ||
-      Array.from(document.querySelectorAll('#promoTrack .promo-slide img')).some(img => img._pendingFile);
-    if (!_hasPromoPending) {
-      if (data.promotions && data.promotions.length) {
-        renderPromoSlides(data.promotions);
-      } else if (data.images) {
-        // migration: เปลี่ยนจาก promo_img1/2/3 → promotions array
-        const legacySlides = [data.images.promo_img1, data.images.promo_img2, data.images.promo_img3].filter(Boolean);
-        if (legacySlides.length) renderPromoSlides(legacySlides);
+    const _promoTrackEl = document.getElementById('promoTrack') || document.getElementById('promoSlideTrack');
+    const _hasPromoPending = _promoTrackEl && (
+      _promoTrackEl.querySelector('.promo-slide img[src^="blob:"]') ||
+      Array.from(_promoTrackEl.querySelectorAll('.promo-slide img')).some(img => img._pendingFile)
+    );
+    if (!_hasPromoPending && _promoTrackEl) {
+      // หน้า home: โหลดจาก data ปัจจุบัน (PAGE === 'home')
+      if (PAGE === 'home') {
+        if (data.promotions && data.promotions.length) {
+          renderPromoSlides(data.promotions);
+        } else if (data.images) {
+          // migration: เปลี่ยนจาก promo_img1/2/3 → promotions array
+          const legacySlides = [data.images.promo_img1, data.images.promo_img2, data.images.promo_img3].filter(Boolean);
+          if (legacySlides.length) renderPromoSlides(legacySlides);
+        }
+      } else {
+        // หน้าอื่น: โหลดรูปโปรโมชั่นจาก pages/home เสมอ
+        const db = window._cmsDB;
+        if (db) {
+          const { ref: dbRef2, get: dbGet2 } = window._firebaseDB;
+          dbGet2(dbRef2(db, 'pages/home')).then(homeSnap => {
+            if (!homeSnap || !homeSnap.exists()) return;
+            const homeData = homeSnap.val();
+            if (homeData.promotions && homeData.promotions.length) {
+              renderPromoSlides(homeData.promotions);
+              // เปิด popup หลังโหลดรูปเสร็จ (ถ้ายังไม่เปิด)
+              if (window._openPromoPopup && !document.querySelector('#promoOverlay.show')) {
+                setTimeout(function() {
+                  if (!document.body.classList.contains('cms-editing')) {
+                    window._openPromoPopup();
+                  }
+                }, 300);
+              }
+            } else if (homeData.images) {
+              const legacySlides = [homeData.images.promo_img1, homeData.images.promo_img2, homeData.images.promo_img3].filter(Boolean);
+              if (legacySlides.length) {
+                renderPromoSlides(legacySlides);
+                if (window._openPromoPopup && !document.querySelector('#promoOverlay.show')) {
+                  setTimeout(function() {
+                    if (!document.body.classList.contains('cms-editing')) window._openPromoPopup();
+                  }, 300);
+                }
+              }
+            }
+          }).catch(() => {});
+        }
       }
     }
 
@@ -862,9 +901,10 @@
      PROMO SLIDES MANAGEMENT (home page popup)
   ═══════════════════════════════════════════════════════ */
   function renderPromoSlides(slides) {
-    const track = document.getElementById('promoTrack');
+    // รองรับทั้ง home (#promoTrack) และหน้าอื่น (#promoSlideTrack)
+    const track = document.getElementById('promoTrack') || document.getElementById('promoSlideTrack');
     const dotsContainer = document.getElementById('promoDots');
-    if (!track || !dotsContainer || !slides || !slides.length) return;
+    if (!track || !slides || !slides.length) return;
 
     // ── snapshot pending files BEFORE clearing track (ป้องกันรูปที่ admin เลือกไว้หาย) ──
     const pendingByIdx = {};
@@ -883,11 +923,11 @@
     }
 
     // Fade out ถ้า popup เปิดอยู่
-    const isOpen = document.querySelector('.promo-overlay.open');
+    const isOpen = document.querySelector('.promo-overlay.open, #promoOverlay.show');
     if (isOpen) track.style.opacity = '0';
 
     track.innerHTML = '';
-    dotsContainer.innerHTML = '';
+    if (dotsContainer) dotsContainer.innerHTML = '';
 
     slides.forEach(function(url, i) {
       const slide = document.createElement('div');
@@ -907,14 +947,27 @@
         img.src = sanitizeUrl(url) || '';
       }
       img.alt = 'โปรโมชั่น ' + (i + 1);
-      wrap.appendChild(img);
-      slide.appendChild(wrap);
+      // หน้า home ใช้ promo-img-wrap wrapper
+      if (document.getElementById('promoTrack')) {
+        const wrap = document.createElement('div');
+        wrap.className = 'promo-img-wrap';
+        wrap.style.background = 'var(--warm, #bca58e)';
+        wrap.appendChild(img);
+        slide.appendChild(wrap);
+      } else {
+        img.style.display = 'block';
+        img.style.width = '100%';
+        img.style.height = 'auto';
+        slide.appendChild(img);
+      }
       track.appendChild(slide);
 
-      const dot = document.createElement('button');
-      dot.className = 'promo-dot' + (i === 0 ? ' active' : '');
-      dot.dataset.index = i;
-      dotsContainer.appendChild(dot);
+      if (dotsContainer) {
+        const dot = document.createElement('button');
+        dot.className = 'promo-dot' + (i === 0 ? ' active' : '');
+        dot.dataset.index = i;
+        dotsContainer.appendChild(dot);
+      }
     });
 
     if (window._promoSliderInit) window._promoSliderInit();
@@ -931,7 +984,7 @@
   }
 
   function updatePromoDots() {
-    const track = document.getElementById('promoTrack');
+    const track = document.getElementById('promoTrack') || document.getElementById('promoSlideTrack');
     const dotsContainer = document.getElementById('promoDots');
     if (!track || !dotsContainer) return;
     const count = track.querySelectorAll('.promo-slide').length;
@@ -946,41 +999,40 @@
   }
 
   function enablePromoEdit() {
-    const overlay = document.getElementById('promoOverlay');
-    const track = document.getElementById('promoTrack');
+    const track = document.getElementById('promoTrack') || document.getElementById('promoSlideTrack');
     if (!track) return;
 
-    // Force overlay open so admin can see and interact with slides
-    if (overlay && !overlay.classList.contains('open')) {
-      overlay.classList.add('open');
-      overlay.dataset.cmsForceOpen = '1'; // mark as forced — close it when edit mode ends
-      if (window._promoSliderInit) window._promoSliderInit();
-    }
-
+    // ไม่บังคับเปิด popup — admin กดปุ่ม "🖼 โปรโมชั่น" เองถ้าต้องการแก้
     bindPromoEditControls();
 
-    // Show promo manage button in CMS bar (only on home)
+    // แสดงปุ่ม "🖼 โปรโมชั่น" ใน CMS bar
     const promoBtn = document.getElementById('cms-btn-promo');
-    if (promoBtn) { promoBtn.style.display = ''; promoBtn.classList.add('active'); }
+    if (promoBtn) { promoBtn.style.display = ''; promoBtn.classList.remove('active'); }
   }
 
   function disablePromoEdit() {
     document.querySelectorAll('.cms-promo-slide-overlay').forEach(el => el.remove());
-    // Close overlay if we forced it open
+    // ปิด popup ถ้าเปิดอยู่ — ลบ class ออกแล้วปล่อย CSS จัดการ
     const overlay = document.getElementById('promoOverlay');
-    if (overlay && overlay.dataset.cmsForceOpen) {
+    if (overlay) {
       overlay.classList.remove('open');
-      delete overlay.dataset.cmsForceOpen;
-      if (window._promoState) window._promoState.stopAuto && window._promoState.stopAuto();
+      overlay.classList.remove('show');
+      // หน้าอื่น (spc/lath ฯลฯ) ใช้ display:none ซ่อน → ต้อง reset
+      // home ใช้ visibility/opacity ผ่าน CSS → ไม่ต้อง set display
+      if (overlay.style.display === 'flex') {
+        overlay.style.display = 'none';
+      }
     }
-    // Hide promo manage button
+    // ซ่อนปุ่มโปรโมชั่น
     const promoBtn = document.getElementById('cms-btn-promo');
     if (promoBtn) { promoBtn.style.display = 'none'; promoBtn.classList.remove('active'); }
   }
 
   function bindPromoEditControls() {
     document.querySelectorAll('.cms-promo-slide-overlay').forEach(el => el.remove());
-    document.querySelectorAll('#promoTrack .promo-slide').forEach(function(slide, i) {
+    // รองรับทั้ง #promoTrack (home) และ #promoSlideTrack (หน้าอื่น)
+    const trackSel = '#promoTrack .promo-slide, #promoSlideTrack .promo-slide';
+    document.querySelectorAll(trackSel).forEach(function(slide, i) {
       slide.style.position = 'relative';
       const overlay = document.createElement('div');
       overlay.className = 'cms-promo-slide-overlay';
@@ -1199,10 +1251,12 @@
         }
       });
 
-      // ── รูปโปรโมชั่น (home page) — อัปโหลดและรวบรวม ──
+      // ── รูปโปรโมชั่น (ทุกหน้า) — อัปโหลดและรวบรวม ──
       const promoSlides = [];
       const promoUploadJobs = [];
-      document.querySelectorAll('#promoTrack .promo-slide img').forEach((img, i) => {
+      // รองรับทั้ง #promoTrack (home) และ #promoSlideTrack (หน้าอื่น)
+      const _promoTrackSel = '#promoTrack .promo-slide img, #promoSlideTrack .promo-slide img';
+      document.querySelectorAll(_promoTrackSel).forEach((img, i) => {
         if (img._pendingFile) {
           const file = img._pendingFile;
           const _pIdx = promoSlides.length;
@@ -1553,37 +1607,31 @@
       }
     });
 
-    // ── ปุ่ม "🖼 โปรโมชั่น" ใน CMS bar (home only) — toggle popup ──
+    // ── ปุ่ม "🖼 โปรโมชั่น" ใน CMS bar — toggle popup ──
     document.addEventListener('click', function(e) {
       if (e.target && e.target.id === 'cms-btn-promo') {
         const overlay = document.getElementById('promoOverlay');
         if (!overlay) return;
-        const isOpen = overlay.classList.contains('open');
+        const isOpen = overlay.classList.contains('open') || overlay.classList.contains('show');
         if (isOpen) {
+          // ปิด
           overlay.classList.remove('open');
-          overlay.dataset.cmsForceOpen = '';
+          overlay.classList.remove('show');
           e.target.classList.remove('active');
+          bindPromoEditControls();
         } else {
-          overlay.classList.add('open');
-          overlay.dataset.cmsForceOpen = '1';
+          // เปิด — home ใช้ .open, หน้าอื่นใช้ display:flex + .show
+          if (window._openPromoPopup) {
+            window._openPromoPopup();
+          } else {
+            overlay.classList.add('open');
+          }
           e.target.classList.add('active');
           if (window._promoSliderInit) window._promoSliderInit();
           bindPromoEditControls();
         }
       }
     });
-
-    // ── ป้องกัน overlay ปิดตัวเองขณะ edit mode (click outside = close ปกติ) ──
-    const _promoOverlay = document.getElementById('promoOverlay');
-    if (_promoOverlay) {
-      _promoOverlay.addEventListener('click', function(e) {
-        // ถ้า cms-editing และ click ที่ background → ห้ามปิด
-        if (editMode && e.target === _promoOverlay) {
-          e.stopPropagation();
-          return;
-        }
-      });
-    }
   }
 
   /* ═══════════════════════════════════════════════════════
