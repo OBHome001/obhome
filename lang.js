@@ -263,7 +263,7 @@
     title_accessories:{ th:'อุปกรณ์ติดตั้ง - OB HOME', en:'Accessories - OB HOME' },
     title_reviews:    { th:'รีวิวลูกค้า - OB HOME', en:'Customer Reviews - OB HOME' },
     title_installations:{ th:'บริการติดตั้ง - OB HOME', en:'Installation Services - OB HOME' },
-    title_ba:         { th:'Before & After - OB HOME', en:'Before & After - OB HOME' },
+    title_ba:         { th:'ก่อน & หลัง - OB HOME', en:'Before & After - OB HOME' },
     title_promotions: { th:'โปรโมชั่น — OB HOME',         en:'Promotions — OB HOME' },
 
     /* ─── PROMOTIONS PAGE ─── */

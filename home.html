@@ -2505,10 +2505,31 @@
         if (overlay.classList.contains('open')) startAuto();
       };
 
-      /* แสดง popup หลังโหลด */
-      window.addEventListener('load', function () {
-        setTimeout(function () { overlay.classList.add('open'); startAuto(); }, 600);
+      /* แสดง popup หลังจาก CMS โหลดข้อมูลเสร็จและ body แสดงแล้ว */
+      var _promoOpened = false;
+      function _openPromoOnce() {
+        if (_promoOpened) return;
+        _promoOpened = true;
+        setTimeout(function () {
+          // ไม่เปิดถ้าอยู่ใน edit mode (admin จะเปิดเองผ่าน CMS)
+          if (document.body.classList.contains('cms-editing')) return;
+          overlay.classList.add('open');
+          startAuto();
+        }, 400);
+      }
+      // เปิดหลัง cms-ready (body แสดงแล้ว)
+      document.body.addEventListener('transitionend', function _onReady(e) {
+        if (e.target !== document.body) return;
+        document.body.removeEventListener('transitionend', _onReady);
+        _openPromoOnce();
       });
+      // fallback: ถ้า CMS ไม่มี transition หรือ transition หมดก่อน (เช่น cache hit เร็วมาก)
+      window.addEventListener('cms-data-applied', function _onCmsReady() {
+        window.removeEventListener('cms-data-applied', _onCmsReady);
+        _openPromoOnce();
+      }, { once: true });
+      // safety fallback: เปิดหลัง 4s ไม่ว่ากรณีใด
+      setTimeout(_openPromoOnce, 4000);
     })();
   </script>
   <!-- ════ END PROMOTION POPUP ════ -->
