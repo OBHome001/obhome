@@ -338,6 +338,7 @@
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('lang-active', btn.dataset.langTarget === lang);
     });
+    syncSwitcherUI(lang);
 
     /* 7. anti-flash style no longer injected by lang.js — body opacity handled by HTML */
 
@@ -380,16 +381,87 @@
     window.dispatchEvent(new CustomEvent('ob-lang-changed', { detail: { lang } }));
   }
 
+  const LANG_META = {
+    th: { flag: '\uD83C\uDDF9\uD83C\uDDED', code: 'TH', name: '\u0e20\u0e32\u0e29\u0e32\u0e44\u0e17\u0e22' },
+    en: { flag: '\uD83C\uDDEC\uD83C\uDDE7', code: 'EN', name: 'English' }
+  };
+
   function createSwitcher() {
-    const wrap = document.createElement('li');
-    wrap.className = 'lang-switcher';
-    wrap.innerHTML = `
-      <button class="lang-btn lang-btn-th" data-lang-target="th" aria-label="ภาษาไทย">TH</button>
-      <span class="lang-divider">|</span>
-      <button class="lang-btn lang-btn-en" data-lang-target="en" aria-label="English">EN</button>`;
-    wrap.querySelector('.lang-btn-th').addEventListener('click', () => applyLang('th'));
-    wrap.querySelector('.lang-btn-en').addEventListener('click', () => applyLang('en'));
-    return wrap;
+    const li = document.createElement('li');
+    li.className = 'lang-switcher';
+    li.innerHTML = `
+      <div class="ld-wrap" id="ob-lang-wrap">
+        <button class="ld-btn" id="ob-lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e20\u0e32\u0e29\u0e32">
+          <span class="ld-flag" id="ob-lang-flag"></span>
+          <span class="ld-code" id="ob-lang-code"></span>
+          <span class="ld-chevron" aria-hidden="true">
+            <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="1,1 6,7 11,1"/>
+            </svg>
+          </span>
+        </button>
+        <div class="ld-menu" id="ob-lang-menu" role="listbox">
+          <button class="ld-opt" role="option" data-lang-target="th" aria-selected="false">
+            <span class="ld-opt-flag">${LANG_META.th.flag}</span>
+            <span class="ld-opt-info">
+              <span class="ld-opt-code">TH</span>
+              <span class="ld-opt-name">${LANG_META.th.name}</span>
+            </span>
+            <span class="ld-dot" aria-hidden="true"></span>
+          </button>
+          <button class="ld-opt" role="option" data-lang-target="en" aria-selected="false">
+            <span class="ld-opt-flag">${LANG_META.en.flag}</span>
+            <span class="ld-opt-info">
+              <span class="ld-opt-code">EN</span>
+              <span class="ld-opt-name">${LANG_META.en.name}</span>
+            </span>
+            <span class="ld-dot" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>`;
+
+    const wrap = li.querySelector('#ob-lang-wrap');
+    const btn  = li.querySelector('#ob-lang-btn');
+    const menu = li.querySelector('#ob-lang-menu');
+
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = wrap.classList.toggle('ld-open');
+      btn.setAttribute('aria-expanded', isOpen);
+    });
+
+    menu.querySelectorAll('.ld-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        applyLang(opt.dataset.langTarget);
+        wrap.classList.remove('ld-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', function _closeOnOutside() {
+      wrap.classList.remove('ld-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+    wrap.addEventListener('click', e => e.stopPropagation());
+
+    return li;
+  }
+
+  /* ── sync dropdown trigger to active lang ── */
+  function syncSwitcherUI(lang) {
+    const L = LANG_META[lang];
+    if (!L) return;
+    const flagEl = document.getElementById('ob-lang-flag');
+    const codeEl = document.getElementById('ob-lang-code');
+    if (flagEl) flagEl.textContent = L.flag;
+    if (codeEl) codeEl.textContent = L.code;
+    document.querySelectorAll('.ld-opt').forEach(opt => {
+      const active = opt.dataset.langTarget === lang;
+      opt.classList.toggle('ld-active', active);
+      opt.setAttribute('aria-selected', active);
+      const dot = opt.querySelector('.ld-dot');
+      if (dot) dot.style.display = active ? 'block' : 'none';
+    });
   }
 
   function injectSwitcher() {
@@ -403,14 +475,30 @@
     const s = document.createElement('style');
     s.id = 'lang-style';
     s.textContent = `
-      .lang-switcher{display:flex;align-items:center;gap:4px;padding:0 6px;margin-left:4px}
-      .lang-btn{background:transparent;border:1.5px solid rgba(255,255,255,.35);color:rgba(255,255,255,.75);font-size:.8rem;font-weight:600;letter-spacing:.06em;padding:4px 9px;border-radius:6px;cursor:pointer;font-family:inherit;transition:background .18s,color .18s,border-color .18s;line-height:1}
-      .lang-btn:hover{background:rgba(255,255,255,.18);color:#fff;border-color:rgba(255,255,255,.6)}
-      .lang-btn.lang-active{background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.7)}
-      .lang-divider{color:rgba(255,255,255,.3);font-size:.75rem;user-select:none}
+      .lang-switcher{display:flex;align-items:center;padding:0 4px;margin-left:2px}
+      .ld-wrap{position:relative}
+      .ld-btn{display:flex;align-items:center;gap:6px;padding:5px 9px 5px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,border-color .15s}
+      .ld-btn:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.38)}
+      .ld-flag{font-size:17px;line-height:1;display:flex;align-items:center}
+      .ld-code{font-size:11.5px;font-weight:700;letter-spacing:.07em;color:rgba(255,255,255,.88)}
+      .ld-chevron{display:flex;align-items:center;opacity:.55;transition:transform .18s}
+      .ld-chevron svg{width:11px;height:11px}
+      .ld-open .ld-chevron{transform:rotate(180deg)}
+      .ld-menu{position:absolute;top:calc(100% + 6px);right:0;background:#242420;border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;min-width:150px;opacity:0;transform:translateY(-5px) scale(.97);transition:opacity .14s,transform .14s;pointer-events:none;z-index:100000}
+      .ld-open .ld-menu{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+      .ld-opt{display:flex;align-items:center;gap:10px;padding:9px 13px;cursor:pointer;border:none;background:transparent;width:100%;text-align:left;color:#fff;font-family:inherit;transition:background .1s}
+      .ld-opt:hover{background:rgba(255,255,255,.08)}
+      .ld-opt.ld-active{background:rgba(188,165,142,.15)}
+      .ld-opt-flag{font-size:19px;line-height:1}
+      .ld-opt-info{display:flex;flex-direction:column;gap:1px;flex:1}
+      .ld-opt-code{font-size:12px;font-weight:700;letter-spacing:.07em;color:#fff}
+      .ld-opt-name{font-size:10.5px;color:rgba(255,255,255,.45);letter-spacing:.02em}
+      .ld-opt.ld-active .ld-opt-code{color:#bca58e}
+      .ld-opt.ld-active .ld-opt-name{color:rgba(188,165,142,.6)}
+      .ld-dot{width:6px;height:6px;border-radius:50%;background:#bca58e;flex-shrink:0}
       @media(max-width:768px){
-        .lang-switcher{justify-content:flex-start;padding:8px 14px;margin-left:0;border-top:1px solid rgba(255,255,255,.1);margin-top:4px}
-        .lang-btn{font-size:.85rem;padding:6px 14px}
+        .lang-switcher{padding:8px 14px;margin-left:0;border-top:1px solid rgba(255,255,255,.09);margin-top:4px}
+        .ld-menu{right:auto;left:0}
       }`;
     document.head.appendChild(s);
 
