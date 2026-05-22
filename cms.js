@@ -40,6 +40,8 @@
   ═══════════════════════════════════════════════════════ */
   let editMode = false;
   let currentUser = null;
+  let _currentPromoSlideIdx = -1; // -1 = new slide
+  let _addingNewPromoSlide   = false;
   const PAGE = (function () {
     const path = location.pathname.split('/').pop().replace('.html', '') || 'home';
     return path === '' ? 'home' : path;
@@ -132,6 +134,18 @@
         cursor: pointer;
         position: relative;
         border-radius: 4px;
+      }
+      /* ป้องกัน overlay ของ prod-card ทับ img ขณะ edit */
+      body.cms-editing .prod-card .prod-overlay {
+        pointer-events: none;
+      }
+      body.cms-editing .prod-card [data-cms-text] {
+        pointer-events: auto;
+      }
+      /* ให้ cms-img-editable ภายใน prod-card อยู่เหนือ overlay */
+      body.cms-editing .prod-card img.cms-img-editable {
+        position: relative;
+        z-index: 2;
       }
       [data-cms-img].cms-img-editable::after {
         content: '📷 เปลี่ยนรูป';
@@ -237,6 +251,24 @@
       #cms-img-modal p { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 16px; }
       #cms-img-modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
+      /* ════ Promo Slide Edit UI ════ */
+      .cms-promo-slide-overlay {
+        position: absolute; inset: 0; z-index: 30;
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        background: rgba(0,0,0,.52);
+        pointer-events: none;
+      }
+      body.cms-editing .cms-promo-slide-overlay { pointer-events: auto; }
+      .cms-promo-change-btn, .cms-promo-delete-btn {
+        padding: 9px 16px; border: none; border-radius: 10px;
+        cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 600;
+        transition: transform .15s;
+      }
+      .cms-promo-change-btn { background: rgba(255,255,255,.92); color: #1a1a16; }
+      .cms-promo-delete-btn { background: rgba(220,50,50,.88); color: #fff; }
+      .cms-promo-change-btn:hover, .cms-promo-delete-btn:hover { transform: scale(1.06); }
+      /* #cms-promo-add-btn ถูกแทนที่ด้วย #promoAddSlide ใน popup HTML แล้ว */
+
       /* ════ Responsive Mobile ════ */
       @media (max-width: 600px) {
         #cms-bar-inner {
@@ -299,7 +331,7 @@
   ═══════════════════════════════════════════════════════ */
   /* ── snapshot ค่าต้นฉบับจาก HTML ก่อนที่ applyData จะเขียนทับ ──
      เก็บไว้ใช้ตอน syncFromHTML เพื่อให้ได้ค่าจากโค้ดจริงๆ ไม่ใช่ค่า Firebase */
-  const _htmlOriginal = { texts: {}, images: {}, mapSrc: null };
+  const _htmlOriginal = { texts: {}, images: {}, mapSrc: null, promotions: [] };
   (function snapshotHTML() {
     document.querySelectorAll('[data-cms-text]').forEach(el => {
       const key = el.dataset.cmsText;
@@ -326,12 +358,32 @@
     });
     const mapEl = document.querySelector('[data-cms-map]');
     if (mapEl && mapEl.src) _htmlOriginal.mapSrc = mapEl.src;
+    // ── snapshot promo slides (home page) ──
+    var _snapTrack = getPromoTrack();
+    _snapTrack && _snapTrack.querySelectorAll('.promo-slide img').forEach(function(img) {
+      const s = img.src || '';
+      if (!s || s.startsWith('blob:') || s.startsWith('data:')) return;
+      try {
+        const u = new URL(s);
+        _htmlOriginal.promotions.push(
+          (u.hostname === 'localhost' || u.hostname === '127.0.0.1') ? u.pathname : s
+        );
+      } catch(e) { _htmlOriginal.promotions.push(s); }
+    });
   })();
 
+
+  /* ── helper: รองรับทั้ง #promoSlideTrack (ทุกหน้า) และ #promoTrack (home legacy) ── */
+  function getPromoTrack() {
+    return document.getElementById('promoSlideTrack') || document.getElementById('promoTrack');
+  }
+  function getPromoDotsContainer() {
+    return document.getElementById('promoDots') || document.getElementById('promoDotsContainer');
+  }
   /* ── cache helpers ── */
   const CACHE_KEY = `cms_cache_${PAGE}`;
   const CACHE_TTL       = 5 * 60 * 1000; // 5 นาที — อายุสูงสุดของ cache
-  const CACHE_FRESH_TTL =     30 * 1000; // 30 วินาที — หลัง save/sync ป้องกัน silent fetch ทับ
+  const CACHE_FRESH_TTL =     60 * 1000; // 60 วินาที — หลัง save/sync ป้องกัน silent fetch ทับ
 
   function readCache() {
     try {
@@ -372,7 +424,11 @@
     // ── ข้อความ ──
     document.querySelectorAll('[data-cms-text]').forEach(el => {
       const key = el.dataset.cmsText;
-      if (data.texts && data.texts[key] !== undefined) el.innerHTML = data.texts[key];
+      if (data.texts && data.texts[key] !== undefined) {
+        el.innerHTML = data.texts[key];
+        // mark ว่า CMS override แล้ว → ป้องกัน lang.js เขียนทับ
+        el.dataset.cmsOverride = '1';
+      }
     });
     // ── ลิงก์ ──
     if (data.links) {
@@ -447,6 +503,15 @@
         window.dispatchEvent(new CustomEvent('cms-ba-data', { detail: _baData }));
       }
     }
+    // ── promo popup slides (home page) ──
+    if (data.promotions && data.promotions.length) {
+      renderPromoSlides(data.promotions);
+    } else if (data.images) {
+      // migration: เปลี่ยนจาก promo_img1/2/3 → promotions array
+      const legacySlides = [data.images.promo_img1, data.images.promo_img2, data.images.promo_img3].filter(Boolean);
+      if (legacySlides.length) renderPromoSlides(legacySlides);
+    }
+
     // ── แผนที่ ──
     if (data.mapSrc) {
       const mapEl = document.querySelector('[data-cms-map]');
@@ -466,9 +531,20 @@
       }
     }
 
-    // ── re-apply ภาษาปัจจุบัน ก่อน reveal หน้า เพื่อไม่ให้กระพริบเป็น TH ──
+    // ── re-apply ภาษาปัจจุบัน ──
     if (window._obLang) {
       window._obLang.apply(window._obLang.current());
+    }
+
+    // ── re-apply texts จาก Firebase อีกครั้ง (ให้ชนะ lang.js เสมอ) ──
+    // เพราะ _obLang.apply() อาจเขียนทับ element ที่มีทั้ง data-lang + data-cms-text
+    if (data.texts) {
+      document.querySelectorAll('[data-cms-text]').forEach(el => {
+        const key = el.dataset.cmsText;
+        if (data.texts[key] !== undefined) {
+          el.innerHTML = data.texts[key];
+        }
+      });
     }
 
     // ── แสดงหน้าหลัง apply เสร็จ (ป้องกันกระพริบ) ──
@@ -637,15 +713,20 @@
 
     document.querySelectorAll('[data-cms-text]').forEach(el => {
       el.contentEditable = 'true';
-      // ป้องกัน element ว่างเปล่าแล้วพิมพ์ใหม่ไม่ได้
       el.dataset.cmsPlaceholder = el.dataset.cmsPlaceholder || el.dataset.cmsText;
+      // ── mark cms-override ระหว่าง edit เพื่อป้องกัน lang.js เขียนทับขณะ admin พิมพ์ ──
+      el.dataset.cmsOverride = '1';
+      // ── ถ้า element มี data-lang ด้วย → ลบออกชั่วคราว ป้องกัน lang.js เขียนทับ ──
+      if (el.dataset.lang) {
+        el._cmsLangBak = el.dataset.lang;
+        delete el.dataset.lang;
+      }
       el._cmsInput = () => {
         if (el.innerHTML === '' || el.innerHTML === '<br>') {
           el.innerHTML = '';
         }
       };
       el.addEventListener('input', el._cmsInput);
-      // ป้องกัน <a> และ <button> navigate/trigger ขณะแก้ไข
       if (el.tagName === 'A' || el.tagName === 'BUTTON') {
         el._cmsClickBlock = e => { e.preventDefault(); e.stopPropagation(); };
         el.addEventListener('click', el._cmsClickBlock);
@@ -674,6 +755,7 @@
 
     bindProductEditors();
     enableMapEditor();
+    enablePromoEdit();
   }
 
   function disableEditMode() {
@@ -686,6 +768,13 @@
 
     document.querySelectorAll('[data-cms-text]').forEach(el => {
       el.contentEditable = 'false';
+      // ── ลบ cms-override ออก (applyData จะ re-mark เฉพาะที่มีค่าจาก Firebase) ──
+      delete el.dataset.cmsOverride;
+      // ── คืน data-lang กลับ ──
+      if (el._cmsLangBak) {
+        el.dataset.lang = el._cmsLangBak;
+        delete el._cmsLangBak;
+      }
       if (el._cmsInput) {
         el.removeEventListener('input', el._cmsInput);
         delete el._cmsInput;
@@ -713,6 +802,7 @@
     });
     unbindProductEditors();
     disableMapEditor();
+    disablePromoEdit();
   }
 
   function bindProductEditors() {
@@ -749,6 +839,129 @@
       img.style.cursor = '';
       img.style.outline = '';
       img.removeEventListener('click', onProductImgClick);
+    });
+  }
+
+
+  /* ═══════════════════════════════════════════════════════
+     PROMO SLIDES MANAGEMENT (home page popup)
+  ═══════════════════════════════════════════════════════ */
+  function renderPromoSlides(slides) {
+    const track = getPromoTrack();
+    const dotsContainer = getPromoDotsContainer();
+    if (!track || !slides || !slides.length) return;
+
+    // ป้องกัน redraw ถ้าเนื้อหาเหมือนเดิม
+    const currentUrls = Array.from(track.querySelectorAll('.promo-slide img'))
+      .map(img => sanitizeUrl(img.src)).join('|');
+    const newUrls = slides.map(sanitizeUrl).join('|');
+    if (currentUrls === newUrls) return;
+
+    // Fade out ถ้า popup เปิดอยู่ เพื่อไม่ให้กระพริบ
+    const isOpen = document.querySelector('.promo-overlay.open');
+    if (isOpen) track.style.opacity = '0';
+
+    track.innerHTML = '';
+    if (dotsContainer) dotsContainer.innerHTML = '';
+
+    slides.forEach(function(url, i) {
+      const slide = document.createElement('div');
+      slide.className = 'promo-slide';
+      slide.dataset.promoIdx = i;
+      // delete btn สำหรับ admin
+      const delBtn = document.createElement('button');
+      delBtn.className = 'promo-slide-del';
+      delBtn.dataset.promoDel = i;
+      delBtn.textContent = '🗑 ลบรูปนี้';
+      const img = document.createElement('img');
+      img.src = sanitizeUrl(url) || '';
+      img.alt = 'โปรโมชั่น ' + (i + 1);
+      slide.appendChild(delBtn);
+      slide.appendChild(img);
+      track.appendChild(slide);
+
+      if (dotsContainer) {
+        const dot = document.createElement('button');
+        dot.className = 'promo-dot' + (i === 0 ? ' active' : '');
+        dot.dataset.index = i;
+        dotsContainer.appendChild(dot);
+      }
+    });
+
+    if (window._promoSliderInit) window._promoSliderInit();
+    if (editMode) bindPromoEditControls();
+
+    // Fade in
+    if (isOpen) {
+      requestAnimationFrame(function() {
+        track.style.transition = 'opacity 0.2s';
+        track.style.opacity = '';
+        setTimeout(function() { track.style.transition = ''; }, 250);
+      });
+    }
+  }
+
+  function updatePromoDots() {
+    const track = getPromoTrack();
+    const dotsContainer = getPromoDotsContainer();
+    if (!track) return;
+    const count = track.querySelectorAll('.promo-slide').length;
+    if (dotsContainer) {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'promo-dot' + (i === 0 ? ' active' : '');
+        dot.dataset.index = i;
+        dotsContainer.appendChild(dot);
+      }
+    }
+    if (window._promoSliderInit) window._promoSliderInit();
+  }
+
+  function enablePromoEdit() {
+    const track = getPromoTrack();
+    if (!track) return;
+    bindPromoEditControls();
+    // Add button: shown via CSS body.cms-editing #promoAddSlide
+  }
+
+  function disablePromoEdit() {
+    document.querySelectorAll('.cms-promo-slide-overlay').forEach(el => el.remove());
+    // Button hidden via CSS (no cms-editing class)
+  }
+
+  function bindPromoEditControls() {
+    // ใช้ delegate บน track — ไม่ต้องใส่ listener ซ้ำ
+    // เปลี่ยนรูป: click overlay change btn บน slide
+    const track = getPromoTrack();
+    if (!track) return;
+
+    // ลบ overlay เดิม (ถ้ามี)
+    document.querySelectorAll('.cms-promo-slide-overlay').forEach(el => el.remove());
+
+    track.querySelectorAll('.promo-slide').forEach(function(slide) {
+      slide.style.position = 'relative';
+      // ลบ overlay เก่าออกก่อน
+      const oldOv = slide.querySelector('.cms-promo-slide-overlay');
+      if (oldOv) oldOv.remove();
+
+      const ov = document.createElement('div');
+      ov.className = 'cms-promo-slide-overlay';
+      const changeBtn = document.createElement('button');
+      changeBtn.className = 'cms-promo-change-btn';
+      changeBtn.textContent = '📷 เปลี่ยนรูป';
+      ov.appendChild(changeBtn);
+      slide.appendChild(ov);
+
+      changeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        _addingNewPromoSlide = false;
+        _currentImgTarget = slide.querySelector('img');
+        _currentImgFile = null;
+        document.getElementById('cms-file-input').value = '';
+        document.getElementById('cms-img-modal-preview').style.display = 'none';
+        document.getElementById('cms-img-modal').classList.add('open');
+      });
     });
   }
 
@@ -931,6 +1144,32 @@
         }
       });
 
+      // ── รูปโปรโมชั่น — อัปโหลดและรวบรวม (ทุกหน้า) ──
+      const promoSlides = [];
+      const promoUploadJobs = [];
+      const _promoTrackEl = getPromoTrack();
+      (_promoTrackEl ? _promoTrackEl.querySelectorAll('.promo-slide img') : []).forEach((img, i) => {
+        if (img._pendingFile) {
+          const file = img._pendingFile;
+          const _pIdx = promoSlides.length;
+          promoSlides.push(null); // placeholder
+          promoUploadJobs.push(
+            uploadToCloudinary(file).then(cdnUrl => {
+              promoSlides[_pIdx] = cdnUrl;
+              if (img._pendingObjectUrl) { URL.revokeObjectURL(img._pendingObjectUrl); delete img._pendingObjectUrl; }
+              img.src = cdnUrl;
+              delete img._pendingFile;
+            })
+          );
+        } else {
+          const rawSrc = img.src || '';
+          if (rawSrc && !rawSrc.startsWith('blob:') && !rawSrc.startsWith('data:')) {
+            promoSlides.push(sanitizeUrl(rawSrc));
+          }
+        }
+      });
+      await Promise.all(promoUploadJobs);
+
       // ── รวบรวม products (อัปโหลดรูปสินค้า → Cloudinary) ──
       const grid = document.querySelector('.product-grid[data-cms-products]');
       if (grid) {
@@ -979,6 +1218,7 @@
       const payload = { texts };
       if (Object.keys(images).length) payload.images = images;
       if (products.length) payload.products = products;
+      if (promoSlides.filter(Boolean).length) payload.promotions = promoSlides.filter(Boolean);
       if (Object.keys(links).length) payload.links = links;
       // ── แผนที่ ──
       const mapEl = document.querySelector('[data-cms-map]');
@@ -989,13 +1229,14 @@
       if (window._cmsSaveExtra) await window._cmsSaveExtra(payload);
       await set(dbRef(db, `pages/${PAGE}`), payload);
 
-      const cachePayload = { texts, images, products, links };
+      const cachePayload = { texts, images, products, links, promotions: promoSlides.filter(Boolean) };
       if (mapEl && mapEl.src) cachePayload.mapSrc = mapEl.src;
       if (window._cmsGallery && window._cmsGallery.length) cachePayload.gallery = window._cmsGallery;
       if (payload.before_after) cachePayload.before_after = payload.before_after;
       writeCache(cachePayload); // อัปเดต cache ทันทีหลัง save
-      // ── re-apply ภาษาปัจจุบันทันทีหลัง save ──
-      if (window._obLang) window._obLang.apply(window._obLang.current());
+      // ── ออกจาก edit mode ก่อน apply เพื่อให้ DOM อัปเดตได้ ──
+      disableEditMode();
+      applyData(cachePayload);
       toast('✓ บันทึกสำเร็จ!');
     } catch (err) {
       console.error(err);
@@ -1085,12 +1326,26 @@
       if (products.length) payload.products = products;
       // ── แผนที่ ──
       if (_htmlOriginal.mapSrc) payload.mapSrc = _htmlOriginal.mapSrc;
+      // promotions: ใช้ค่าจาก HTML ต้นฉบับ (snapshot ก่อน applyData)
+      // ถ้า HTML ไม่มี promo img เลย → เก็บค่าจาก Firebase เดิม (ไม่ลบทิ้ง)
+      if (_htmlOriginal.promotions && _htmlOriginal.promotions.length) {
+        payload.promotions = _htmlOriginal.promotions;
+      } else {
+        // fallback: อ่านจาก DOM slide ปัจจุบัน (อาจโหลดมาจาก Firebase แล้ว)
+        const _syncTrack = getPromoTrack();
+        if (_syncTrack) {
+          const _domSlides = Array.from(_syncTrack.querySelectorAll('.promo-slide img'))
+            .map(img => sanitizeUrl(img.src))
+            .filter(u => u && !u.startsWith('blob:') && !u.startsWith('data:'));
+          if (_domSlides.length) payload.promotions = _domSlides;
+        }
+      }
 
       await set(dbRef(db, `pages/${PAGE}`), payload);
 
-      // ── อัปเดต cache + เขียนลง DOM ทันทีโดยไม่กระพริบ ──
+      // ── อัปเดต cache + ออกจาก edit mode + เขียนลง DOM ──
       writeCache(payload);
-      // applyData จะเรียก revealPage + _obLang.apply ให้อีกครั้งเองแล้ว
+      disableEditMode(); // ต้องออก editMode ก่อน applyData (มี guard: if editMode return)
       applyData(payload);
       toast('✓ ซิงค์จากโค้ดสำเร็จ!');
     } catch (err) {
@@ -1162,7 +1417,8 @@
 
     document.getElementById('cms-btn-cancel').addEventListener('click', () => {
       disableEditMode();
-      loadContent();
+      // รอให้ editMode = false settle ก่อน loadContent เพื่อป้องกัน applyData ถูก block
+      setTimeout(loadContent, 0);
     });
 
     // ── image modal ──
@@ -1176,21 +1432,52 @@
     });
 
     document.getElementById('cms-img-confirm-btn').addEventListener('click', () => {
-      if (!_currentImgFile || !_currentImgTarget) { closeImgModal(); return; }
-      const el  = _currentImgTarget;
-      el._pendingFile = _currentImgFile;
-      // Create object URL — admin sees new image immediately, no flicker back to old
+      if (!_currentImgFile) { closeImgModal(); return; }
       const url = URL.createObjectURL(_currentImgFile);
-      // Store it so we can revoke after Cloudinary upload (memory cleanup)
-      if (el._pendingObjectUrl) URL.revokeObjectURL(el._pendingObjectUrl);
-      el._pendingObjectUrl = url;
-      if (el.tagName === 'IMG') {
-        el.src = url;
-      } else {
-        el.style.backgroundImage = `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.45)), url('${url}')`;
+
+      if (_addingNewPromoSlide) {
+        // ── สร้าง slide ใหม่ ──
+        _addingNewPromoSlide = false;
+        const track = getPromoTrack();
+        if (track) {
+          const idx = track.querySelectorAll('.promo-slide').length;
+          const slide = document.createElement('div');
+          slide.className = 'promo-slide';
+          slide.dataset.promoIdx = idx;
+          slide.style.position = 'relative';
+          const delBtn = document.createElement('button');
+          delBtn.className = 'promo-slide-del';
+          delBtn.dataset.promoDel = idx;
+          delBtn.textContent = '🗑 ลบรูปนี้';
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = 'โปรโมชั่น ' + (idx + 1);
+          img._pendingFile = _currentImgFile;
+          img._pendingObjectUrl = url;
+          slide.appendChild(delBtn);
+          slide.appendChild(img);
+          track.appendChild(slide);
+          updatePromoDots();
+          if (window._promoSliderInit) window._promoSliderInit();
+          bindPromoEditControls();
+          // เลื่อนไปดู slide ใหม่
+          if (window._promoGoTo) window._promoGoTo(idx);
+          toast('เพิ่มรูปโปรโมชั่นแล้ว — กดบันทึกเพื่ออัปโหลด');
+        }
+      } else if (_currentImgTarget) {
+        // ── เปลี่ยนรูปเดิม ──
+        const el = _currentImgTarget;
+        el._pendingFile = _currentImgFile;
+        if (el._pendingObjectUrl) URL.revokeObjectURL(el._pendingObjectUrl);
+        el._pendingObjectUrl = url;
+        if (el.tagName === 'IMG') {
+          el.src = url;
+        } else {
+          el.style.backgroundImage = `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.45)), url('${url}')`;
+        }
+        toast('เลือกรูปแล้ว — กดบันทึกเพื่ออัปโหลด');
       }
       closeImgModal();
-      toast('เลือกรูปแล้ว — กดบันทึกเพื่ออัปโหลด');
     });
 
     document.getElementById('cms-img-cancel-btn').addEventListener('click', closeImgModal);
@@ -1201,6 +1488,17 @@
     // ── ปุ่มเพิ่มสินค้า ──
     document.querySelectorAll('.cms-add-product-btn').forEach(btn => {
       btn.addEventListener('click', addProduct);
+    });
+
+    // ── เพิ่มรูปโปรโมชั่น: รับ event จาก popup JS (#promoAddSlide) ──
+    window.addEventListener('cms-promo-add-requested', function() {
+      if (!editMode) return;
+      _addingNewPromoSlide = true;
+      _currentImgTarget = null;
+      _currentImgFile   = null;
+      document.getElementById('cms-file-input').value = '';
+      document.getElementById('cms-img-modal-preview').style.display = 'none';
+      document.getElementById('cms-img-modal').classList.add('open');
     });
   }
 

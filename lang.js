@@ -295,16 +295,26 @@
     localStorage.setItem(STORAGE_KEY, lang);
 
     /* 1. data-cms-text — ใช้ T dictionary ถ้ามี key; ถ้าไม่มีใน T ให้ CMS จัดการเอง */
+    /* ข้าม element ที่ CMS (Firebase) override ไว้แล้ว (data-cms-override="1") */
     document.querySelectorAll('[data-cms-text]').forEach(el => {
+      if (el.dataset.cmsOverride === '1') return; // CMS value wins — don't overwrite
       const key = el.dataset.cmsText;
       const v = T[key];
       if (v && v[lang] !== undefined) el.innerHTML = v[lang];
     });
 
     /* 2. data-lang */
+    /* ข้าม element ที่มี data-cms-text + data-cms-override (Firebase value wins) */
     document.querySelectorAll('[data-lang]').forEach(el => {
+      if (el.dataset.cmsText && el.dataset.cmsOverride === '1') return;
       const v = T[el.dataset.lang];
-      if (v && v[lang] !== undefined) el.innerHTML = v[lang];
+      if (v && v[lang] !== undefined) {
+        if (/<[a-z]/i.test(v[lang])) {
+          el.innerHTML = v[lang];
+        } else {
+          el.textContent = v[lang];
+        }
+      }
     });
 
     /* 3. <title> */

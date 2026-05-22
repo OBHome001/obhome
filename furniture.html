@@ -2158,6 +2158,229 @@ function updateCardPriceTag(card) {
       });
     })();
   </script>
+  
+  <!-- ══ PROMO SLIDESHOW CSS ══ -->
+  <style>
+    #promoOverlay {
+      position: fixed; inset: 0; z-index: 99998;
+      background: rgba(10,10,8,.75);
+      display: none; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .35s ease;
+      padding: clamp(12px, 4vw, 32px);
+    }
+    #promoOverlay.show { opacity: 1; pointer-events: auto; }
+    #promoBox {
+      position: relative;
+      width: 100%;
+      max-width: min(780px, 94vw);
+      max-height: calc(100vh - 40px);
+      border-radius: clamp(8px, 2vw, 16px);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6);
+      transform: scale(.88) translateY(24px);
+      transition: transform .38s cubic-bezier(.16,1,.3,1);
+      background: #111;
+      display: flex; flex-direction: column;
+    }
+    #promoOverlay.show #promoBox { transform: scale(1) translateY(0); }
+    #promoViewport {
+      position: relative; width: 100%; overflow: hidden; flex: 1;
+    }
+    #promoSlideTrack {
+      display: flex; height: 100%;
+      transition: transform .42s cubic-bezier(.16,1,.3,1);
+    }
+    .promo-slide {
+      flex: 0 0 100%; display: flex;
+      align-items: center; justify-content: center;
+      position: relative; background: #111;
+    }
+    .promo-slide img {
+      display: block; width: 100%; height: auto;
+      max-height: calc(100vh - 120px);
+      object-fit: contain; pointer-events: none; user-select: none;
+    }
+    .promo-slide-del {
+      display: none;
+      position: absolute; top: 6px; left: 8px;
+      background: rgba(200,30,30,.85); color: #fff;
+      border: none; border-radius: 6px;
+      font-size: 12px; padding: 4px 10px; cursor: pointer;
+      z-index: 5; gap: 4px; align-items: center;
+    }
+    body.cms-editing .promo-slide-del { display: flex; }
+    #promoClose {
+      position: absolute; top: 10px; right: 12px;
+      width: clamp(28px,6vw,36px); height: clamp(28px,6vw,36px);
+      border-radius: 50%; border: none;
+      background: rgba(0,0,0,.6); color: #fff;
+      font-size: clamp(14px,4vw,18px); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .18s, transform .18s; z-index: 10;
+    }
+    #promoClose:hover { background: rgba(0,0,0,.9); transform: scale(1.1); }
+    .promo-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: clamp(30px,7vw,42px); height: clamp(30px,7vw,42px);
+      border-radius: 50%; border: none;
+      background: rgba(0,0,0,.45); color: #fff;
+      font-size: clamp(16px,5vw,24px); cursor: pointer; z-index: 5;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .18s, transform .2s;
+    }
+    .promo-arrow:hover { background: rgba(0,0,0,.82); transform: translateY(-50%) scale(1.1); }
+    #promoPrev { left: 8px; }
+    #promoNext { right: 8px; }
+    #promoFooter {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 10px 16px;
+      background: rgba(0,0,0,.6); flex-wrap: wrap; min-height: 38px;
+    }
+    .promo-dots { display: flex; gap: 6px; align-items: center; }
+    .promo-dot {
+      width: clamp(6px,2vw,9px); height: clamp(6px,2vw,9px);
+      border-radius: 50%;
+      background: rgba(255,255,255,.4); border: none; cursor: pointer;
+      transition: background .2s, transform .2s; padding: 0;
+    }
+    .promo-dot.active { background: #fff; transform: scale(1.35); }
+    #promoAddSlide {
+      display: none;
+      background: rgba(188,165,142,.9); color: #fff;
+      border: none; border-radius: 6px;
+      font-size: 12px; padding: 4px 12px; cursor: pointer;
+      align-items: center; gap: 4px;
+    }
+    body.cms-editing #promoAddSlide { display: flex; }
+    @media (max-width: 480px) {
+      .promo-slide img { max-height: calc(100vh - 100px); }
+    }
+  </style>
+
+  <!-- ══ PROMO SLIDESHOW POPUP ══ -->
+  <div id="promoOverlay" role="dialog" aria-modal="true" aria-label="โปรโมชั่น">
+    <div id="promoBox">
+      <button id="promoClose" aria-label="ปิด">✕</button>
+      <div id="promoViewport">
+        <button class="promo-arrow" id="promoPrev" aria-label="ก่อนหน้า">&#8249;</button>
+        <button class="promo-arrow" id="promoNext" aria-label="ถัดไป">&#8250;</button>
+        <div id="promoSlideTrack"></div>
+      </div>
+      <div id="promoFooter">
+        <div class="promo-dots" id="promoDots"></div>
+        <button id="promoAddSlide">＋ เพิ่มรูป</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* ══ PROMO SLIDESHOW LOGIC ══ */
+  (function () {
+    var overlay  = document.getElementById('promoOverlay');
+    var closeBtn = document.getElementById('promoClose');
+    var track    = document.getElementById('promoSlideTrack');
+    var viewport = document.getElementById('promoViewport');
+    var dotsWrap = document.getElementById('promoDots');
+    var prevBtn  = document.getElementById('promoPrev');
+    var nextBtn  = document.getElementById('promoNext');
+    if (!overlay || !track) return;
+
+    var current = 0;
+    var startX  = 0;
+
+    function getSlides() { return Array.from(track.querySelectorAll('.promo-slide')); }
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      getSlides().forEach(function(_, i) {
+        var d = document.createElement('button');
+        d.className = 'promo-dot' + (i === current ? ' active' : '');
+        d.addEventListener('click', function() { goTo(i); });
+        dotsWrap.appendChild(d);
+      });
+    }
+
+    function goTo(n) {
+      var slides = getSlides();
+      if (!slides.length) return;
+      current = ((n % slides.length) + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      Array.from(dotsWrap.querySelectorAll('.promo-dot')).forEach(function(d, i) {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    /* expose สำหรับ cms.js */
+    window._promoSliderInit = function() { buildDots(); goTo(0); };
+    window._promoGoTo = goTo;
+
+    prevBtn && prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    nextBtn && nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    /* swipe */
+    viewport.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    viewport.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    });
+
+    /* admin: ลบรูป (delegate) */
+    track.addEventListener('click', function(e) {
+      var btn = e.target.closest('.promo-slide-del');
+      if (!btn) return;
+      if (getSlides().length <= 1) { window._cmsToast && window._cmsToast('ต้องมีอย่างน้อย 1 รูป', true); return; }
+      if (!confirm('ลบรูปนี้ออกจาก popup?')) return;
+      var slide = btn.closest('.promo-slide');
+      if (slide) {
+        slide.remove();
+        if (current >= getSlides().length) current = 0;
+        buildDots(); goTo(current);
+        window._cmsToast && window._cmsToast('ลบรูปแล้ว — กดบันทึกเพื่อยืนยัน');
+      }
+    });
+
+    /* admin: เพิ่มรูป — เปิด CMS file modal (cms.js จัดการ) */
+    document.getElementById('promoAddSlide').addEventListener('click', function() {
+      var addEvt = new CustomEvent('cms-promo-add-requested');
+      window.dispatchEvent(addEvt);
+    });
+
+    function closePromo() {
+      overlay.classList.remove('show');
+      overlay.addEventListener('transitionend', function() {
+        overlay.style.display = 'none';
+      }, { once: true });
+    }
+
+    window._openPromoPopup = function() {
+      overlay.style.display = 'flex';
+      requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.classList.add('show'); }); });
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      /* เปิด popup หลัง CMS โหลด data เสร็จ (event) หรือ fallback 2s */
+      var _promoOpened = false;
+      function tryOpenPromo() {
+        if (_promoOpened) return;
+        if (getSlides().length > 0) {
+          _promoOpened = true;
+          window._openPromoPopup();
+        }
+      }
+      window.addEventListener('cms-data-applied', tryOpenPromo, { once: true });
+      setTimeout(tryOpenPromo, 2000); /* fallback กรณี event หลุด */
+
+      closeBtn && closeBtn.addEventListener('click', closePromo);
+      overlay.addEventListener('click', function(e) { if (e.target === overlay) closePromo(); });
+      document.addEventListener('keydown', function(e) {
+        if (!overlay.classList.contains('show')) return;
+        if (e.key === 'Escape') closePromo();
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+      });
+    });
+  })();
+  </script>
   <script src="chatbot.js"></script>
 </body>
 
