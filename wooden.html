@@ -1912,38 +1912,83 @@ function updateCardPriceTag(card) {
   })();
   </script>
   
-  <!-- ══ PROMO SLIDESHOW CSS ══ -->
+    <!-- ══════════════════════════════════════════
+     PROMO POPUP — page-specific (v2)
+  ══════════════════════════════════════════ -->
   <style>
+    /* ── Overlay ── */
     #promoOverlay {
       position: fixed; inset: 0; z-index: 1000002;
-      background: rgba(10,10,8,.75);
+      background: rgba(8,8,6,.80);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       display: none; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
-      transition: opacity .35s ease;
-      padding: clamp(12px, 4vw, 32px);
+      transition: opacity .38s cubic-bezier(.16,1,.3,1);
+      padding: clamp(12px, 4vw, 28px);
     }
     #promoOverlay.show { opacity: 1; pointer-events: auto; }
     body.cms-editing #promoOverlay.show { padding-bottom: 70px; }
+
+    /* ── Modal shell ── */
     #promoBox {
-      position: relative;
-      width: 100%;
-      max-width: min(780px, 94vw);
-      max-height: calc(100vh - 40px);
-      border-radius: clamp(8px, 2vw, 16px);
+      position: relative; width: 100%;
+      max-width: min(680px, 94vw);
+      max-height: calc(100svh - 32px);
+      border-radius: clamp(12px, 2.5vw, 20px);
       overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0,0,0,.6);
-      transform: scale(.88) translateY(24px);
-      transition: transform .38s cubic-bezier(.16,1,.3,1);
-      background: #111;
+      box-shadow: 0 32px 96px rgba(0,0,0,.72), 0 0 0 1px rgba(255,255,255,.06);
+      transform: scale(.86) translateY(28px);
+      transition: transform .40s cubic-bezier(.16,1,.3,1);
+      background: #0f0f0d;
       display: flex; flex-direction: column;
     }
     #promoOverlay.show #promoBox { transform: scale(1) translateY(0); }
+
+    /* ── Header bar ── */
+    #promoHeader {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px 11px 16px;
+      background: #1a1a16;
+      border-bottom: 1px solid rgba(188,165,142,.12);
+      flex-shrink: 0;
+      gap: 10px;
+    }
+    #promoPageBadge {
+      display: flex; align-items: center; gap: 7px;
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: #bca58e;
+      font-family: 'IBM Plex Sans Thai', 'Opun', sans-serif;
+      white-space: nowrap;
+    }
+    #promoPageBadge .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #e84040;
+      box-shadow: 0 0 8px rgba(232,64,64,.6);
+      animation: badge-pulse 1.8s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes badge-pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(1.5); }
+    }
+    #promoClose {
+      width: 30px; height: 30px; border-radius: 50%; border: none;
+      background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .18s, color .18s, transform .18s;
+      flex-shrink: 0;
+    }
+    #promoClose:hover { background: rgba(232,64,64,.2); color: #fff; transform: scale(1.1) rotate(90deg); }
+
+    /* ── Viewport + Track ── */
     #promoViewport {
-      position: relative; width: 100%; overflow: hidden; flex: 1;
+      position: relative; width: 100%; overflow: hidden;
+      flex: 1; min-height: 0;
     }
     #promoSlideTrack {
       display: flex; height: 100%;
-      transition: transform .42s cubic-bezier(.16,1,.3,1);
+      transition: transform .44s cubic-bezier(.16,1,.3,1);
     }
     .promo-slide {
       flex: 0 0 100%; display: flex;
@@ -1952,9 +1997,57 @@ function updateCardPriceTag(card) {
     }
     .promo-slide img {
       display: block; width: 100%; height: auto;
-      max-height: calc(100vh - 120px);
+      max-height: calc(100svh - 120px);
       object-fit: contain; pointer-events: none; user-select: none;
     }
+
+    /* ── Arrows ── */
+    .promo-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: clamp(32px,7vw,44px); height: clamp(32px,7vw,44px);
+      border-radius: 50%; border: none;
+      background: rgba(0,0,0,.52); backdrop-filter: blur(4px);
+      color: rgba(255,255,255,.88); cursor: pointer; z-index: 5;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .18s, transform .2s;
+      box-shadow: 0 2px 10px rgba(0,0,0,.3);
+    }
+    .promo-arrow:hover { background: rgba(0,0,0,.85); color: #fff; }
+    #promoPrev { left: 10px; }
+    #promoNext { right: 10px; }
+    #promoPrev:hover { transform: translateY(-50%) scale(1.1) translateX(-1px); }
+    #promoNext:hover { transform: translateY(-50%) scale(1.1) translateX(1px); }
+
+    /* ── Footer: dots + add btn ── */
+    #promoFooter {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 11px 16px;
+      background: #1a1a16;
+      border-top: 1px solid rgba(188,165,142,.10);
+      flex-wrap: wrap; min-height: 40px; flex-shrink: 0;
+    }
+    .promo-dots { display: flex; gap: 7px; align-items: center; }
+    .promo-dot {
+      width: clamp(6px,2vw,8px); height: clamp(6px,2vw,8px);
+      border-radius: 50%;
+      background: rgba(188,165,142,.3); border: none; cursor: pointer;
+      transition: background .22s, transform .22s; padding: 0;
+    }
+    .promo-dot.active { background: #bca58e; transform: scale(1.4); }
+
+    /* ── Admin: add slide btn ── */
+    #promoAddSlide {
+      display: none;
+      background: rgba(188,165,142,.15); color: #bca58e;
+      border: 1px solid rgba(188,165,142,.3); border-radius: 6px;
+      font-size: 11px; padding: 4px 12px; cursor: pointer;
+      align-items: center; gap: 4px;
+      transition: background .18s;
+    }
+    body.cms-editing #promoAddSlide { display: flex; }
+    #promoAddSlide:hover { background: rgba(188,165,142,.28); }
+
+    /* ── CMS edit overlay on slides ── */
     .promo-slide-del {
       display: none;
       position: absolute; top: 6px; left: 8px;
@@ -1964,73 +2057,71 @@ function updateCardPriceTag(card) {
       z-index: 5; gap: 4px; align-items: center;
     }
     body.cms-editing .promo-slide-del { display: flex; }
-    #promoClose {
-      position: absolute; top: 10px; right: 12px;
-      width: clamp(28px,6vw,36px); height: clamp(28px,6vw,36px);
-      border-radius: 50%; border: none;
-      background: rgba(0,0,0,.6); color: #fff;
-      font-size: clamp(14px,4vw,18px); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .18s, transform .18s; z-index: 10;
-    }
-    #promoClose:hover { background: rgba(0,0,0,.9); transform: scale(1.1); }
-    .promo-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: clamp(30px,7vw,42px); height: clamp(30px,7vw,42px);
-      border-radius: 50%; border: none;
-      background: rgba(0,0,0,.45); color: #fff;
-      font-size: clamp(16px,5vw,24px); cursor: pointer; z-index: 5;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .18s, transform .2s;
-    }
-    .promo-arrow:hover { background: rgba(0,0,0,.82); transform: translateY(-50%) scale(1.1); }
-    #promoPrev { left: 8px; }
-    #promoNext { right: 8px; }
-    #promoFooter {
-      display: flex; align-items: center; justify-content: center;
-      gap: 10px; padding: 10px 16px;
-      background: rgba(0,0,0,.6); flex-wrap: wrap; min-height: 38px;
-    }
-    .promo-dots { display: flex; gap: 6px; align-items: center; }
-    .promo-dot {
-      width: clamp(6px,2vw,9px); height: clamp(6px,2vw,9px);
-      border-radius: 50%;
-      background: rgba(255,255,255,.4); border: none; cursor: pointer;
-      transition: background .2s, transform .2s; padding: 0;
-    }
-    .promo-dot.active { background: #fff; transform: scale(1.35); }
-    #promoAddSlide {
-      display: none;
-      background: rgba(188,165,142,.9); color: #fff;
-      border: none; border-radius: 6px;
-      font-size: 12px; padding: 4px 12px; cursor: pointer;
-      align-items: center; gap: 4px;
-    }
-    body.cms-editing #promoAddSlide { display: flex; }
+
+    /* ── Mobile ── */
     @media (max-width: 480px) {
-      .promo-slide img { max-height: calc(100vh - 100px); }
+      #promoBox { border-radius: 14px; }
+      .promo-slide img { max-height: calc(100svh - 108px); }
+      #promoPrev { left: 6px; }
+      #promoNext { right: 6px; }
     }
   </style>
 
-  <!-- ══ PROMO SLIDESHOW POPUP ══ -->
+  <!-- ══ PROMO POPUP HTML ══ -->
   <div id="promoOverlay" role="dialog" aria-modal="true" aria-label="โปรโมชั่น">
     <div id="promoBox">
-      <button id="promoClose" aria-label="ปิด">✕</button>
+
+      <!-- Header -->
+      <div id="promoHeader">
+        <div id="promoPageBadge">
+          <span class="badge-dot"></span>
+          <span id="promoBadgeText">🔥 โปรโมชั่นพิเศษ</span>
+        </div>
+        <button id="promoClose" aria-label="ปิด">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Slides -->
       <div id="promoViewport">
-        <button class="promo-arrow" id="promoPrev" aria-label="ก่อนหน้า">&#8249;</button>
-        <button class="promo-arrow" id="promoNext" aria-label="ถัดไป">&#8250;</button>
+        <button class="promo-arrow" id="promoPrev" aria-label="ก่อนหน้า">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="promo-arrow" id="promoNext" aria-label="ถัดไป">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
         <div id="promoSlideTrack"></div>
       </div>
+
+      <!-- Footer -->
       <div id="promoFooter">
         <div class="promo-dots" id="promoDots"></div>
         <button id="promoAddSlide">＋ เพิ่มรูป</button>
       </div>
+
     </div>
   </div>
 
   <script>
-  /* ══ PROMO SLIDESHOW LOGIC ══ */
+  /* ══ PROMO POPUP LOGIC v2 ══ */
   (function () {
+    /* ── Page-specific badge labels ── */
+    var PAGE_BADGES = {
+      lath:        '🌿 โปรไม้ระแนง WPC',
+      spc:         '✨ โปรแผ่นผนัง SPC',
+      wooden:      '🪵 โปรไม้สั่งตัด',
+      stainless:   '⚙️ โปรสแตนเลส',
+      furniture:   '🛋️ โปรเฟอร์นิเจอร์',
+      accessories: '🔧 โปรอุปกรณ์ติดตั้ง',
+    };
+    var pageName = (location.pathname.split('/').pop().replace('.html','') || '').toLowerCase();
+    var badgeEl = document.getElementById('promoBadgeText');
+    if (badgeEl && PAGE_BADGES[pageName]) {
+      badgeEl.textContent = PAGE_BADGES[pageName] + ' ❗️';
+    }
+
     var overlay  = document.getElementById('promoOverlay');
     var closeBtn = document.getElementById('promoClose');
     var track    = document.getElementById('promoSlideTrack');
@@ -2042,6 +2133,7 @@ function updateCardPriceTag(card) {
 
     var current = 0;
     var startX  = 0;
+    var autoTimer = null;
 
     function getSlides() { return Array.from(track.querySelectorAll('.promo-slide')); }
 
@@ -2050,7 +2142,7 @@ function updateCardPriceTag(card) {
       getSlides().forEach(function(_, i) {
         var d = document.createElement('button');
         d.className = 'promo-dot' + (i === current ? ' active' : '');
-        d.addEventListener('click', function() { goTo(i); });
+        d.addEventListener('click', function() { resetAuto(); goTo(i); });
         dotsWrap.appendChild(d);
       });
     }
@@ -2065,18 +2157,29 @@ function updateCardPriceTag(card) {
       });
     }
 
+    function startAuto() { autoTimer = setInterval(function(){ goTo(current + 1); }, 4500); }
+    function stopAuto()  { clearInterval(autoTimer); autoTimer = null; }
+    function resetAuto() { stopAuto(); startAuto(); }
+
     /* expose สำหรับ cms.js */
-    window._promoSliderInit = function() { buildDots(); goTo(0); };
+    window._promoSliderInit = function() { buildDots(); goTo(0); if (overlay.classList.contains('show')) startAuto(); };
     window._promoGoTo = goTo;
 
-    prevBtn && prevBtn.addEventListener('click', function() { goTo(current - 1); });
-    nextBtn && nextBtn.addEventListener('click', function() { goTo(current + 1); });
+    prevBtn && prevBtn.addEventListener('click', function() { resetAuto(); goTo(current - 1); });
+    nextBtn && nextBtn.addEventListener('click', function() { resetAuto(); goTo(current + 1); });
 
     /* swipe */
     viewport.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-    viewport.addEventListener('touchend', function(e) {
+    viewport.addEventListener('touchend',   function(e) {
       var diff = startX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+      if (Math.abs(diff) > 40) { resetAuto(); goTo(current + (diff > 0 ? 1 : -1)); }
+    });
+    /* keyboard */
+    document.addEventListener('keydown', function(e) {
+      if (!overlay.classList.contains('show')) return;
+      if (e.key === 'Escape')      closePromo();
+      if (e.key === 'ArrowLeft')  { resetAuto(); goTo(current - 1); }
+      if (e.key === 'ArrowRight') { resetAuto(); goTo(current + 1); }
     });
 
     /* admin: ลบรูป (delegate) */
@@ -2094,47 +2197,44 @@ function updateCardPriceTag(card) {
       }
     });
 
-    /* admin: เพิ่มรูป — เปิด CMS file modal (cms.js จัดการ) */
+    /* admin: เพิ่มรูป */
     document.getElementById('promoAddSlide').addEventListener('click', function() {
-      var addEvt = new CustomEvent('cms-promo-add-requested');
-      window.dispatchEvent(addEvt);
+      window.dispatchEvent(new CustomEvent('cms-promo-add-requested'));
     });
 
     function closePromo() {
       overlay.classList.remove('show');
       overlay.style.pointerEvents = 'none';
-      // รอ transition จบแล้วซ่อน
-      setTimeout(function() { overlay.style.display = 'none'; }, 380);
+      stopAuto();
+      setTimeout(function() { overlay.style.display = 'none'; }, 400);
     }
 
     window._openPromoPopup = function() {
       if (document.body.classList.contains('cms-editing')) return;
       overlay.style.display = 'flex';
       overlay.style.pointerEvents = '';
-      requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.classList.add('show'); }); });
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          overlay.classList.add('show');
+          startAuto();
+        });
+      });
     };
 
     document.addEventListener('DOMContentLoaded', function() {
-      /* เปิด popup หลัง CMS โหลด data เสร็จ (event) หรือ fallback 2s */
-      var _promoOpened = false;
-      function tryOpenPromo() {
-        if (_promoOpened) return;
+      var _opened = false;
+      function tryOpen() {
+        if (_opened) return;
         if (getSlides().length > 0) {
-          _promoOpened = true;
+          _opened = true;
           window._openPromoPopup();
         }
       }
-      window.addEventListener('cms-data-applied', tryOpenPromo, { once: true });
-      setTimeout(tryOpenPromo, 2000); /* fallback กรณี event หลุด */
+      window.addEventListener('cms-data-applied', tryOpen, { once: true });
+      setTimeout(tryOpen, 2000);
 
-      closeBtn && closeBtn.addEventListener('click', closePromo);
+      closeBtn  && closeBtn.addEventListener('click', closePromo);
       overlay.addEventListener('click', function(e) { if (e.target === overlay) closePromo(); });
-      document.addEventListener('keydown', function(e) {
-        if (!overlay.classList.contains('show')) return;
-        if (e.key === 'Escape') closePromo();
-        if (e.key === 'ArrowLeft') goTo(current - 1);
-        if (e.key === 'ArrowRight') goTo(current + 1);
-      });
     });
   })();
   </script>

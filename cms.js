@@ -519,7 +519,7 @@
         window.dispatchEvent(new CustomEvent('cms-ba-data', { detail: _baData }));
       }
     }
-    // ── promo popup slides (ทุกหน้า — โหลดจาก pages/home) ──
+    // ── promo popup slides (แต่ละหน้าโหลดของตัวเองจาก pages/{PAGE}) ──
     // ถ้า admin มีรูป pending อยู่ → ห้าม renderPromoSlides ทับ (ป้องกันรูปที่เลือกไว้หาย)
     const _promoTrackEl = document.getElementById('promoTrack') || document.getElementById('promoSlideTrack');
     const _hasPromoPending = _promoTrackEl && (
@@ -527,45 +527,25 @@
       Array.from(_promoTrackEl.querySelectorAll('.promo-slide img')).some(img => img._pendingFile)
     );
     if (!_hasPromoPending && _promoTrackEl) {
-      // หน้า home: โหลดจาก data ปัจจุบัน (PAGE === 'home')
-      if (PAGE === 'home') {
-        if (data.promotions && data.promotions.length) {
-          renderPromoSlides(data.promotions);
-        } else if (data.images) {
-          // migration: เปลี่ยนจาก promo_img1/2/3 → promotions array
-          const legacySlides = [data.images.promo_img1, data.images.promo_img2, data.images.promo_img3].filter(Boolean);
-          if (legacySlides.length) renderPromoSlides(legacySlides);
+      // ทุกหน้า (รวม home): โหลดจาก data ของหน้าตัวเอง (data มาจาก pages/{PAGE} แล้ว)
+      if (data.promotions && data.promotions.length) {
+        renderPromoSlides(data.promotions);
+        // เปิด popup หลังโหลดรูปเสร็จ (ถ้ายังไม่เปิด)
+        if (PAGE !== 'home' && window._openPromoPopup && !document.querySelector('#promoOverlay.show')) {
+          setTimeout(function() {
+            if (!document.body.classList.contains('cms-editing')) window._openPromoPopup();
+          }, 300);
         }
-      } else {
-        // หน้าอื่น: โหลดรูปโปรโมชั่นจาก pages/home เสมอ
-        const db = window._cmsDB;
-        if (db) {
-          const { ref: dbRef2, get: dbGet2 } = window._firebaseDB;
-          dbGet2(dbRef2(db, 'pages/home')).then(homeSnap => {
-            if (!homeSnap || !homeSnap.exists()) return;
-            const homeData = homeSnap.val();
-            if (homeData.promotions && homeData.promotions.length) {
-              renderPromoSlides(homeData.promotions);
-              // เปิด popup หลังโหลดรูปเสร็จ (ถ้ายังไม่เปิด)
-              if (window._openPromoPopup && !document.querySelector('#promoOverlay.show')) {
-                setTimeout(function() {
-                  if (!document.body.classList.contains('cms-editing')) {
-                    window._openPromoPopup();
-                  }
-                }, 300);
-              }
-            } else if (homeData.images) {
-              const legacySlides = [homeData.images.promo_img1, homeData.images.promo_img2, homeData.images.promo_img3].filter(Boolean);
-              if (legacySlides.length) {
-                renderPromoSlides(legacySlides);
-                if (window._openPromoPopup && !document.querySelector('#promoOverlay.show')) {
-                  setTimeout(function() {
-                    if (!document.body.classList.contains('cms-editing')) window._openPromoPopup();
-                  }, 300);
-                }
-              }
-            }
-          }).catch(() => {});
+      } else if (data.images) {
+        // migration: เปลี่ยนจาก promo_img1/2/3 → promotions array
+        const legacySlides = [data.images.promo_img1, data.images.promo_img2, data.images.promo_img3].filter(Boolean);
+        if (legacySlides.length) {
+          renderPromoSlides(legacySlides);
+          if (PAGE !== 'home' && window._openPromoPopup && !document.querySelector('#promoOverlay.show')) {
+            setTimeout(function() {
+              if (!document.body.classList.contains('cms-editing')) window._openPromoPopup();
+            }, 300);
+          }
         }
       }
     }
@@ -1058,11 +1038,12 @@
 
       deleteBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        const allSlides = document.querySelectorAll('#promoTrack .promo-slide');
+        const _delTrack = document.getElementById('promoTrack') || document.getElementById('promoSlideTrack');
+        const allSlides = _delTrack ? _delTrack.querySelectorAll('.promo-slide') : [];
         if (allSlides.length <= 1) { toast('ต้องมีอย่างน้อย 1 รูป', true); return; }
         if (!confirm('ลบรูปโปรโมชั่นนี้?')) return;
         slide.remove();
-        document.querySelectorAll('#promoTrack .promo-slide').forEach(function(s, idx) {
+        (_delTrack || document).querySelectorAll('.promo-slide').forEach(function(s, idx) {
           s.dataset.promoIdx = idx;
         });
         updatePromoDots();
