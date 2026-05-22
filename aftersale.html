@@ -2,6 +2,12 @@
 <html lang="th">
 
 <head>
+  <!-- ป้องกันกระพริบ: ซ่อน body ก่อน CMS โหลดข้อมูล -->
+  <style>
+    body { opacity: 0; }
+    body.cms-ready { opacity: 1; transition: opacity .12s ease; }
+  </style>
+
   <meta charset="UTF-8">
   <meta name="description" content="บริการหลังการขายจาก OB HOME ไม้ระแนง แผ่น SPC ผนังตกแต่ง รูปภาพและวิดีโอผลงานพัทยา หนองปรือ ชลบุรี">
   <meta name="keywords" content="บริการหลังการขาย, ซ่อมแซม, รับประกัน, บริการตกแต่งบ้าน, ช่างพัทยา, ช่างชลบุรี">

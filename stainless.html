@@ -2,6 +2,12 @@
 <html lang="th">
 
 <head>
+  <!-- ป้องกันกระพริบ: ซ่อน body ก่อน CMS โหลดข้อมูล -->
+  <style>
+    body { opacity: 0; }
+    body.cms-ready { opacity: 1; transition: opacity .12s ease; }
+  </style>
+
   <meta charset="UTF-8">
   <meta name="description"
     content="สแตนเลสคุณภาพสูง หลากหลายแบบ ราคาโรงงาน จำหน่ายพัทยา หนองปรือ ชลบุรี - OB HOME">

@@ -357,9 +357,12 @@
   }
 
   function revealPage() {
-    // Apply lang before reveal — prevent TH flash for EN users
+    // Apply lang BEFORE adding cms-ready so DOM is in final state before opacity starts
     if (window._obLang) window._obLang.apply(window._obLang.current());
-    document.body.classList.add('cms-ready');
+    // rAF: let applyLang DOM writes flush before transition fires
+    requestAnimationFrame(function() {
+      document.body.classList.add('cms-ready');
+    });
   }
 
   function applyData(data) {
@@ -527,8 +530,8 @@
       // ถ้ากำลัง edit อยู่ — บันทึก cache ไว้ แต่ไม่ applyData ทับ DOM
       if (!editMode) {
         if (silent) {
-          // Silent refresh: อัปเดตแค่ cache ไม่แตะ DOM
-          // ป้องกัน flash ขณะ user กำลังดูหน้าอยู่ — ข้อมูลใหม่จะโหลดครั้งถัดไป
+          // Truly silent: cache was already written above — do NOT touch DOM
+          // Current view stays stable; fresh data used on next page load
         } else {
           applyData(data); // includes revealPage() + _obLang.apply()
         }
@@ -889,6 +892,8 @@
           uploadJobs.push(
             uploadToCloudinary(file).then(url => {
               images[key] = url;
+              // Revoke temp object URL, replace with permanent CDN URL
+              if (el._pendingObjectUrl) { URL.revokeObjectURL(el._pendingObjectUrl); delete el._pendingObjectUrl; }
               if (el.tagName === 'IMG') el.src = url;
               else el.style.backgroundImage = `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.45)), url('${url}')`;
               delete el._pendingFile;
@@ -951,6 +956,7 @@
             productUploadJobs.push(
               uploadToCloudinary(file).then(url => {
                 p.img = url;
+                if (imgEl._pendingObjectUrl) { URL.revokeObjectURL(imgEl._pendingObjectUrl); delete imgEl._pendingObjectUrl; }
                 imgEl.src = url;
                 delete imgEl._pendingFile;
               })
@@ -1050,10 +1056,6 @@
       const db = window._cmsDB;
       const { ref: dbRef, set } = window._firebaseDB;
 
-      // ── Smooth transition: fade out ก่อน sync ──
-      document.body.classList.remove('cms-ready');
-      await new Promise(r => setTimeout(r, 180));
-
       // ── ใช้ค่าต้นฉบับที่ snapshot ไว้ก่อน applyData จะเขียนทับ ──
       const texts = { ..._htmlOriginal.texts };
       const images = { ..._htmlOriginal.images };
@@ -1086,11 +1088,10 @@
 
       await set(dbRef(db, `pages/${PAGE}`), payload);
 
-      // ── อัปเดต cache และ DOM ให้ตรงกับ HTML ต้นฉบับ ──
+      // ── อัปเดต cache + เขียนลง DOM ทันทีโดยไม่กระพริบ ──
       writeCache(payload);
+      // applyData จะเรียก revealPage + _obLang.apply ให้อีกครั้งเองแล้ว
       applyData(payload);
-      // ── re-apply ภาษาปัจจุบันทันทีหลัง sync เพื่อให้ UI อัปเดต ──
-      if (window._obLang) window._obLang.apply(window._obLang.current());
       toast('✓ ซิงค์จากโค้ดสำเร็จ!');
     } catch (err) {
       console.error(err);
@@ -1176,9 +1177,13 @@
 
     document.getElementById('cms-img-confirm-btn').addEventListener('click', () => {
       if (!_currentImgFile || !_currentImgTarget) { closeImgModal(); return; }
-      const url = URL.createObjectURL(_currentImgFile);
       const el  = _currentImgTarget;
       el._pendingFile = _currentImgFile;
+      // Create object URL — admin sees new image immediately, no flicker back to old
+      const url = URL.createObjectURL(_currentImgFile);
+      // Store it so we can revoke after Cloudinary upload (memory cleanup)
+      if (el._pendingObjectUrl) URL.revokeObjectURL(el._pendingObjectUrl);
+      el._pendingObjectUrl = url;
       if (el.tagName === 'IMG') {
         el.src = url;
       } else {

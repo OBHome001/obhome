@@ -339,15 +339,9 @@
       btn.classList.toggle('lang-active', btn.dataset.langTarget === lang);
     });
 
-    /* 7. remove anti-flash style (always — body visibility is controlled by cms-ready class) */
-    const antiFlash = document.getElementById('lang-anti-flash');
-    if (antiFlash) antiFlash.remove();
+    /* 7. anti-flash style no longer injected by lang.js — body opacity handled by HTML */
 
-    /* 8. re-apply lang to dynamically created cards (cms products) */
-    document.querySelectorAll('[data-lang]').forEach(el => {
-      const v = T[el.dataset.lang];
-      if (v && v[lang] !== undefined) el.innerHTML = v[lang];
-    });
+    /* 8. (deduped — covered by step 2 above) */
 
     /* 9. re-render product price tags (innerHTML ถูก hardcode ไว้ — ต้อง rebuild ใหม่) */
     function fmtPrice(v){var s=(v||'').trim();return/บาท|baht/i.test(s)?s:s+' ฿';}
@@ -420,15 +414,7 @@
       }`;
     document.head.appendChild(s);
 
-    /* ── Anti-flash: ซ่อน body จนกว่า CMS + lang จะพร้อม ── */
-    /* (เฉพาะหน้าที่ไม่มี body{opacity:0} จาก CMS CSS — เป็น fallback) */
-    if (!document.getElementById('lang-anti-flash')) {
-      const antiFlash = document.createElement('style');
-      antiFlash.id = 'lang-anti-flash';
-      // ซ่อน elements ที่จะถูกแปลภาษา ป้องกัน flash ก่อน CMS reveal
-      antiFlash.textContent = 'body:not(.cms-ready) [data-lang]{visibility:hidden}body:not(.cms-ready) [data-cms-text]{visibility:hidden}';
-      document.head.appendChild(antiFlash);
-    }
+    // anti-flash is handled by body{opacity:0} in each HTML page — no extra visibility:hidden needed
   }
 
   function init() {
@@ -436,9 +422,12 @@
     injectSwitcher();
     applyLang(currentLang);
 
-    // ── re-apply หลัง CMS โหลดข้อมูลจาก Firebase เสร็จ ──
+    // ── re-apply after CMS writes new data to DOM ──
+    // Use a short debounce so rapid cms-data-applied bursts collapse into one call
+    let _langReapplyTimer = 0;
     window.addEventListener('cms-data-applied', function () {
-      applyLang(currentLang);
+      clearTimeout(_langReapplyTimer);
+      _langReapplyTimer = setTimeout(function() { applyLang(currentLang); }, 0);
     });
 
     // ── แจ้ง cms.js ว่า lang พร้อมแล้ว (ใช้กรณี cms โหลดก่อน lang) ──
