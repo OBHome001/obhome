@@ -232,7 +232,7 @@
 
       /* modal รูปภาพ */
       #cms-img-modal {
-        display: none; position: fixed; inset: 0; z-index: 1000001;
+        display: none; position: fixed; inset: 0; z-index: 9999999;
         background: rgba(0,0,0,.7); align-items: center; justify-content: center;
         backdrop-filter: blur(4px);
       }
